@@ -2,11 +2,58 @@
 <html>
 <head>
   <title>Reflect | Our Mirror</title>
-   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Reflect in Our Mirror</h1>
-  <p>This space will soon become a place where you input your truth — and the mirror speaks back.</p>
+  <p>Type your truth below and see what the mirror says back to you.</p>
+
+  <input type="text" id="userInput" placeholder="Enter your truth..." autocomplete="off" />
+  <button id="reflectBtn">Reflect</button>
+
+  <p id="mirrorResponse"></p>
+
   <a href="/">← Back Home</a>
+
+  <script>
+    const input = document.getElementById('userInput');
+    const button = document.getElementById('reflectBtn');
+    const response = document.getElementById('mirrorResponse');
+
+    const replies = [
+      `The mirror sees your courage:`,
+      `Bold truth you carry:`,
+      `Reflection echoes:`,
+      `Your voice breaks chains:`,
+      `Truth illuminates your path:`,
+      `Power flows from your words:`
+    ];
+
+    button.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (!text) {
+        response.textContent = 'Speak your truth, don’t hold back.';
+        return;
+      }
+      const prefix = replies[Math.floor(Math.random() * replies.length)];
+      response.textContent = `${prefix} "${text}"`;
+
+      // Animate fadeIn
+      response.style.opacity = 0;
+      setTimeout(() => {
+        response.style.opacity = 1;
+      }, 50);
+
+      input.value = '';
+      input.focus();
+    });
+
+    // Bonus: let Enter key trigger button click
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        button.click();
+      }
+    });
+  </script>
 </body>
 </html>

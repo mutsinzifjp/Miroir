@@ -1,56 +1,77 @@
-/* this file is loaded by index.html and styles the page */
-
-* {
-  box-sizing: border-box;
-}
-
 body {
-  font-family: sans-serif;
-  margin: 2em 1em;
-  line-height: 1.5em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #5a2a83, #8a48c9);
+  color: #fff;
+  text-align: center;
+  padding: 50px 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 h1 {
-  font-style: italic;
-  color: #373fff;
-  max-width: calc(100% - 5rem);
-  line-height: 1.1;
-}
-
-form {
-  background-color: #eee;
-  display: grid;
-  grid-gap: 1em;
-  padding: 1em;
-  max-width: 40ch;
-}
-
-input {
-  border: 1px solid silver;
-  display: block;
-  font-size: 16px;
+  font-size: 3rem;
   margin-bottom: 10px;
-  padding: 5px;
-  width: 100%;
+  text-shadow: 2px 2px 8px #000a;
 }
 
-form button {
-  background-color: #bbbbf2;
-  border: 2px solid currentColor;
-  border-radius: .25em;
+p {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 30px;
+  width: 300px;
+  max-width: 80vw;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 25px #e0bcff;
+}
+
+button {
+  margin-left: 15px;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  border: none;
+  background: #9f7bff;
+  color: #fff;
   cursor: pointer;
-  font-size: inherit;
-  line-height: 1.4em;
-  padding: 0.25em 1em;
-  max-width: 20ch;
+  box-shadow: 0 5px 15px #7a55cc;
+  transition: background-color 0.3s ease;
 }
 
-form button:hover {
-  background-color: lavender;
+button:hover {
+  background: #7a55cc;
 }
 
-footer {
-  margin-top: 3em;
-  padding-top: 1.5em;
-  border-top: 1px solid lightgrey;
+#mirrorResponse {
+  margin-top: 40px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  min-height: 60px;
+  animation: fadeIn 0.7s ease forwards;
+}
+
+a {
+  margin-top: 50px;
+  color: #fff;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1rem;
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
 }
