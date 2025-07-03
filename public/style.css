@@ -3,149 +3,132 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body {
   font-family: 'Arial', sans-serif;
-  background-color: #000; /* Deep black */
-  color: #eee; /* Soft white */
-  text-align: center;
-  padding: 40px 20px;
+}
+body {
+  background: #000;
+  color: #fff;
   overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Glowing logo */
+/* Loading screen */
+#preloader {
+  position: fixed;
+  background: #000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+#preloader img {
+  width: 120px;
+  animation: spin 3s infinite ease-in-out;
+}
+@keyframes spin {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(180deg); }
+}
+
+/* Logo */
 .logo {
-  width: 180px;
-  margin: 0 auto 30px auto;
-  animation: pulseGlow 4s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 8px #ff0000);
-  display: block;
+  max-width: 180px;
+  filter: drop-shadow(0 0 10px #e50914);
+  animation: pulseGlow 4s infinite ease-in-out;
+  margin-top: 20px;
 }
 
-/* Logo glow animation */
+/* Glowing animation */
 @keyframes pulseGlow {
-  0% {
-    filter: drop-shadow(0 0 6px #ff0000);
+  0%, 100% {
+    filter: drop-shadow(0 0 10px #e50914);
     transform: scale(1);
   }
-  100% {
-    filter: drop-shadow(0 0 18px #ff0000);
+  50% {
+    filter: drop-shadow(0 0 20px #ff1a1a);
     transform: scale(1.05);
   }
 }
 
-/* Header text */
-h1 {
-  font-size: 2.8rem;
-  color: #fff;
-  text-shadow: 0 0 8px #ff0000;
-  margin-bottom: 0.2em;
-  animation: fadeInDown 1.2s ease forwards;
-  opacity: 0;
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  color: #ff4444;
-  text-shadow: 0 0 6px #ff4444;
-  margin-bottom: 2rem;
-  animation: fadeInUp 1.6s ease forwards;
-  opacity: 0;
-}
-
-/* Nav styles */
-nav {
-  margin: 30px 0 50px;
-}
-
-nav a {
-  color: #ff2222;
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin: 0 15px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  box-shadow: 0 0 10px #ff2222;
-  transition: all 0.3s ease;
-  display: inline-block;
+/* Intro text */
+.intro {
+  text-align: center;
+  max-width: 500px;
+  margin-top: 20px;
   animation: fadeIn 2s ease forwards;
-  opacity: 0;
+}
+.intro h1 {
+  font-size: 2.6rem;
+  color: #e50914;
+  margin-bottom: 10px;
+}
+.intro p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
 }
 
-nav a:hover,
-nav a:focus {
-  color: #fff;
-  background-color: #ff0000;
-  box-shadow: 0 0 20px #ff0000;
-  transform: scale(1.1);
-}
-
-/* Login button */
+/* Button */
 #loginBtn {
-  display: inline-block;
-  background-color: #ff0000;
-  color: #fff;
-  font-weight: 700;
-  padding: 12px 28px;
-  font-size: 1.25rem;
-  border-radius: 8px;
-  box-shadow: 0 0 18px #ff4444;
-  transition: all 0.4s ease;
-  cursor: pointer;
-  animation: fadeInUp 2.5s ease forwards;
-  opacity: 0;
+  background: transparent;
+  border: 2px solid #e50914;
+  color: #e50914;
+  font-weight: bold;
+  padding: 12px 30px;
+  border-radius: 30px;
   text-decoration: none;
+  transition: 0.3s;
+  box-shadow: 0 0 10px #e50914;
 }
-
 #loginBtn:hover {
-  background-color: #cc0000;
-  box-shadow: 0 0 28px #ff2222;
-  transform: scale(1.05);
+  background: #e50914;
+  color: #fff;
+  box-shadow: 0 0 20px #ff1a1a;
 }
 
-/* Fade in animations */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Navigation */
+nav {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 25px;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  background: #000;
+  padding: 10px;
+  z-index: 5;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+}
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: #e50914;
+  transition: width 0.3s ease;
+}
+nav a:hover {
+  color: #e50914;
+}
+nav a:hover::after {
+  width: 100%;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Responsive tweaks */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 2rem;
-  }
-  nav a {
-    font-size: 1rem;
-    margin: 0 8px;
-    padding: 6px 10px;
-  }
-  #loginBtn {
-    font-size: 1rem;
-    padding: 10px 22px;
-  }
-}
+/* Music player */
+#musicToggle {
+  position: fixed;
+  bottom: 20px;
+  rig
