@@ -1,87 +1,93 @@
-/* Base styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-}
 body {
-  background-color: #000;
+  background: #000;
   color: #fff;
-  line-height: 1.6;
-  padding: 20px;
+  margin: 0;
+  padding: 30px 20px;
+  font-family: Arial, sans-serif;
 }
 
-/* Logo and headers */
+/* Header */
 .centered-header {
   text-align: center;
   margin-bottom: 40px;
 }
 .logo-glow {
-  width: 120px;
-  margin-bottom: 20px;
+  max-width: 140px;
+  margin-bottom: 15px;
   filter: drop-shadow(0 0 10px #e50914);
-  animation: pulseGlow 3s infinite ease-in-out;
+  animation: pulseGlow 3s ease-in-out infinite;
 }
 @keyframes pulseGlow {
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #e50914); }
   50% { transform: scale(1.05); filter: drop-shadow(0 0 20px #ff1a1a); }
 }
-h1 {
+.glow-title {
   font-size: 2.4rem;
   color: #e50914;
+  letter-spacing: 1.5px;
+  animation: fadeIn 1s ease-in;
 }
 .subtitle {
-  font-size: 1.1rem;
-  color: #bbb;
+  color: #ccc;
   margin-top: 8px;
+  font-size: 1.1rem;
+  animation: fadeIn 1s ease-in;
 }
 
-/* Gallery */
-.gallery-section {
-  max-width: 1000px;
-  margin: 0 auto;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
+/* Grid gallery */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
-.gallery-item {
+
+/* Glowing cards */
+.card {
   background: #111;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 12px #e50914;
-  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 0 10px #e50914;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.gallery-item:hover {
+.card:hover {
   transform: scale(1.05);
   box-shadow: 0 0 25px #ff1a1a;
 }
-.gallery-item img {
+.card img {
   width: 100%;
   display: block;
   border-bottom: 3px solid #e50914;
 }
 .caption {
-  padding: 12px;
   color: #e50914;
+  padding: 14px;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 /* Footer */
 footer {
-  margin-top: 50px;
   text-align: center;
+  margin-top: 50px;
 }
 .footer-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .footer-nav a {
   color: #fff;
@@ -92,6 +98,6 @@ footer {
   color: #e50914;
 }
 .footer-text {
-  font-size: 0.9rem;
   color: #888;
+  font-size: 0.9rem;
 }
