@@ -22,19 +22,21 @@
       z-index: 0;
     }
 
-    .center-content {
+    .container {
       position: relative;
       z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 20px;
       text-align: center;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      position: absolute;
     }
 
     .logo {
-      width: 150px;
-      margin-bottom: 30px;
+      width: 130px;
+      max-width: 60%;
       animation: glow 3s ease-in-out infinite;
       filter: drop-shadow(0 0 10px #e50914);
     }
@@ -48,20 +50,29 @@
       }
     }
 
+    .quote {
+      max-width: 90%;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #ddd;
+      padding: 20px 0;
+    }
+
     .cta-button {
       display: inline-block;
-      padding: 15px 35px;
+      padding: 14px 34px;
       background: transparent;
       border: 2px solid #e50914;
       border-radius: 30px;
       color: #e50914;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
       text-transform: uppercase;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 0 10px #e50914;
+      margin-bottom: 10px;
     }
 
     .cta-button:hover {
@@ -72,11 +83,15 @@
   </style>
 </head>
 <body>
-
   <canvas id="bgCanvas"></canvas>
 
-  <div class="center-content">
+  <div class="container">
     <img src="/miroir.png" alt="" class="logo" />
+
+    <div class="quote">
+      “A mirror does not lie. It reflects what society tries to erase — truth, memory, and the rebellion of being.”
+    </div>
+
     <a href="/my-mirror.html" class="cta-button">Enter the Mirror</a>
   </div>
 
@@ -93,7 +108,6 @@
       constructor() {
         this.reset();
       }
-
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
@@ -102,18 +116,15 @@
         this.speedY = (Math.random() - 0.5) * 0.3;
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }
-
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.fill();
       }
-
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
         if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
           this.reset();
         }
@@ -121,7 +132,7 @@
     }
 
     function init() {
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < 150; i++) {
         particles.push(new Particle());
       }
     }
