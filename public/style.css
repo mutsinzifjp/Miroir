@@ -1,77 +1,52 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #5a2a83, #8a48c9);
+  font-family: 'Arial', sans-serif;
+  background-color: #0e0e0e;
   color: #fff;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+h2 {
   text-align: center;
-  padding: 50px 20px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 8px #000a;
-}
-
-p {
-  font-size: 1.3rem;
-  margin-bottom: 30px;
-}
-
-input[type="text"] {
-  padding: 12px 20px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 30px;
-  width: 300px;
-  max-width: 80vw;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-  transition: box-shadow 0.3s ease;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  box-shadow: 0 0 25px #e0bcff;
-}
-
-button {
-  margin-left: 15px;
-  padding: 12px 30px;
-  font-size: 1.2rem;
-  border-radius: 30px;
-  border: none;
-  background: #9f7bff;
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 5px 15px #7a55cc;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background: #7a55cc;
-}
-
-#mirrorResponse {
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  font-size: 2.2em;
   font-weight: 700;
-  font-size: 1.5rem;
-  min-height: 60px;
-  animation: fadeIn 0.7s ease forwards;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-a {
-  margin-top: 50px;
-  color: #fff;
-  text-decoration: underline;
-  font-weight: bold;
-  font-size: 1rem;
-  user-select: none;
+.video-container {
+  max-width: 540px;
+  margin: 40px auto;
+  background: #1b1b1b;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px);}
-  to { opacity: 1; transform: translateY(0);}
+.video-container:hover {
+  transform: scale(1.015);
+  box-shadow: 0 12px 28px rgba(255, 255, 255, 0.1);
+}
+
+.caption {
+  font-weight: 600;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  color: #ffd700;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.thumbnail {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s ease;
+}
+
+.thumbnail:hover {
+  transform: scale(1.03);
 }
