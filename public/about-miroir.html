@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About Miroir</title>
+  <title>About Miroir | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
@@ -14,37 +14,29 @@
       overflow-x: hidden;
     }
 
-    body::before {
-      content: "";
+    canvas {
       position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, #e50914 0%, #000 80%);
-      opacity: 0.08;
-      animation: pulseBackground 12s ease-in-out infinite alternate;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    @keyframes pulseBackground {
-      0% { opacity: 0.05; transform: scale(1); }
-      100% { opacity: 0.15; transform: scale(1.05); }
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
     }
 
     .container {
-      max-width: 860px;
-      margin: auto;
-      padding: 60px 20px 100px 20px;
+      position: relative;
+      z-index: 1;
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
       text-align: center;
     }
 
     .logo {
       width: 140px;
       margin-bottom: 30px;
-      filter: drop-shadow(0 0 12px #e50914);
       animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #e50914);
     }
 
     @keyframes glow {
@@ -53,18 +45,49 @@
     }
 
     h1 {
-      font-size: 2.2rem;
       color: #e50914;
+      font-size: 2.5rem;
       margin-bottom: 20px;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
     }
 
-    p {
-      font-size: 1.1rem;
-      line-height: 1.7;
+    .intro {
+      font-size: 1.2rem;
+      line-height: 1.6;
       color: #ddd;
-      margin-bottom: 20px;
-      text-align: justify;
+      margin-bottom: 40px;
+    }
+
+    .pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .pillar {
+      background: #111;
+      border-left: 4px solid #e50914;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: left;
+      box-shadow: 0 0 12px #e50914;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .pillar:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px #ff1a1a;
+    }
+
+    .pillar h2 {
+      color: #e50914;
+      margin-bottom: 10px;
+    }
+
+    .pillar p {
+      color: #ccc;
+      font-size: 1rem;
     }
 
     nav {
@@ -75,7 +98,6 @@
       justify-content: center;
       font-weight: 700;
       font-size: 1.1rem;
-      user-select: none;
     }
 
     nav a {
@@ -105,40 +127,135 @@
     nav a:hover::after, nav a:focus::after {
       width: 100%;
     }
+
+    /* Background particle animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
+      opacity: 0.05;
+      animation: pulseBackground 10s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes pulseBackground {
+      0% { opacity: 0.05; transform: scale(1); }
+      100% { opacity: 0.15; transform: scale(1.05); }
+    }
+
+    @media screen and (max-width: 768px) {
+      .pillars {
+        gap: 20px;
+      }
+      .pillar {
+        padding: 16px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <img src="/miroir.png" alt="" class="logo" />
+<canvas id="bgCanvas"></canvas>
 
-    <h1>About Miroir</h1>
+<div class="container">
+  <img src="/miroir.png" alt="" class="logo" />
+  <h1>About Miroir</h1>
 
-    <p>
-      <strong>Miroir</strong> is not just a website, it is a living, breathing archive of resistance, identity, and truth.
-      Born from lived experiences and expressive acts like Butoh, opera, and philosophical resistance, Miroir exists to reflect what society often erases:
-      the complexity of gender, the courage of personal truth, and the power of reclaiming our own narratives.
-    </p>
-
-    <p>
-      Through multimedia performances, public provocations, and deep storytelling, Miroir stands as a hub for those who defy being boxed,
-      those who see rebellion not as destruction, but as rebirth. It is for the femmeboys, for the misread, for the violated and the victorious.
-    </p>
-
-    <p>
-      Every page is a threshold. Every voice is a wound and a weapon. And every visit is a confrontation with a world that must change.
-    </p>
-
-    <nav>
-      <a href="/">Home</a>
-      <a href="/my-mirror.html">My Mirror</a>
-      <a href="/our-voices.html">Our Voices</a>
-      <a href="/truth-tools.html">Truth Tools</a>
-      <a href="/living-archive.html">Living Archive</a>
-      <a href="/performative-data.html">Performative Data</a>
-      <a href="/publications.html">Publications</a>
-    </nav>
+  <div class="intro">
+    Miroir is a living project that challenges how society looks at truth, gender, and resistance. It’s not about trends or approval. It's a space to reflect, confront, and remember. Every action, word, and silence here is intentional.
   </div>
+
+  <section class="pillars" aria-label="Core principles of Miroir">
+    <div class="pillar">
+      <h2>Truth</h2>
+      <p>Miroir centers personal and political truths that are usually silenced or denied. It reflects reality, even when it’s uncomfortable.</p>
+    </div>
+    <div class="pillar">
+      <h2>Rebellion</h2>
+      <p>This is not a neutral space. Miroir resists conformity and exposes the systems that force people into roles, shame, or invisibility.</p>
+    </div>
+    <div class="pillar">
+      <h2>Memory</h2>
+      <p>Every story here carries memory—of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
+    </div>
+  </section>
+
+  <nav aria-label="Site Navigation">
+    <a href="/">Home</a>
+    <a href="/my-mirror.html">My Mirror</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/performative-data.html">Performative Data</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
+</div>
+
+<script>
+  // Particle animation script
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  const colors = ['#e50914', '#ff1a1a', '#fff'];
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+        this.reset();
+      }
+    }
+  }
+
+  function initParticles() {
+    for (let i = 0; i < 100; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+
+  initParticles();
+  animateParticles();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
 
 </body>
 </html>
