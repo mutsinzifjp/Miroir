@@ -11,7 +11,7 @@
       font-family: 'Arial', sans-serif;
       background: #000;
       color: #fff;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     canvas {
@@ -57,6 +57,18 @@
       line-height: 1.6;
       color: #ddd;
       padding: 20px;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .cta-button {
@@ -73,13 +85,63 @@
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 0 10px #e50914;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     .cta-button:hover {
       background: #e50914;
       color: #fff;
       box-shadow: 0 0 20px #ff1a1a;
+    }
+
+    footer {
+      position: relative;
+      margin-top: 40px;
+      padding: 20px 10px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      z-index: 2;
+    }
+
+    footer nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px 30px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    footer nav a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    footer nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e50914;
+      transition: width 0.3s ease;
+    }
+
+    footer nav a:hover {
+      color: #e50914;
+    }
+
+    footer nav a:hover::after {
+      width: 100%;
+    }
+
+    footer small {
+      color: #666;
+      font-size: 0.9rem;
     }
 
     @media screen and (max-width: 768px) {
@@ -105,11 +167,23 @@
     <img src="/miroir.png" alt="" class="logo" />
 
     <div class="quote">
-      “A mirror does not lie. It reflects what society tries to erase, truth, memory, and the rebellion of being.”
+      “A mirror does not lie. It reflects what society tries to erase — truth, memory, and the rebellion of being.”
     </div>
 
     <a href="/my-mirror.html" class="cta-button">Enter the Mirror</a>
   </div>
+
+  <footer>
+    <nav aria-label="Primary Navigation">
+      <a href="/my-mirror.html">My Mirror</a>
+      <a href="/our-voices.html">Our Voices</a>
+      <a href="/truth-tools.html">Truth Tools</a>
+      <a href="/living-archive.html">Living Archive</a>
+      <a href="/performative-data.html">Performative Data</a>
+      <a href="/publications.html">Publications</a>
+    </nav>
+    <small>© 2025 Fils</small>
+  </footer>
 
   <script>
     const canvas = document.getElementById('bgCanvas');
