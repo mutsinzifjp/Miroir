@@ -11,7 +11,11 @@
       font-family: 'Arial', sans-serif;
       background: #000;
       color: #fff;
-      overflow-x: hidden;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     canvas {
@@ -25,21 +29,20 @@
     .container {
       position: relative;
       z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      padding: 40px 20px;
+      width: 90vw;
+      max-width: 600px;
       text-align: center;
+      padding: 20px;
     }
 
+    /* Logo */
     .logo {
-      width: 130px;
+      width: 140px;
       max-width: 60%;
       animation: glow 3s ease-in-out infinite;
       filter: drop-shadow(0 0 10px #e50914);
-      margin-top: 20px;
+      margin-bottom: 20px;
+      user-select: none;
     }
 
     @keyframes glow {
@@ -51,29 +54,27 @@
       }
     }
 
+    /* Quote */
     .quote {
-      max-width: 90%;
       font-size: 1.3rem;
       line-height: 1.6;
       color: #ddd;
-      padding: 20px;
-      animation: fadeIn 1.5s ease forwards;
+      padding: 20px 10px;
+      margin-bottom: 40px;
+      font-style: italic;
+      user-select: none;
+      text-shadow: 0 0 8px #e50914;
+      transition: color 0.4s ease;
+    }
+    .quote:hover {
+      color: #ff1a1a;
+      cursor: default;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
+    /* Call to action button */
     .cta-button {
       display: inline-block;
-      padding: 14px 34px;
+      padding: 14px 40px;
       background: transparent;
       border: 2px solid #e50914;
       border-radius: 30px;
@@ -85,95 +86,122 @@
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 0 10px #e50914;
-      margin-bottom: 20px;
+      user-select: none;
     }
-
-    .cta-button:hover {
+    .cta-button:hover,
+    .cta-button:focus {
       background: #e50914;
       color: #fff;
-      box-shadow: 0 0 20px #ff1a1a;
+      box-shadow: 0 0 25px #ff1a1a;
+      outline: none;
     }
 
-    footer {
-      position: relative;
-      margin-top: 40px;
-      padding: 20px 10px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1rem;
-      z-index: 2;
-    }
-
-    footer nav {
+    /* Navigation bar */
+    nav {
+      margin-top: 50px;
       display: flex;
       flex-wrap: wrap;
-      gap: 15px 30px;
+      gap: 20px 35px;
       justify-content: center;
-      margin-bottom: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      user-select: none;
+      z-index: 2;
     }
-
-    footer nav a {
+    nav a {
       color: #fff;
       text-decoration: none;
       position: relative;
-      padding-bottom: 5px;
+      padding-bottom: 6px;
       transition: color 0.3s ease;
     }
-
-    footer nav a::after {
+    nav a::after {
       content: '';
       position: absolute;
-      bottom: 0;
       left: 0;
+      bottom: 0;
+      height: 3px;
       width: 0;
-      height: 2px;
       background: #e50914;
+      border-radius: 2px;
       transition: width 0.3s ease;
     }
-
-    footer nav a:hover {
+    nav a:hover, nav a:focus {
       color: #e50914;
     }
-
-    footer nav a:hover::after {
+    nav a:hover::after, nav a:focus::after {
       width: 100%;
     }
 
-    footer small {
-      color: #666;
-      font-size: 0.9rem;
+    /* Background subtle animated gradient */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
+      opacity: 0.05;
+      animation: pulseBackground 10s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+    @keyframes pulseBackground {
+      0% {
+        opacity: 0.05;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0.15;
+        transform: scale(1.05);
+      }
     }
 
-    @media screen and (max-width: 768px) {
-      .quote {
-        font-size: 1rem;
-        padding: 10px;
-      }
-      .cta-button {
-        padding: 12px 28px;
-        font-size: 1rem;
-      }
-      .logo {
-        width: 100px;
-      }
+    /* Music toggle button */
+    #musicToggle {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #e50914;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s ease;
+      z-index: 10;
+      user-select: none;
     }
+    #musicToggle:hover {
+      box-shadow: 0 0 30px #ff1a1a;
+    }
+    #musicToggle svg {
+      fill: #fff;
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+    }
+
   </style>
 </head>
 <body>
 
   <canvas id="bgCanvas"></canvas>
 
-  <div class="container">
+  <div class="container" role="main" aria-label="Miroir homepage main content">
     <img src="/miroir.png" alt="" class="logo" />
 
-    <div class="quote">
-      “A mirror does not lie. It reflects what society tries to erase — truth, memory, and the rebellion of being.”
+    <div class="quote" aria-live="polite">
+      “A mirror does not lie. It reflects what society tries to erase, truth, memory, and the rebellion of being.”
     </div>
 
-    <a href="/my-mirror.html" class="cta-button">Enter the Mirror</a>
-  </div>
+    <a href="/my-mirror.html" class="cta-button" role="button" tabindex="0">Enter the Mirror</a>
 
-  <footer>
     <nav aria-label="Primary Navigation">
       <a href="/my-mirror.html">My Mirror</a>
       <a href="/our-voices.html">Our Voices</a>
@@ -182,10 +210,46 @@
       <a href="/performative-data.html">Performative Data</a>
       <a href="/publications.html">Publications</a>
     </nav>
-    <small>© 2025 Fils</small>
-  </footer>
+  </div>
+
+  <!-- Background ambient music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="/relaxing-electronic-ambient-music-354471.mp3" type="audio/mpeg" />
+    <!-- Your music file should be in public folder -->
+  </audio>
+
+  <!-- Music toggle button -->
+  <button id="musicToggle" aria-pressed="false" aria-label="Toggle background music" title="Play/Pause ambient music">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
+    </svg>
+  </button>
 
   <script>
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = false;
+
+    musicToggle.addEventListener('click', () => {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicToggle.setAttribute('aria-pressed', 'false');
+        musicToggle.innerHTML = `
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
+          </svg>`;
+      } else {
+        bgMusic.play();
+        musicToggle.setAttribute('aria-pressed', 'true');
+        musicToggle.innerHTML = `
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+          </svg>`;
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Responsive canvas setup for particles
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -221,23 +285,23 @@
       }
     }
 
-    function init() {
+    function initParticles() {
       for (let i = 0; i < 150; i++) {
         particles.push(new Particle());
       }
     }
 
-    function animate() {
+    function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => {
         p.update();
         p.draw();
       });
-      requestAnimationFrame(animate);
+      requestAnimationFrame(animateParticles);
     }
 
-    init();
-    animate();
+    initParticles();
+    animateParticles();
 
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
