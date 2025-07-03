@@ -3,71 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <title>Miroir | Human Truth Hub</title>
-  <meta name="description" content="Miroir is a living archive of gender defiance, personal truth, and collective reflection." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/style.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: #000;
+      color: #fff;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .center-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+    }
+
+    .logo {
+      width: 150px;
+      margin-bottom: 30px;
+      animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #e50914);
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        filter: drop-shadow(0 0 10px #e50914);
+      }
+      50% {
+        filter: drop-shadow(0 0 20px #ff1a1a);
+      }
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 15px 35px;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 30px;
+      color: #e50914;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .cta-button:hover {
+      background: #e50914;
+      color: #fff;
+      box-shadow: 0 0 20px #ff1a1a;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Loading animation -->
-  <div id="preloader">
-    <img src="/miroir.png" alt="" />
-  </div>
+  <canvas id="bgCanvas"></canvas>
 
-  <div class="main-content" style="display:none;">
-    <header>
-      <img src="/miroir.png" alt="" class="logo" />
-    </header>
-
-    <main class="intro" role="main">
-      <h1>Welcome to Miroir</h1>
-      <p>Where personal truth meets collective resistance.</p>
-      <a href="https://miroir.vercel.app/login" id="loginBtn" role="button" tabindex="0">Log in with OSF</a>
-    </main>
-
-    <nav aria-label="Primary Navigation">
-      <a href="/my-mirror.html">My Mirror</a>
-      <a href="/our-voices.html">Our Voices</a>
-      <a href="/truth-tools.html">Truth Tools</a>
-      <a href="/living-archive.html">Living Archive</a>
-      <a href="/performative-data.html">Performative Data</a>
-      <a href="/publications.html">Publications</a>
-    </nav>
-
-    <footer>© Fils – Miroir</footer>
-
-    <!-- Music -->
-    <audio id="bgMusic" loop autoplay>
-      <source src="/ambient-soft-music.mp3" type="audio/mpeg" />
-    </audio>
-
-    <button id="musicToggle" aria-pressed="false" aria-label="Toggle background music">
-      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
-    </button>
+  <div class="center-content">
+    <img src="/miroir.png" alt="" class="logo" />
+    <a href="/my-mirror.html" class="cta-button">Enter the Mirror</a>
   </div>
 
   <script>
-    // Loading screen
-    window.addEventListener('load', () => {
-      document.getElementById('preloader').style.display = 'none';
-      document.querySelector('.main-content').style.display = 'block';
-    });
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    // Music toggle
-    const musicToggle = document.getElementById('musicToggle');
-    const bgMusic = document.getElementById('bgMusic');
-    let isPlaying = true;
+    let particles = [];
+    const colors = ['#e50914', '#ff1a1a', '#fff'];
 
-    musicToggle.addEventListener('click', () => {
-      if (isPlaying) {
-        bgMusic.pause();
-        musicToggle.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>';
-      } else {
-        bgMusic.play();
-        musicToggle.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+    class Particle {
+      constructor() {
+        this.reset();
       }
-      isPlaying = !isPlaying;
-    });
-  </script>
-</body>
-</html>
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 1.5 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+
+      update() {
+        this.x += thi
