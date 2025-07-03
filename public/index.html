@@ -8,10 +8,10 @@
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       font-family: 'Arial', sans-serif;
       background: #000;
       color: #fff;
+      overflow: hidden;
     }
 
     canvas {
@@ -25,11 +25,11 @@
     .container {
       position: relative;
       z-index: 1;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-evenly;
       padding: 40px 20px;
       text-align: center;
     }
@@ -39,6 +39,7 @@
       max-width: 60%;
       animation: glow 3s ease-in-out infinite;
       filter: drop-shadow(0 0 10px #e50914);
+      margin-top: 20px;
     }
 
     @keyframes glow {
@@ -52,10 +53,10 @@
 
     .quote {
       max-width: 90%;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       line-height: 1.6;
       color: #ddd;
-      padding: 20px 0;
+      padding: 20px;
     }
 
     .cta-button {
@@ -72,7 +73,7 @@
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 0 10px #e50914;
-      margin-bottom: 10px;
+      margin-bottom: 40px;
     }
 
     .cta-button:hover {
@@ -80,9 +81,24 @@
       color: #fff;
       box-shadow: 0 0 20px #ff1a1a;
     }
+
+    @media screen and (max-width: 768px) {
+      .quote {
+        font-size: 1rem;
+        padding: 10px;
+      }
+      .cta-button {
+        padding: 12px 28px;
+        font-size: 1rem;
+      }
+      .logo {
+        width: 100px;
+      }
+    }
   </style>
 </head>
 <body>
+
   <canvas id="bgCanvas"></canvas>
 
   <div class="container">
