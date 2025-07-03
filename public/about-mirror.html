@@ -2,55 +2,143 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About Miroir | Human Truth Hub</title>
+  <title>About Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
       background: #000;
       color: #fff;
-      font-family: Arial, sans-serif;
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 80%);
+      opacity: 0.08;
+      animation: pulseBackground 12s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes pulseBackground {
+      0% { opacity: 0.05; transform: scale(1); }
+      100% { opacity: 0.15; transform: scale(1.05); }
+    }
+
+    .container {
+      max-width: 860px;
+      margin: auto;
+      padding: 60px 20px 100px 20px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 140px;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 0 12px #e50914);
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
+      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
+    }
+
     h1 {
+      font-size: 2.2rem;
       color: #e50914;
       margin-bottom: 20px;
-      text-align: center;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
+
     p {
-      margin-bottom: 15px;
       font-size: 1.1rem;
+      line-height: 1.7;
+      color: #ddd;
+      margin-bottom: 20px;
+      text-align: justify;
     }
-    a {
-      color: #e50914;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+
     nav {
       margin-top: 40px;
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 30px;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      user-select: none;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 6px;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0;
+      background: #e50914;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover, nav a:focus {
+      color: #e50914;
+    }
+
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
     }
   </style>
 </head>
 <body>
 
-  <h1>About Miroir</h1>
+  <div class="container">
+    <img src="/miroir.png" alt="" class="logo" />
 
-  <p>Miroir is a living archive of gender defiance, personal truth, and collective reflection. It is a space where societal norms are challenged, and hidden stories are brought to light.</p>
+    <h1>About Miroir</h1>
 
-  <p>This project honors the rebellion of being and refuses to let the truth be erased by silence or fear.</p>
+    <p>
+      <strong>Miroir</strong> is not just a website—it is a living, breathing archive of resistance, identity, and truth.
+      Born from lived experiences and expressive acts like Butoh, opera, and philosophical resistance, Miroir exists to reflect what society often erases:
+      the complexity of gender, the courage of personal truth, and the power of reclaiming our own narratives.
+    </p>
 
-  <p>Explore, reflect, and become part of the collective resistance.</p>
+    <p>
+      Through multimedia performances, public provocations, and deep storytelling, Miroir stands as a hub for those who defy being boxed,
+      those who see rebellion not as destruction—but as rebirth. It is for the femmeboys, for the misread, for the violated and the victorious.
+    </p>
 
-  <nav>
-    <a href="/index.html">Back to Home</a>
-  </nav>
+    <p>
+      Every page is a threshold. Every voice is a wound and a weapon. And every visit is a confrontation with a world that must change.
+    </p>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/my-mirror.html">My Mirror</a>
+      <a href="/our-voices.html">Our Voices</a>
+      <a href="/truth-tools.html">Truth Tools</a>
+      <a href="/living-archive.html">Living Archive</a>
+      <a href="/performative-data.html">Performative Data</a>
+      <a href="/publications.html">Publications</a>
+    </nav>
+  </div>
 
 </body>
 </html>
