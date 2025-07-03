@@ -1,80 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>My Mirror – Butoh Performances</title>
+  <meta charset="UTF-8">
+  <title>My Mirror – Butoh by Fils Nox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
-      background: #000;
+      background-color: #000;
       color: #fff;
     }
 
     header {
       text-align: center;
-      padding: 40px 20px 10px;
-      background: #111;
+      padding: 30px 20px 10px;
     }
 
     header img {
-      max-width: 200px;
+      max-width: 160px;
       height: auto;
+      display: block;
+      margin: 0 auto 10px;
       animation: fadeIn 2s ease;
     }
 
     h1 {
-      margin-top: 10px;
-      font-size: 2rem;
-      letter-spacing: 1px;
       color: #e50914;
-      animation: fadeIn 2s ease;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      animation: fadeIn 1.5s ease;
     }
 
-    .video-section {
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 0 20px;
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .thumbnail {
+      background-color: #111;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .caption {
-      font-weight: bold;
+      padding: 12px;
       text-align: center;
-      margin-bottom: 10px;
-      font-size: 1.2em;
-      color: #fefefe;
-    }
-
-    .video-box {
-      background: #111;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 40px;
-      box-shadow: 0 0 20px rgba(229, 9, 20, 0.2);
-      animation: fadeInUp 1.2s ease both;
-    }
-
-    blockquote.instagram-media {
-      margin: 0 auto !important;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #fff;
+      background: #1a1a1a;
     }
 
     footer {
       text-align: center;
-      padding: 30px;
-      background: #111;
+      padding: 30px 20px;
       font-size: 0.9em;
       color: #999;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0 }
-      to { opacity: 1 }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -82,59 +86,47 @@
 
   <header>
     <img src="/miroir.jpeg" alt="Miroir Logo" />
-    <h1>Butoh Performance Series</h1>
+    <h1>My Mirror – Butoh Performance Series</h1>
   </header>
 
-  <div class="video-section">
+  <section class="gallery">
+    <!-- Each thumbnail links to your Instagram reel -->
 
-    <!-- Threshold -->
-    <div class="video-box">
+    <a class="thumbnail" href="https://www.instagram.com/reel/DJMaE9pznIT/" target="_blank">
+      <img src="/crossing.jpeg" alt="Threshold">
       <div class="caption">Threshold</div>
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DJMaE9pznIT/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin:1px auto; max-width:540px; min-width:326px; padding:0; width:100%;">
-      </blockquote>
-    </div>
+    </a>
 
-    <!-- Reclaiming Lost Childhood -->
-    <div class="video-box">
+    <a class="thumbnail" href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" target="_blank">
+      <img src="/lostchildhood.jpeg" alt="Reclaiming Lost Childhood">
       <div class="caption">Reclaiming Lost Childhood</div>
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DJMXhJ4zHrZ/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin:1px auto; max-width:540px; min-width:326px; padding:0; width:100%;">
-      </blockquote>
-    </div>
+    </a>
 
-    <!-- O Fortuna -->
-    <div class="video-box">
+    <a class="thumbnail" href="https://www.instagram.com/reel/DJd8s_4TfJP/" target="_blank">
+      <img src="/ofortuna.jpeg" alt="O Fortuna">
       <div class="caption">O Fortuna</div>
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DJd8s_4TfJP/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin:1px auto; max-width:540px; min-width:326px; padding:0; width:100%;">
-      </blockquote>
-    </div>
+    </a>
 
-    <!-- Lacrimosa -->
-    <div class="video-box">
+    <a class="thumbnail" href="https://www.instagram.com/reel/DJimNzNMOtL/" target="_blank">
+      <img src="/lacrimosa.jpeg" alt="Lacrimosa">
       <div class="caption">Lacrimosa</div>
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DJimNzNMOtL/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin:1px auto; max-width:540px; min-width:326px; padding:0; width:100%;">
-      </blockquote>
-    </div>
+    </a>
 
-    <!-- Der Holle Rache -->
-    <div class="video-box">
+    <a class="thumbnail" href="https://www.instagram.com/reel/DJl7DERzihb/" target="_blank">
+      <img src="/derholle.jpeg" alt="Der Hölle Rache">
       <div class="caption">Der Hölle Rache</div>
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DJl7DERzihb/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin:1px auto; max-width:540px; min-width:326px; padding:0; width:100%;">
-      </blockquote>
-    </div>
+    </a>
 
-    <!-- Carmen Habanera -->
-    <div class="video-box">
+    <a class="thumbnail" href="https://www.instagram.com/reel/DI86w8TzSOn/" target="_blank">
+      <img src="/carmen.jpeg" alt="Carmen – Habanera">
       <div class="caption">Carmen – Habanera</div>
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DI86w8TzSOn/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin:1px auto; max-width:540px; min-width:326px; padding:0; width:100%;">
-      </blockquote>
-    </div>
+    </a>
 
-  </div>
+  </section>
 
   <footer>
-    &copy; 2025 Fils Nox. All rights reserved.
+    &copy; 2025 Fils Nox | Butoh is truth in motion. All rights reserved.
   </footer>
 
-  <script async src="//www.instagram.com/embed.js"></script>
 </body>
 </html>
