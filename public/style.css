@@ -1,52 +1,151 @@
+/* Reset & base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #0e0e0e;
-  color: #fff;
-  margin: 0;
-  padding: 40px 20px;
-}
-
-h2 {
+  background-color: #000; /* Deep black */
+  color: #eee; /* Soft white */
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 50px;
-  font-size: 2.2em;
+  padding: 40px 20px;
+  overflow-x: hidden;
+}
+
+/* Glowing logo */
+.logo {
+  width: 180px;
+  margin: 0 auto 30px auto;
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px #ff0000);
+  display: block;
+}
+
+/* Logo glow animation */
+@keyframes pulseGlow {
+  0% {
+    filter: drop-shadow(0 0 6px #ff0000);
+    transform: scale(1);
+  }
+  100% {
+    filter: drop-shadow(0 0 18px #ff0000);
+    transform: scale(1.05);
+  }
+}
+
+/* Header text */
+h1 {
+  font-size: 2.8rem;
+  color: #fff;
+  text-shadow: 0 0 8px #ff0000;
+  margin-bottom: 0.2em;
+  animation: fadeInDown 1.2s ease forwards;
+  opacity: 0;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #ff4444;
+  text-shadow: 0 0 6px #ff4444;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1.6s ease forwards;
+  opacity: 0;
+}
+
+/* Nav styles */
+nav {
+  margin: 30px 0 50px;
+}
+
+nav a {
+  color: #ff2222;
   font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: 1.1rem;
+  margin: 0 15px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 0 10px #ff2222;
+  transition: all 0.3s ease;
+  display: inline-block;
+  animation: fadeIn 2s ease forwards;
+  opacity: 0;
 }
 
-.video-container {
-  max-width: 540px;
-  margin: 40px auto;
-  background: #1b1b1b;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+nav a:hover,
+nav a:focus {
+  color: #fff;
+  background-color: #ff0000;
+  box-shadow: 0 0 20px #ff0000;
+  transform: scale(1.1);
 }
 
-.video-container:hover {
-  transform: scale(1.015);
-  box-shadow: 0 12px 28px rgba(255, 255, 255, 0.1);
+/* Login button */
+#loginBtn {
+  display: inline-block;
+  background-color: #ff0000;
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 28px;
+  font-size: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 0 18px #ff4444;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  animation: fadeInUp 2.5s ease forwards;
+  opacity: 0;
+  text-decoration: none;
 }
 
-.caption {
-  font-weight: 600;
-  font-size: 1.4em;
-  margin-bottom: 15px;
-  color: #ffd700;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+#loginBtn:hover {
+  background-color: #cc0000;
+  box-shadow: 0 0 28px #ff2222;
+  transform: scale(1.05);
 }
 
-.thumbnail {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.4s ease;
+/* Fade in animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.thumbnail:hover {
-  transform: scale(1.03);
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  nav a {
+    font-size: 1rem;
+    margin: 0 8px;
+    padding: 6px 10px;
+  }
+  #loginBtn {
+    font-size: 1rem;
+    padding: 10px 22px;
+  }
 }
