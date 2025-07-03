@@ -5,258 +5,69 @@
   <title>Miroir | Human Truth Hub</title>
   <meta name="description" content="Miroir is a living archive of gender defiance, personal truth, and collective reflection." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    /* Reset & base */
-    * {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
-      font-family: 'Arial', sans-serif;
-    }
-    body {
-      background: #000;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Glowing logo */
-    header img {
-      max-width: 160px;
-      filter: drop-shadow(0 0 10px #e50914);
-      animation: pulseGlow 3s infinite ease-in-out;
-      margin-bottom: 20px;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        filter: drop-shadow(0 0 10px #e50914);
-        transform: scale(1);
-      }
-      50% {
-        filter: drop-shadow(0 0 20px #ff1a1a);
-        transform: scale(1.05);
-      }
-    }
-
-    /* Animated text container */
-    .intro {
-      text-align: center;
-      max-width: 480px;
-      margin-bottom: 40px;
-    }
-
-    .intro h1 {
-      font-size: 2.5rem;
-      color: #e50914;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-      animation: fadeSlideIn 1s ease forwards;
-      opacity: 0;
-    }
-
-    .intro p {
-      font-size: 1.2rem;
-      color: #fff;
-      opacity: 0.8;
-      letter-spacing: 0.7px;
-      animation: fadeSlideIn 1s ease forwards;
-      animation-delay: 0.5s;
-      margin-bottom: 30px;
-    }
-
-    @keyframes fadeSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Login button */
-    #loginBtn {
-      background: transparent;
-      border: 2px solid #e50914;
-      color: #e50914;
-      font-weight: 700;
-      font-size: 1.2rem;
-      padding: 12px 32px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-      margin-bottom: 40px;
-      box-shadow: 0 0 10px #e50914;
-      user-select: none;
-    }
-    #loginBtn:hover, #loginBtn:focus {
-      background: #e50914;
-      color: #fff;
-      box-shadow: 0 0 20px #ff1a1a;
-      outline: none;
-    }
-
-    /* Navigation bar */
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px 35px;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1.1rem;
-      user-select: none;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      position: relative;
-      padding-bottom: 6px;
-      transition: color 0.3s ease;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      width: 0;
-      background: #e50914;
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover, nav a:focus {
-      color: #e50914;
-    }
-
-    nav a:hover::after, nav a:focus::after {
-      width: 100%;
-    }
-
-    /* Background subtle animated gradient */
-    body::before {
-      content: "";
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
-      opacity: 0.05;
-      animation: pulseBackground 10s ease-in-out infinite alternate;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    @keyframes pulseBackground {
-      0% {
-        opacity: 0.05;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0.15;
-        transform: scale(1.05);
-      }
-    }
-
-    /* Music player toggle */
-    #musicToggle {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #e50914;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 15px #ff1a1a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.3s ease;
-      z-index: 10;
-    }
-    #musicToggle:hover {
-      box-shadow: 0 0 30px #ff1a1a;
-    }
-    #musicToggle svg {
-      fill: #fff;
-      width: 28px;
-      height: 28px;
-    }
-
-  </style>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 
-  <header>
-    <img src="/miroir.png" />
-  </header>
+  <!-- Loading animation -->
+  <div id="preloader">
+    <img src="/miroir.png" alt="" />
+  </div>
 
-  <main class="intro" role="main">
-    <h1>Welcome to Miroir</h1>
-    <p>Where personal truth meets collective resistance.</p>
-    <a href="https://miroir.vercel.app/login" id="loginBtn" role="button" tabindex="0">Log in with OSF</a>
-  </main>
+  <div class="main-content" style="display:none;">
+    <header>
+      <img src="/miroir.png" alt="" class="logo" />
+    </header>
 
-  <nav aria-label="Primary Navigation">
-    <a href="/my-mirror.html">My Mirror</a>
-    <a href="/our-voices.html">Our Voices</a>
-    <a href="/truth-tools.html">Truth Tools</a>
-    <a href="/living-archive.html">Living Archive</a>
-    <a href="/performative-data.html">Performative Data</a>
-    <a href="/publications.html">Publications</a>
-  </nav>
+    <main class="intro" role="main">
+      <h1>Welcome to Miroir</h1>
+      <p>Where personal truth meets collective resistance.</p>
+      <a href="https://miroir.vercel.app/login" id="loginBtn" role="button" tabindex="0">Log in with OSF</a>
+    </main>
 
-  <!-- Background ambient music -->
-  <audio id="bgMusic" loop>
-    <source src="/ambient-soft-music.mp3" type="audio/mpeg" />
-    <!-- You will need to upload ambient-soft-music.mp3 to your public folder -->
-  </audio>
+    <nav aria-label="Primary Navigation">
+      <a href="/my-mirror.html">My Mirror</a>
+      <a href="/our-voices.html">Our Voices</a>
+      <a href="/truth-tools.html">Truth Tools</a>
+      <a href="/living-archive.html">Living Archive</a>
+      <a href="/performative-data.html">Performative Data</a>
+      <a href="/publications.html">Publications</a>
+    </nav>
 
-  <!-- Music toggle button -->
-  <button id="musicToggle" aria-pressed="false" aria-label="Toggle background music">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
-    </svg>
-  </button>
+    <footer>© Fils – Miroir</footer>
+
+    <!-- Music -->
+    <audio id="bgMusic" loop autoplay>
+      <source src="/ambient-soft-music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button id="musicToggle" aria-pressed="false" aria-label="Toggle background music">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+    </button>
+  </div>
 
   <script>
+    // Loading screen
+    window.addEventListener('load', () => {
+      document.getElementById('preloader').style.display = 'none';
+      document.querySelector('.main-content').style.display = 'block';
+    });
+
+    // Music toggle
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
-    let isPlaying = false;
+    let isPlaying = true;
 
     musicToggle.addEventListener('click', () => {
       if (isPlaying) {
         bgMusic.pause();
-        musicToggle.setAttribute('aria-pressed', 'false');
-        musicToggle.innerHTML = `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
-          </svg>`;
+        musicToggle.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>';
       } else {
         bgMusic.play();
-        musicToggle.setAttribute('aria-pressed', 'true');
-        musicToggle.innerHTML = `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
-          </svg>`;
+        musicToggle.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
       }
       isPlaying = !isPlaying;
     });
   </script>
-
 </body>
 </html>
