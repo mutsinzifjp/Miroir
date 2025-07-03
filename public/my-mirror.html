@@ -2,128 +2,203 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Mirror – Butoh Performance Series</title>
+  <title>My Mirror | Miroir</title>
+  <meta name="description" content="Butoh Performance Series by Fils – Personal truth in motion." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Base & Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: Arial, sans-serif;
+    }
     body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #000;
+      background: #000;
       color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px 20px;
     }
 
+    /* Logo header */
     header {
-      text-align: center;
-      padding: 30px 20px 10px;
+      margin-bottom: 30px;
     }
-
     header img {
-      max-width: 160px;
-      height: auto;
-      display: block;
-      margin: 0 auto 10px;
-      animation: fadeIn 2s ease;
+      max-width: 140px;
+      filter: drop-shadow(0 0 10px #e50914);
+      animation: pulseGlow 3s infinite ease-in-out;
+      cursor: default;
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 10px #e50914);
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 20px #ff1a1a);
+        transform: scale(1.05);
+      }
     }
 
+    /* Page title */
     h1 {
+      font-size: 2.4rem;
       color: #e50914;
-      font-size: 2rem;
-      margin-bottom: 10px;
-      animation: fadeIn 1.5s ease;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+      text-align: center;
+      animation: fadeSlideIn 1s ease forwards;
+      opacity: 0;
+    }
+    p.subtitle {
+      text-align: center;
+      color: #fff;
+      opacity: 0.7;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      animation: fadeSlideIn 1s ease forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+    }
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
+    /* Grid container for thumbnails */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
       gap: 30px;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .thumbnail {
-      background-color: #111;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .thumbnail:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
-    }
-
-    .thumbnail img {
       width: 100%;
-      height: auto;
+      max-width: 900px;
+    }
+
+    /* Each item */
+    .item {
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #e50914;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .item:hover, .item:focus-within {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ff1a1a;
+      outline: none;
+    }
+
+    .item img {
+      max-width: 100%;
+      border-radius: 12px 12px 0 0;
       display: block;
     }
 
+    /* Caption text */
     .caption {
-      padding: 12px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1rem;
+      color: #e50914;
+      font-weight: 700;
+      padding: 12px 10px 15px 10px;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+
+    /* Navigation */
+    nav {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 30px;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      user-select: none;
+    }
+    nav a {
       color: #fff;
-      background: #1a1a1a;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 6px;
+      transition: color 0.3s ease;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0;
+      background: #e50914;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    nav a:hover, nav a:focus {
+      color: #e50914;
+    }
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
     }
 
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9em;
-      color: #999;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="/miroir.png" />
-    <h1>My Mirror – Butoh Performance Series</h1>
+    <img src="/miroir.png" alt="" />
   </header>
 
-  <section class="gallery">
-    <a class="thumbnail" href="https://www.instagram.com/reel/DJMaE9pznIT/" target="_blank">
-      <img src="/crossing.jpeg" />
-      <div class="caption">Threshold</div>
-    </a>
+  <main role="main">
+    <h1>My Mirror</h1>
+    <p class="subtitle">Butoh Performance Series by Fils</p>
 
-    <a class="thumbnail" href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" target="_blank">
-      <img src="/lostchildhood.jpeg" />
-      <div class="caption">Reclaiming Lost Childhood</div>
-    </a>
+    <section class="gallery" aria-label="Butoh performance videos">
+      <a class="item" href="https://www.instagram.com/reel/DI86w8TzSOn/" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/carmen.jpeg" alt="" />
+        <div class="caption">Carmen</div>
+      </a>
+      <a class="item" href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/lostchildhood.jpeg" alt="" />
+        <div class="caption">Reclaiming Lost Childhood</div>
+      </a>
+      <a class="item" href="https://www.instagram.com/reel/DJd8s_4TfJP/" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/ofortuna.jpeg" alt="" />
+        <div class="caption">O Fortuna</div>
+      </a>
+      <a class="item" href="https://www.instagram.com/reel/DJl7DERzihb/" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/derholle.jpeg" alt="" />
+        <div class="caption">Der Holle</div>
+      </a>
+      <a class="item" href="https://www.instagram.com/reel/DJimNzNMOtL/" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/lacrimosa.jpeg" alt="" />
+        <div class="caption">Lacrimosa</div>
+      </a>
+      <!-- Add more if needed -->
+    </section>
+  </main>
 
-    <a class="thumbnail" href="https://www.instagram.com/reel/DJd8s_4TfJP/" target="_blank">
-      <img src="/ofortuna.jpeg" />
-      <div class="caption">O Fortuna</div>
-    </a>
-
-    <a class="thumbnail" href="https://www.instagram.com/reel/DJimNzNMOtL/" target="_blank">
-      <img src="/lacrimosa.jpeg" />
-      <div class="caption">Lacrimosa</div>
-    </a>
-
-    <a class="thumbnail" href="https://www.instagram.com/reel/DJl7DERzihb/" target="_blank">
-      <img src="/derholle.jpeg" />
-      <div class="caption">Der Hölle Rache</div>
-    </a>
-
-    <a class="thumbnail" href="https://www.instagram.com/reel/DI86w8TzSOn/" target="_blank">
-      <img src="/carmen.jpeg" />
-      <div class="caption">Carmen – Habanera</div>
-    </a>
-  </section>
-
-  <footer>
-    &copy; 2025 Fils | Butoh is truth in motion. All rights reserved.
-  </footer>
+  <nav aria-label="Primary Navigation">
+    <a href="/">Home</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/performative-data.html">Performative Data</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
 
 </body>
 </html>
