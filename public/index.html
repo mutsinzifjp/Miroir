@@ -92,7 +92,6 @@
       outline: none;
     }
 
-    /* Hamburger menu toggle (always visible) */
     .menu-toggle {
       position: fixed;
       top: 20px;
@@ -143,7 +142,6 @@
       color: #e50914;
     }
 
-    /* Music toggle */
     #musicToggle {
       position: fixed;
       bottom: 25px;
@@ -174,7 +172,6 @@
       pointer-events: none;
     }
 
-    /* Animated background */
     body::before {
       content: "";
       position: fixed;
@@ -197,28 +194,28 @@
 </head>
 <body>
 
-  <!-- Hamburger menu toggle -->
+  <!-- Hamburger menu -->
   <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <!-- Navigation menu -->
+  <!-- Navigation -->
   <nav class="menu" id="mobileMenu" role="navigation" aria-label="Navigation Menu">
     <a href="/about.html">About</a>
-    <a href="/my-mirror.html">My Mirror</a>
-    <a href="/our-voices.html">Our Voices</a>
+    <a href="/my-miroir.html">My Miroir</a>
+    <a href="/our-miroirs.html">Our Miroirs</a>
     <a href="/truth-tools.html">Truth Tools</a>
     <a href="/living-archive.html">Living Archive</a>
-    <a href="/performative-data.html">Performative Data</a>
+    <a href="/reflections.html">Reflections</a>
     <a href="/publications.html">Publications</a>
   </nav>
 
-  <!-- Background Canvas -->
+  <!-- Canvas background -->
   <canvas id="bgCanvas"></canvas>
 
-  <!-- Main content -->
+  <!-- Hero Section -->
   <div class="container">
     <img src="/miroir.png" alt="Miroir Logo" class="logo" />
     <div class="quote">
@@ -227,25 +224,21 @@
     <a href="/about.html" class="cta-button">Enter the Mirror</a>
   </div>
 
-  <!-- Background music -->
+  <!-- Music -->
   <audio id="bgMusic" loop preload="auto">
     <source src="/relaxing-electronic-ambient-music-354471.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Music toggle button -->
   <button id="musicToggle" aria-label="Toggle background music">
     <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"></path></svg>
   </button>
 
-  <!-- Scripts -->
   <script>
-    // Toggle mobile/desktop menu
     function toggleMenu() {
       const menu = document.getElementById("mobileMenu");
       menu.style.display = menu.style.display === "flex" ? "none" : "flex";
     }
 
-    // Music toggle logic
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
     let isPlaying = false;
@@ -261,7 +254,6 @@
       isPlaying = !isPlaying;
     });
 
-    // Background particles
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -318,3 +310,4 @@
 
 </body>
 </html>
+
