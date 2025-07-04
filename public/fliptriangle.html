@@ -2,84 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>The Triangle That Formed Me</title>
+  <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- PageFlip CSS & JS from jsDelivr -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 
   <style>
     body {
       background: #000;
       color: #fff;
       font-family: 'Arial', sans-serif;
-      text-align: center;
-      padding: 40px 0;
       margin: 0;
+      padding: 20px;
+      text-align: center;
     }
 
     h1 {
       color: #e50914;
-      margin-bottom: 30px;
-      font-size: 2rem;
+      font-size: 2.5rem;
       text-shadow: 0 0 10px #e50914;
+      margin-bottom: 40px;
     }
 
-    #flipbook-container {
+    .cover-container {
+      max-width: 320px;
       margin: 0 auto;
-      width: 90vw;
-      max-width: 900px;
-      height: 600px;
-      box-shadow: 0 0 30px #e50914;
-      border: 2px solid #e50914;
-      border-radius: 10px;
-      overflow: hidden;
     }
 
-    .page-flip {
+    .cover-thumbnail {
       width: 100%;
-      height: 100%;
+      border: 3px solid #e50914;
+      border-radius: 10px;
+      box-shadow: 0 0 25px #e50914;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
-    footer {
-      margin-top: 20px;
-      font-size: 0.9rem;
-      color: #aaa;
+    .cover-thumbnail:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 35px #ff1a1a;
+    }
+
+    .flipbook-label {
+      color: #e50914;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-top: 12px;
+      text-shadow: 0 0 8px #e50914;
+    }
+
+    nav {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0;
+      background: #e50914;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover, nav a:focus {
+      color: #e50914;
+    }
+
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
     }
   </style>
 </head>
 <body>
 
-  <h1>The Triangle That Formed Me</h1>
+  <h1>Publications</h1>
 
-  <div id="flipbook-container"></div>
+  <div class="cover-container">
+    <a href="/fliptriangle.html">
+      <img src="/trianglecover.jpg" alt="Cover of The Triangle That Formed Me" class="cover-thumbnail">
+    </a>
+    <div class="flipbook-label">The Triangle That Formed Me</div>
+  </div>
 
-  <footer>Click or drag pages to turn. Works best on wide screens.</footer>
+  <nav>
+    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/my-mirror.html">My Mirror</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/performative-data.html">Performative Data</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
 
-  <script>
-    const pageFlip = new St.PageFlip(
-      document.getElementById("flipbook-container"),
-      {
-        width: 450,
-        height: 600,
-        size: "stretch",
-        minWidth: 315,
-        maxWidth: 1000,
-        minHeight: 400,
-        maxHeight: 1536,
-        maxShadowOpacity: 0.5,
-        showCover: true,
-        mobileScrollSupport: false
-      }
-    );
-
-    pageFlip.loadFromImages([
-      "/page1.jpg",
-      "/page2.jpg",
-      "/page3.jpg",
-      "/page4.jpg"
-    ]);
-  </script>
 </body>
 </html>
