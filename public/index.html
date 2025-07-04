@@ -11,11 +11,9 @@
       font-family: 'Arial', sans-serif;
       background: #000;
       color: #fff;
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100vh;
     }
 
     canvas {
@@ -33,6 +31,8 @@
       max-width: 600px;
       text-align: center;
       padding: 20px;
+      padding-bottom: 100px;
+      margin: auto;
     }
 
     /* Logo */
@@ -198,10 +198,10 @@
     <img src="/miroir.png" alt="" class="logo" />
 
     <div class="quote" aria-live="polite">
-      “A mirror does not lie. It reflects what society tries to erase, truth, memory, and the rebellion of being.”
+      A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.
     </div>
 
-    <a href="/my-mirror.html" class="cta-button" role="button" tabindex="0">Enter the Mirror</a>
+    <a href="/about-miroir.html" class="cta-button" role="button" tabindex="0">Enter the Mirror</a>
 
     <nav aria-label="Primary Navigation">
       <a href="/about-miroir.html">About Miroir</a>
@@ -210,9 +210,8 @@
       <a href="/truth-tools.html">Truth Tools</a>
       <a href="/living-archive.html">Living Archive</a>
       <a href="/performative-data.html">Performative Data</a>
-      <a href="/publications.html">Publications</a> <!-- Link only, no cover here -->
+      <a href="/publications.html">Publications</a>
     </nav>
-
   </div>
 
   <!-- Background ambient music -->
@@ -251,7 +250,7 @@
       isPlaying = !isPlaying;
     });
 
-    // Responsive canvas setup for particles
+    // Canvas animation
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
