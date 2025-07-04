@@ -5,79 +5,47 @@
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* Body & fonts */
     body {
       background: #000;
       color: #fff;
       margin: 0;
       padding: 30px 20px;
       font-family: Arial, sans-serif;
-    }
-
-    /* Header */
-    h1 {
       text-align: center;
+    }
+    h1 {
       color: #e50914;
       font-size: 2.5rem;
-      letter-spacing: 1.5px;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
       text-shadow: 0 0 10px #e50914;
     }
-
-    /* Grid gallery */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      max-width: 1000px;
+    .cover {
+      max-width: 400px;
       margin: 0 auto;
-    }
-
-    /* Publication card */
-    .card {
-      background: #111;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 0 15px #e50914;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none; /* remove underline from link */
-      color: inherit; /* keep text color */
+      border: 3px solid #e50914;
+      border-radius: 10px;
+      box-shadow: 0 0 25px #e50914;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
     }
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 35px #ff1a1a;
-    }
-
-    /* Images scale to container */
-    .card img {
+    .cover img {
       width: 100%;
       height: auto;
       display: block;
-      border-bottom: 3px solid #e50914;
-      border-radius: 12px 12px 0 0;
-      object-fit: contain;
+      border-radius: 7px;
     }
-
-    /* Caption */
+    .cover:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px #ff1a1a;
+    }
     .caption {
       color: #e50914;
       font-weight: bold;
-      font-size: 1.1rem;
-      padding: 15px;
-      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 15px;
       user-select: none;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 480px) {
-      .gallery {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
+      text-shadow: 0 0 8px #e50914;
     }
   </style>
 </head>
@@ -85,12 +53,10 @@
 
   <h1>Publications</h1>
 
-  <div class="gallery">
-    <a href="/triangle-formed-me.pdf" class="card" target="_blank" rel="noopener noreferrer" title="Open PDF: The Triangle That Formed Me">
-      <img src="/trianglecover.jpg" alt="Cover of The Triangle That Formed Me" />
-      <div class="caption">The Triangle That Formed Me</div>
-    </a>
-  </div>
+  <a href="/triangle-formed-me.pdf" target="_blank" rel="noopener noreferrer" class="cover" title="Open PDF: The Triangle That Formed Me">
+    <img src="/trianglecover.jpg" alt="The Triangle That Formed Me Cover" />
+    <div class="caption">The Triangle That Formed Me</div>
+  </a>
 
 </body>
 </html>
