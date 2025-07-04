@@ -4,73 +4,50 @@
   <meta charset="UTF-8" />
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Flipbook libraries -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/src/Style/stPageFlip.min.css">
+  
+  <!-- PageFlip Library -->
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css" />
 
   <style>
     body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Arial', sans-serif;
       background: #000;
       color: #fff;
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 40px 20px;
       text-align: center;
     }
 
     h1 {
       color: #e50914;
       margin-bottom: 30px;
-      text-transform: uppercase;
       font-size: 2rem;
     }
 
-    /* Thumbnail */
-    .cover-thumbnail {
-      width: 300px;
-      max-width: 90%;
-      border: 3px solid #e50914;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #e50914;
+    .cover {
+      max-width: 300px;
+      width: 100%;
       cursor: pointer;
+      box-shadow: 0 0 15px #e50914;
+      border-radius: 8px;
       transition: transform 0.3s ease;
-      margin-bottom: 30px;
     }
 
-    .cover-thumbnail:hover {
-      transform: scale(1.05);
+    .cover:hover {
+      transform: scale(1.03);
     }
 
-    /* Flipbook Container */
-    #flipbook-wrapper {
+    #flipbook-container {
       display: none;
-      margin: 0 auto;
-      max-width: 95vw;
+      margin: 40px auto;
+      max-width: 90vw;
     }
 
     #flipbook {
-      width: 800px;
+      width: 100%;
       height: 500px;
-      margin: 0 auto;
-    }
-
-    .page {
-      width: 100%;
-      height: 100%;
-    }
-
-    .page img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 5px;
-    }
-
-    .note {
-      color: #aaa;
-      font-size: 0.9rem;
-      margin-top: 20px;
+      margin: auto;
     }
   </style>
 </head>
@@ -78,56 +55,42 @@
 
   <h1>The Triangle That Formed Me</h1>
 
-  <!-- Clickable Thumbnail -->
-  <img src="/trianglecover.jpg" alt="Triangle Cover" class="cover-thumbnail" id="openFlipbook">
+  <!-- Cover Image -->
+  <img src="/trianglecover.jpg" alt="Open Flipbook" class="cover" id="openFlipbook" />
 
-  <!-- Flipbook Container -->
-  <div id="flipbook-wrapper">
+  <!-- Flipbook container -->
+  <div id="flipbook-container">
     <div id="flipbook"></div>
-    <div class="note">Click or drag pages to turn. Tap to navigate on mobile.</div>
   </div>
 
   <script>
     const openBtn = document.getElementById('openFlipbook');
-    const flipbookWrapper = document.getElementById('flipbook-wrapper');
-    const flipbookContainer = document.getElementById('flipbook');
-
-    const pages = [
-      "/triangle-pages/page1.jpg",
-      "/triangle-pages/page2.jpg",
-      "/triangle-pages/page3.jpg",
-      "/triangle-pages/page4.jpg"
-    ];
+    const flipbookContainer = document.getElementById('flipbook-container');
 
     openBtn.addEventListener('click', () => {
       openBtn.style.display = 'none';
-      flipbookWrapper.style.display = 'block';
+      flipbookContainer.style.display = 'block';
 
-      const pageElements = pages.map(src => {
-        const page = document.createElement("div");
-        page.className = "page";
-        const img = document.createElement("img");
-        img.src = src;
-        page.appendChild(img);
-        return page;
-      });
-
-      const pageFlip = new St.PageFlip(flipbookContainer, {
-        width: 600,
-        height: 500,
+      const pageFlip = new St.PageFlip(document.getElementById('flipbook'), {
+        width: 500,
+        height: 700,
         size: "stretch",
         minWidth: 315,
         maxWidth: 1000,
-        maxHeight: 1200,
         minHeight: 420,
+        maxHeight: 1350,
         maxShadowOpacity: 0.5,
         showCover: false,
         mobileScrollSupport: false
       });
 
-      pageFlip.loadFromHTML(pageElements);
+      pageFlip.loadFromImages([
+        "/triangle-pages/page1.jpg",
+        "/triangle-pages/page2.jpg",
+        "/triangle-pages/page3.jpg",
+        "/triangle-pages/page4.jpg"
+      ]);
     });
   </script>
-
 </body>
 </html>
