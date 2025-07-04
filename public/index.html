@@ -35,6 +35,7 @@
       margin: auto;
     }
 
+    /* Logo */
     .logo {
       width: 140px;
       max-width: 60%;
@@ -53,6 +54,7 @@
       }
     }
 
+    /* Quote */
     .quote {
       font-size: 1.3rem;
       line-height: 1.6;
@@ -69,6 +71,7 @@
       cursor: default;
     }
 
+    /* Call to action button */
     .cta-button {
       display: inline-block;
       padding: 14px 40px;
@@ -94,6 +97,7 @@
       outline: none;
     }
 
+    /* Navigation bar */
     nav {
       margin-top: 50px;
       display: flex;
@@ -130,6 +134,61 @@
       width: 100%;
     }
 
+    /* Background subtle animated gradient */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
+      opacity: 0.05;
+      animation: pulseBackground 10s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+    @keyframes pulseBackground {
+      0% {
+        opacity: 0.05;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0.15;
+        transform: scale(1.05);
+      }
+    }
+
+    /* Music toggle button */
+    #musicToggle {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #e50914;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s ease;
+      z-index: 10;
+      user-select: none;
+    }
+    #musicToggle:hover {
+      box-shadow: 0 0 30px #ff1a1a;
+    }
+    #musicToggle svg {
+      fill: #fff;
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+    }
+
+    /* Hamburger menu toggle */
     .menu-toggle {
       position: fixed;
       top: 20px;
@@ -154,6 +213,7 @@
       background: #e50914;
     }
 
+    /* Mobile menu */
     .menu {
       position: fixed;
       top: 65px;
@@ -185,67 +245,19 @@
         display: none;
       }
     }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
-      opacity: 0.05;
-      animation: pulseBackground 10s ease-in-out infinite alternate;
-      z-index: -1;
-      pointer-events: none;
-    }
-    @keyframes pulseBackground {
-      0% {
-        opacity: 0.05;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0.15;
-        transform: scale(1.05);
-      }
-    }
-
-    #musicToggle {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #e50914;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 15px #ff1a1a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.3s ease;
-      z-index: 10;
-      user-select: none;
-    }
-    #musicToggle:hover {
-      box-shadow: 0 0 30px #ff1a1a;
-    }
-    #musicToggle svg {
-      fill: #fff;
-      width: 28px;
-      height: 28px;
-      pointer-events: none;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Hamburger Toggle + Mobile Menu -->
+  <!-- Hamburger menu toggle -->
   <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" tabindex="0">
-    <span></span><span></span><span></span>
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
-  <div class="menu" id="mobileMenu">
+
+  <!-- Mobile navigation menu -->
+  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Mobile Navigation Menu">
     <a href="/about-miroir.html">About Miroir</a>
     <a href="/my-mirror.html">My Mirror</a>
     <a href="/our-voices.html">Our Voices</a>
@@ -253,17 +265,22 @@
     <a href="/living-archive.html">Living Archive</a>
     <a href="/performative-data.html">Performative Data</a>
     <a href="/publications.html">Publications</a>
-  </div>
+  </nav>
 
+  <!-- Background Canvas -->
   <canvas id="bgCanvas"></canvas>
 
+  <!-- Main container -->
   <div class="container" role="main" aria-label="Miroir homepage main content">
     <img src="/miroir.png" alt="Miroir Logo" class="logo" />
+
     <div class="quote" aria-live="polite">
       A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.
     </div>
+
     <a href="/about-miroir.html" class="cta-button" role="button" tabindex="0">Enter the Mirror</a>
-    <nav>
+
+    <nav aria-label="Primary Navigation">
       <a href="/about-miroir.html">About Miroir</a>
       <a href="/my-mirror.html">My Mirror</a>
       <a href="/our-voices.html">Our Voices</a>
@@ -274,10 +291,12 @@
     </nav>
   </div>
 
+  <!-- Background ambient music -->
   <audio id="bgMusic" loop preload="auto">
     <source src="/relaxing-electronic-ambient-music-354471.mp3" type="audio/mpeg" />
   </audio>
 
+  <!-- Music toggle button -->
   <button id="musicToggle" aria-pressed="false" aria-label="Toggle background music" title="Play/Pause ambient music">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
@@ -285,6 +304,13 @@
   </button>
 
   <script>
+    // Hamburger toggle function
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    // Music toggle logic
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
     let isPlaying = false;
@@ -293,20 +319,22 @@
       if (isPlaying) {
         bgMusic.pause();
         musicToggle.setAttribute('aria-pressed', 'false');
-        musicToggle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"></path></svg>`;
+        musicToggle.innerHTML = `
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
+          </svg>`;
       } else {
         bgMusic.play();
         musicToggle.setAttribute('aria-pressed', 'true');
-        musicToggle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>`;
+        musicToggle.innerHTML = `
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+          </svg>`;
       }
       isPlaying = !isPlaying;
     });
 
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-    }
-
+    // Canvas background animation
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -316,7 +344,9 @@
     const colors = ['#e50914', '#ff1a1a', '#fff'];
 
     class Particle {
-      constructor() { this.reset(); }
+      constructor() {
+        this.reset();
+      }
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
@@ -348,7 +378,10 @@
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update(); p.draw(); });
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
       requestAnimationFrame(animateParticles);
     }
 
@@ -360,5 +393,6 @@
       canvas.height = window.innerHeight;
     });
   </script>
+
 </body>
 </html>
