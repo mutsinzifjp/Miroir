@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <title>Reflections | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
+      font-family: 'Montserrat', sans-serif;
       background: #000;
       color: #fff;
-      font-family: 'Arial', sans-serif;
       overflow-x: hidden;
     }
 
@@ -18,19 +19,20 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      z-index: 1000;
+      z-index: 1001;
       background: transparent;
       border: 2px solid #e50914;
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 8px;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
+      gap: 4px;
       box-shadow: 0 0 10px #e50914;
     }
 
     .menu-toggle span {
+      display: block;
       width: 24px;
       height: 2px;
       background: #e50914;
@@ -38,80 +40,104 @@
 
     .menu {
       position: fixed;
-      top: 70px;
+      top: 65px;
       right: 20px;
       background: #111;
       border: 1px solid #e50914;
-      border-radius: 10px;
       padding: 15px 20px;
+      border-radius: 10px;
       display: none;
       flex-direction: column;
-      gap: 15px;
-      z-index: 999;
-      box-shadow: 0 0 20px #e50914;
+      gap: 12px;
+      z-index: 1002;
+      box-shadow: 0 0 15px #e50914;
     }
 
     .menu a {
       color: #fff;
-      font-weight: 600;
       text-decoration: none;
-      transition: color 0.2s ease;
+      font-weight: 600;
     }
 
     .menu a:hover {
       color: #e50914;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 100px auto 60px;
-      padding: 0 20px;
+    header {
+      text-align: center;
+      padding: 80px 20px 30px;
     }
 
-    h1 {
+    header h1 {
+      font-family: 'Unbounded', cursive;
       color: #e50914;
-      text-align: center;
+      font-size: 2.5rem;
       margin-bottom: 10px;
-      font-size: 2.2rem;
-      letter-spacing: 1px;
     }
 
-    .intro {
-      text-align: center;
-      font-size: 1.1rem;
+    header p {
+      font-size: 1.2rem;
       color: #ccc;
+      max-width: 700px;
+      margin: 0 auto;
       line-height: 1.6;
-      margin-bottom: 40px;
     }
 
-    .reflection {
+    .reflection-card {
       background: #111;
-      border-left: 4px solid #e50914;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 10px #e50914;
+      border-left: 5px solid #e50914;
+      margin: 50px auto;
+      max-width: 800px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #e50914;
+      padding: 30px 25px;
+      animation: fadeInUp 1.5s ease;
     }
 
-    .reflection h2 {
-      color: #ff1a1a;
-      font-size: 1.5rem;
+    .reflection-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #e50914;
       margin-bottom: 10px;
+      font-family: 'Unbounded', cursive;
     }
 
-    .reflection p {
-      font-size: 1.05rem;
+    .reflection-content {
+      font-size: 1.1rem;
       line-height: 1.7;
-      color: #ddd;
+      color: #eee;
+      font-style: italic;
+      position: relative;
+    }
+
+    .reflection-content::before {
+      content: "✦";
+      position: absolute;
+      top: 0;
+      left: -25px;
+      font-size: 1.5rem;
+      color: #ff1a1a;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: #666;
     }
 
     @media (max-width: 600px) {
-      .container {
-        padding: 0 15px;
+      .reflection-card {
+        padding: 20px 15px;
+        margin: 30px 10px;
       }
-
-      h1 {
-        font-size: 1.8rem;
+      header h1 {
+        font-size: 2rem;
       }
     }
   </style>
@@ -126,7 +152,7 @@
 </div>
 
 <!-- Menu -->
-<div class="menu" id="mobileMenu">
+<nav class="menu" id="mobileMenu">
   <a href="/about-miroir.html">About Miroir</a>
   <a href="/my-mirror.html">My Miroir</a>
   <a href="/our-voices.html">Our Voices</a>
@@ -134,30 +160,31 @@
   <a href="/living-archive.html">Living Archive</a>
   <a href="/reflections.html">Reflections</a>
   <a href="/publications.html">Publications</a>
-</div>
+</nav>
 
-<div class="container">
+<header>
   <h1>Reflections</h1>
-  <div class="intro">
-    This section is a living, evolving room where thoughts breathe. It holds philosophical, emotional, and spiritual reflections—
-    especially those that challenge systems of conditioning and reclaim human dignity. These are not final truths. They are openings. Entry points. Mirrors.
-  </div>
+  <p>This section is not neutral. These are moments when I pause and see the echoes inside me. Raw thoughts, visual truths, and whispers that don’t fit into data or categories — but still matter.</p>
+</header>
 
-  <div class="reflection">
-    <h2>Systems Taught Me to Hate Difference</h2>
-    <p>
-      I was taught to fear and hate what I didn't understand. Religion made me believe that LGBTQ+ was the highway to hell. School never let me live the concepts of gender roles—
-      only repeat them in exams. I was denied the truth, the nuance, the experience.
-    </p>
-    <p>
-      The media told me freedom comes with a rainbow but refused to let me breathe in that freedom. It told me that breaking gender norms equals becoming deviant.
-      I lived in this fog, built by systems that never asked who I am—only who I must pretend to be.
-    </p>
-    <p>
-      Now, I ask: who shall I believe? Where shall I go? The answer comes gently: I am still becoming. This is not shame. It’s awakening.
-    </p>
+<!-- First Reflection -->
+<section class="reflection-card">
+  <div class="reflection-title">Where Do I Go Now?</div>
+  <div class="reflection-content">
+    Religion taught me that being different was evil.<br/>
+    School taught me nothing real about gender — just words to memorize.<br/>
+    Media taught me rainbow meant freedom, but never let me feel it.<br/><br/>
+    I was trained to fear difference, to mock softness, to forget nuance.<br/>
+    But now… I stand unsure, still unhealed, still becoming.<br/>
+    Where do I go now? Who do I trust?<br/><br/>
+    I still don’t know.<br/>
+    But I know this: <strong style="color:#fff;">I won’t become what made me silent.</strong>
   </div>
-</div>
+</section>
+
+<footer>
+  &copy; 2025 Miroir by Fils Jean Pierre Mutsinzi. All reflections are protected by memory, truth, and dignity.
+</footer>
 
 <script>
   function toggleMenu() {
