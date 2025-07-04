@@ -15,6 +15,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -92,29 +93,130 @@
         font-size: 1rem;
       }
     }
+
+    /* Hamburger menu toggle */
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    /* Menu container */
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px #e50914;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #e50914;
+    }
+
+    /* Glowing background animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
+      opacity: 0.05;
+      animation: pulseBackground 10s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes pulseBackground {
+      0% { opacity: 0.05; transform: scale(1); }
+      100% { opacity: 0.15; transform: scale(1.05); }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Hamburger menu button -->
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Menu -->
+  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/my-mirror.html">My Mirror</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/performative-data.html">Performative Data</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
+
+  <!-- Page title -->
   <h1>Publications</h1>
 
+  <!-- Publications grid -->
   <section class="grid" aria-label="Published Works">
-    <!-- Triangle That Formed Me -->
+    <!-- Publication 1 -->
     <a href="/triangle-formed-me.pdf" target="_blank" rel="noopener noreferrer" class="cover" title="Open PDF: The Triangle That Formed Me">
       <img src="/trianglecover.jpg" alt="The Triangle That Formed Me Cover" />
       <div class="caption">The Triangle That Formed Me</div>
     </a>
 
-    <!-- OSF Preprint - Crossing the Threshold -->
+    <!-- Publication 2 -->
     <a href="https://doi.org/10.31219/osf.io/nwydk_v1" target="_blank" rel="noopener noreferrer" class="cover" title="View OSF Preprint: Crossing the Threshold">
       <img src="/unboxedcover.png" alt="Crossing the Threshold Preprint Cover" />
       <div class="caption">Crossing the Threshold (Preprint)</div>
     </a>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
   </footer>
+
+  <!-- JavaScript for menu toggle -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+  </script>
 
 </body>
 </html>
