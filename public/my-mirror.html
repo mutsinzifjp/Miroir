@@ -19,7 +19,7 @@
 
     .centered-header {
       text-align: center;
-      margin: 40px 0 30px;
+      margin: 40px 0 20px;
     }
 
     .logo-glow {
@@ -41,10 +41,12 @@
       margin: 10px 0 5px;
     }
 
-    .subtitle {
+    .subtitle, .connect {
       font-size: 1rem;
       color: #ccc;
-      margin: 0;
+      margin: 0 auto 25px;
+      max-width: 700px;
+      text-align: center;
     }
 
     .gallery {
@@ -84,6 +86,27 @@
       font-weight: bold;
       font-size: 1rem;
       text-align: center;
+    }
+
+    .description {
+      text-align: center;
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .connect a {
+      color: #e50914;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 10px;
+    }
+
+    .connect a:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -133,12 +156,25 @@
   </style>
 </head>
 <body>
-
   <header class="centered-header">
     <img src="/miroir.png" alt="Miroir Logo" class="logo-glow" />
     <h1 class="glow-title">My Mirror</h1>
-    <p class="subtitle">Butoh Performance Series – Truth in Motion</p>
+    <p class="subtitle">This space holds my Butoh performances and opera renditions. Each piece is not an act, it is a message, a question, a reflection. Here, I perform truth with my body. Through Butoh, I reclaim what was silenced. Through opera, I shatter the gender scripts assigned to voice and form.</p>
+    <p class="connect">
+      Connect with me:
+      <a href="https://www.linkedin.com/in/filsjeanpierremutsinzi" target="_blank">LinkedIn</a> |
+      <a href="https://www.instagram.com/fils_brandy" target="_blank">Instagram</a>
+    </p>
   </header>
+
+  <div class="description">
+    <p><strong>Carmen:</strong> Performed in femme voice and attire, this is a rebellion against rigid masculinity. Expect confrontation, seduction, and satire of gendered power.</p>
+    <p><strong>Reclaiming Lost Childhood:</strong> A visual cry for what was stolen. Expect vulnerability, resistance, and the sacred rage of innocence rediscovered.</p>
+    <p><strong>O Fortuna:</strong> The fury of fate and divine injustice. Expect raw physicality and sacred chaos.</p>
+    <p><strong>Der Holle:</strong> Descent into society’s judgment. Expect dark satire and confrontations with moral hypocrisy.</p>
+    <p><strong>Lacrimosa:</strong> A mourning song for silenced souls. Expect sacred grief and resilience through embodied lamentation.</p>
+    <p><strong>Crossing the Threshold:</strong> A passage ritual. Expect transformation and a goodbye to the past self that conformed.</p>
+  </div>
 
   <main>
     <section class="gallery" aria-label="Butoh Performances">
@@ -162,7 +198,7 @@
         <img src="/lacrimosa.jpeg" alt="Lacrimosa" />
         <div class="caption">Lacrimosa</div>
       </a>
-      <a href="https://www.instagram.com/reel/DI4HG8Es1Od/?utm_source=ig_web_copy_link&igsh=cWdtaTc5OWdhNnVz" class="card" target="_blank">
+      <a href="https://www.instagram.com/reel/DI4HG8Es1Od/" class="card" target="_blank">
         <img src="/crossing.jpeg" alt="Crossing the Threshold" />
         <div class="caption">Crossing the Threshold</div>
       </a>
@@ -180,6 +216,5 @@
     </nav>
     <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
   </footer>
-
 </body>
 </html>
