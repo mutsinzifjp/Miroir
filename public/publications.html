@@ -5,47 +5,57 @@
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- PageFlip Styles and Script -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/page-flip.browser.min.js"></script>
+
   <style>
     body {
       background: #000;
       color: #fff;
       font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 30px 20px;
+      padding: 40px 20px;
       text-align: center;
     }
 
     h1 {
       color: #e50914;
       margin-bottom: 20px;
-      font-size: 2rem;
-      text-shadow: 0 0 10px #e50914;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 5px #e50914;
+    }
+
+    .flipbook-wrapper {
+      max-width: 90vw;
+      margin: 0 auto;
+    }
+
+    #flipbook {
+      width: 600px;
+      height: 400px;
+      margin: 30px auto;
     }
 
     .cover-image {
-      max-width: 320px;
-      width: 90%;
-      margin: 20px auto;
+      width: 200px;
       border: 3px solid #e50914;
-      box-shadow: 0 0 15px #e50914;
       border-radius: 8px;
+      box-shadow: 0 0 15px #e50914;
       cursor: pointer;
       transition: transform 0.3s ease;
-      display: block;
+      margin-bottom: 20px;
     }
 
     .cover-image:hover {
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
 
-    #flipbookEmbed {
-      display: none;
-      margin-top: 40px;
-    }
-
-    @media screen and (max-width: 768px) {
-      iframe, .fp-embed {
-        height: 500px !important;
+    @media (max-width: 650px) {
+      #flipbook {
+        width: 90vw;
+        height: 300px;
       }
     }
   </style>
@@ -54,27 +64,37 @@
 
   <h1>The Triangle That Formed Me</h1>
 
- <!-- Glowing Thumbnail that opens lightbox flipbook -->
-<a href="https://7fa5079c-trial.flowpaper.com/triangleformedme/"
-   class="fp-embed"
-   lightbox="true"
-   data-fp-width="1000"
-   data-fp-height="700"
-   style="display: inline-block; text-align: center;">
-  <img src="/trianglecover.jpg"
-       alt="Triangle Cover"
-       style="max-width: 300px;
-              border: 3px solid #e50914;
-              border-radius: 10px;
-              box-shadow: 0 0 20px #e50914;
-              transition: transform 0.3s ease;
-              cursor: pointer;" />
-</a>
+  <!-- Optional cover image above -->
+  <img src="/trianglecover.jpg" alt="Triangle Cover" class="cover-image" />
 
-<!-- Lightbox script -->
-<script async defer src="https://cdn-online.flowpaper.com/zine/3.9.1/js/embed.min.js"></script>
-
+  <!-- Flipbook container -->
+  <div class="flipbook-wrapper">
+    <div id="flipbook"></div>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const flipbook = new St.PageFlip(
+        document.getElementById("flipbook"),
+        {
+          width: 600,
+          height: 400,
+          size: "stretch",
+          showCover: true,
+          mobileScrollSupport: true,
+          maxShadowOpacity: 0.4,
+          useMouseEvents: true,
+        }
+      );
+
+      // Load image pages (update list if more pages)
+      flipbook.loadFromImages([
+        "/triangle-pages/page1.jpg",
+        "/triangle-pages/page2.jpg",
+        "/triangle-pages/page3.jpg",
+        "/triangle-pages/page4.jpg"
+      ]);
+    });
+  </script>
 </body>
 </html>
