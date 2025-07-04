@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reflections | Miroir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    .menu {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      border-radius: 10px;
+      padding: 15px 20px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 999;
+      box-shadow: 0 0 20px #e50914;
+    }
+
+    .menu a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #e50914;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 100px auto 60px;
+      padding: 0 20px;
+    }
+
+    h1 {
+      color: #e50914;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .reflection {
+      background: #111;
+      border-left: 4px solid #e50914;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .reflection h2 {
+      color: #ff1a1a;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .reflection p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #ddd;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 15px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hamburger -->
+<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Menu -->
+<div class="menu" id="mobileMenu">
+  <a href="/about-miroir.html">About Miroir</a>
+  <a href="/my-mirror.html">My Miroir</a>
+  <a href="/our-voices.html">Our Voices</a>
+  <a href="/truth-tools.html">Truth Tools</a>
+  <a href="/living-archive.html">Living Archive</a>
+  <a href="/reflections.html">Reflections</a>
+  <a href="/publications.html">Publications</a>
+</div>
+
+<div class="container">
+  <h1>Reflections</h1>
+  <div class="intro">
+    This section is a living, evolving room where thoughts breathe. It holds philosophical, emotional, and spiritual reflections—
+    especially those that challenge systems of conditioning and reclaim human dignity. These are not final truths. They are openings. Entry points. Mirrors.
+  </div>
+
+  <div class="reflection">
+    <h2>Systems Taught Me to Hate Difference</h2>
+    <p>
+      I was taught to fear and hate what I didn't understand. Religion made me believe that LGBTQ+ was the highway to hell. School never let me live the concepts of gender roles—
+      only repeat them in exams. I was denied the truth, the nuance, the experience.
+    </p>
+    <p>
+      The media told me freedom comes with a rainbow but refused to let me breathe in that freedom. It told me that breaking gender norms equals becoming deviant.
+      I lived in this fog, built by systems that never asked who I am—only who I must pretend to be.
+    </p>
+    <p>
+      Now, I ask: who shall I believe? Where shall I go? The answer comes gently: I am still becoming. This is not shame. It’s awakening.
+    </p>
+  </div>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
+</script>
+
+</body>
+</html>
