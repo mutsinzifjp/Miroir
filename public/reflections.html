@@ -5,59 +5,262 @@
   <title>Reflections | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      font-family: 'Arial', sans-serif;
       background: #000;
       color: #fff;
-      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
     }
 
     .container {
+      position: relative;
+      z-index: 1;
       max-width: 900px;
       margin: 80px auto;
-      padding: 0 20px;
+      padding: 0 20px 60px;
       text-align: center;
     }
 
+    .logo {
+      width: 140px;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #e50914);
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
+      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
+    }
+
+    h1.title {
+      font-size: 2.5rem;
+      color: #e50914;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      text-shadow: 0 0 15px #e50914;
+      letter-spacing: 1px;
+    }
+
     .intro {
-      font-size: 1.2rem;
-      line-height: 1.6;
+      font-size: 1.1rem;
       color: #ddd;
-      margin-bottom: 40px;
+      line-height: 1.6;
+      margin-bottom: 50px;
     }
 
     .visual-reflection {
       max-width: 100%;
-      height: auto;
-      margin-bottom: 60px;
-      animation: fadeInZoom 2s ease forwards;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #e50914;
+      animation: zoomFadeIn 2s ease-out forwards;
       opacity: 0;
     }
 
-    @keyframes fadeInZoom {
-      0% {
-        transform: scale(0.95);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    @keyframes zoomFadeIn {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    @media screen and (max-width: 768px) {
-      .intro {
-        font-size: 1rem;
-      }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #888;
+      font-size: 0.9rem;
+      background: transparent;
+      z-index: 1;
+    }
+
+    footer p {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Hamburger Menu */
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px #e50914;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #e50914;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
+      opacity: 0.05;
+      animation: pulseBackground 10s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes pulseBackground {
+      0% { opacity: 0.05; transform: scale(1); }
+      100% { opacity: 0.15; transform: scale(1.05); }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <p class="intro"><em>This chamber is not neutral.</em> These are moments when I pause and see the echoes inside me. Raw thoughts, visual truths, and whispers that don’t fit into data or categories — but still matter.</p>
 
-    <img src="/reflect1.png" alt="A reflective visual about truth and internalized norms" class="visual-reflection" />
-  </div>
+<canvas id="bgCanvas"></canvas>
+
+<!-- Hamburger -->
+<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Navigation Menu -->
+<nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+  <a href="/">Home</a>
+  <a href="/about-miroir.html">About Miroir</a>
+  <a href="/my-mirror.html">My Miroir</a>
+  <a href="/our-voices.html">Our Voices</a>
+  <a href="/truth-tools.html">Truth Tools</a>
+  <a href="/reflections.html">Reflections</a>
+  <a href="/living-archive.html">Living Archive</a>
+  <a href="/publications.html">Publications</a>
+</nav>
+
+<!-- Content -->
+<div class="container">
+  <img src="/miroir.png" alt="Miroir Logo" class="logo" />
+  <h1 class="title">Reflections</h1>
+  <p class="intro"><em>This chamber is not neutral.</em> These are moments when I pause and see the echoes inside me. Raw thoughts, visual truths, and whispers that don’t fit into data or categories — but still matter.</p>
+
+  <img src="/reflect1.png" alt="Reflection Poster" class="visual-reflection" />
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Miroir Project by Fils Jean Pierre Mutsinzi. All rights reserved.</p>
+  <p>
+    No part of this site may be reproduced, stored, or transmitted in any form without prior permission,
+    except for fair use for non-commercial truth-seeking and educational purposes.<br>
+    Miroir is a human dignity-centered truth archive.
+  </p>
+</footer>
+
+<!-- JS -->
+<script>
+  // Menu toggle
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
+
+  // Particle background
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  const colors = ['#e50914', '#ff1a1a', '#fff'];
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+    }
+  }
+
+  function initParticles() {
+    for (let i = 0; i < 100; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+
+  initParticles();
+  animateParticles();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
 </body>
 </html>
