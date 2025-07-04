@@ -20,6 +20,7 @@
     .centered-header {
       text-align: center;
       margin: 40px 0 20px;
+      user-select: none;
     }
 
     .logo-glow {
@@ -54,9 +55,10 @@
       line-height: 1.6;
       color: #ddd;
       text-align: center;
+      user-select: text;
     }
 
-    /* New Miroir Explanation Section */
+    /* Miroir Explanation Section */
     .miroir-explanation {
       max-width: 800px;
       margin: 0 auto 40px;
@@ -69,6 +71,7 @@
       box-shadow: 0 0 10px #e50914;
       border-radius: 6px;
       background: #111;
+      user-select: text;
     }
 
     .performance-title {
@@ -78,6 +81,7 @@
       margin-top: 30px;
       margin-bottom: 8px;
       text-shadow: 0 0 8px #e50914;
+      user-select: none;
     }
 
     .gallery {
@@ -98,17 +102,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      user-select: none;
     }
 
-    .card:hover {
+    .card:hover,
+    .card:focus-visible {
       transform: scale(1.05);
       box-shadow: 0 0 25px #ff1a1a;
+      outline: none;
     }
 
     .card img {
       width: 100%;
       display: block;
       border-bottom: 3px solid #e50914;
+      pointer-events: none;
+      user-select: none;
     }
 
     .caption {
@@ -117,6 +126,7 @@
       font-weight: bold;
       font-size: 1rem;
       text-align: center;
+      user-select: none;
     }
 
     .connect {
@@ -124,11 +134,17 @@
       margin-top: 40px;
       color: #ccc;
       font-size: 1rem;
+      user-select: text;
     }
     .connect a {
       color: #e50914;
       text-decoration: none;
       font-weight: bold;
+    }
+    .connect a:hover,
+    .connect a:focus-visible {
+      text-decoration: underline;
+      outline: none;
     }
 
     footer {
@@ -137,6 +153,7 @@
       padding: 25px 10px 20px;
       color: #888;
       font-size: 0.9rem;
+      user-select: none;
     }
 
     /* Hamburger toggle */
@@ -155,6 +172,7 @@
       justify-content: center;
       gap: 4px;
       box-shadow: 0 0 10px #e50914;
+      user-select: none;
     }
 
     .menu-toggle span {
@@ -178,6 +196,7 @@
       gap: 12px;
       z-index: 12;
       box-shadow: 0 0 15px #e50914;
+      user-select: none;
     }
 
     .menu a {
@@ -187,8 +206,10 @@
       transition: color 0.2s ease;
     }
 
-    .menu a:hover {
+    .menu a:hover,
+    .menu a:focus-visible {
       color: #e50914;
+      outline: none;
     }
 
     @media (max-width: 500px) {
@@ -207,7 +228,7 @@
 <body>
 
   <!-- Hamburger Menu -->
-  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" role="button" tabindex="0" onkeypress="if(event.key==='Enter'){ toggleMenu(); }">
     <span></span>
     <span></span>
     <span></span>
@@ -231,66 +252,68 @@
     <p class="subtitle">Butoh, Opera, and Rewriting the Truth</p>
   </header>
 
-  <div class="intro-text">
-    This mirror reflects not just who I am but everything society told me not to be. Each piece here is a gesture, a scream, a whisper, a moment I reclaimed through Butoh and opera. I move not to entertain, but to break silences. I sing not to impress, but to resurrect memories buried under fear.
-  </div>
-
-  <section class="miroir-explanation" aria-label="What is Miroir?">
-    <p><strong>Miroir</strong> is not just any mirror. It is the opposite of the fake, distorted mirrors society forces upon us, those that twist our identity, silence our truths, and trap us in illusions. Those fake mirrors reflect expectations, roles, and lies. They demand conformity, erase rebellion, and punish difference.</p>
-    <p>My Miroir is a living, breathing self toward self-awareness. It is the mirror I hold up to myself and to the world, a mirror that breaks the false reflections and reveals the raw, unfiltered truth. This mirror does not judge or hide; it challenges and awakens.</p>
-    <p>Through this mirror, I invite you to see yourself, not as the world expects you, but as you truly are. It is a space of reflection and rebellion, memory and healing—a mirror for anyone brave enough to face the uncomfortable truth and reclaim their humanity.</p>
-  </section>
-
-  <section aria-label="Performance Descriptions" style="margin-bottom: 30px;">
+  <main>
     <div class="intro-text">
-      <p class="performance-title">Carmen</p>
-      <p>In this operatic performance, I embody the seduction of power and the punishment of desire. Carmen has always been misunderstood. I let her live in my own voice and in the haunting fire of rebellion.</p>
-
-      <p class="performance-title">Reclaiming Lost Childhood</p>
-      <p>This Butoh was born from grief, the moments stolen by trauma, by shame, by forced conformity. I present how society wanted to erase my real identity by punishing, mocking, and bullying me, but I refused to be caged.</p>
-
-      <p class="performance-title">O Fortuna</p>
-      <p>Here, I surrender to the forces of fate, screaming through movement that I was never meant to be quiet. It is also a stormy and unfiltered truth exposing existing moral hypocrisy.</p>
-
-      <p class="performance-title">Der Holle</p>
-      <p>Through this I visit the darkness society builds around femme bodies, queer souls, and sacred rage. The underworld is not hell. It is truth unleashed.</p>
-
-      <p class="performance-title">Lacrimosa</p>
-      <p>My weeping body in this Butoh channels the grief of exile. From churches, families, and nations. Every tear here carries a hymn.</p>
-
-      <p class="performance-title">Crossing the Threshold</p>
-      <p>I wear a skirt, not to be seen, but to see who dares to look. This performance was a field study, a protest, a prayer. I crossed not just a physical line, but a social one.</p>
+      This mirror reflects not just who I am but everything society told me not to be. Each piece here is a gesture, a scream, a whisper, a moment I reclaimed through Butoh and opera. I move not to entertain, but to break silences. I sing not to impress, but to resurrect memories buried under fear.
     </div>
-  </section>
 
-  <section class="gallery" aria-label="Butoh Performances">
-    <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank" rel="noopener noreferrer">
-      <img src="/carmen.jpeg" alt="Carmen Performance" />
-      <div class="caption">Carmen</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" class="card" target="_blank" rel="noopener noreferrer">
-      <img src="/lostchildhood.jpeg" alt="Reclaiming Lost Childhood" />
-      <div class="caption">Reclaiming Lost Childhood</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJd8s_4TfJP/" class="card" target="_blank" rel="noopener noreferrer">
-      <img src="/ofortuna.jpeg" alt="O Fortuna" />
-      <div class="caption">O Fortuna</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank" rel="noopener noreferrer">
-      <img src="/derholle.jpeg" alt="Der Holle" />
-      <div class="caption">Der Holle</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJimNzNMOtL/" class="card" target="_blank" rel="noopener noreferrer">
-      <img src="/lacrimosa.jpeg" alt="Lacrimosa" />
-      <div class="caption">Lacrimosa</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DI4HG8Es1Od/?utm_source=ig_web_copy_link&igsh=cWdtaTc5OWdhNnVz" class="card" target="_blank" rel="noopener noreferrer">
-      <img src="/crossing.jpeg" alt="Crossing the Threshold" />
-      <div class="caption">Crossing the Threshold</div>
-    </a>
-  </section>
+    <section class="miroir-explanation" aria-label="What is Miroir?">
+      <p><strong>Miroir</strong> is not just any mirror. It is the opposite of the fake, distorted mirrors society forces upon us, those that twist our identity, silence our truths, and trap us in illusions. Those fake mirrors reflect expectations, roles, and lies. They demand conformity, erase rebellion, and punish difference.</p>
+      <p>My Miroir is a living, breathing self toward self-awareness. It is the mirror I hold up to myself and to the world, a mirror that breaks the false reflections and reveals the raw, unfiltered truth. This mirror does not judge or hide; it challenges and awakens.</p>
+      <p>Through this mirror, I invite you to see yourself, not as the world expects you, but as you truly are. It is a space of reflection and rebellion, memory and healing—a mirror for anyone brave enough to face the uncomfortable truth and reclaim their humanity.</p>
+    </section>
 
-  <div class="connect">
+    <section aria-label="Performance Descriptions" style="margin-bottom: 30px;">
+      <div class="intro-text">
+        <p class="performance-title">Carmen</p>
+        <p>In this operatic performance, I embody the seduction of power and the punishment of desire. Carmen has always been misunderstood. I let her live in my own voice and in the haunting fire of rebellion.</p>
+
+        <p class="performance-title">Reclaiming Lost Childhood</p>
+        <p>This Butoh was born from grief, the moments stolen by trauma, by shame, by forced conformity. I present how society wanted to erase my real identity by punishing, mocking, and bullying me, but I refused to be caged.</p>
+
+        <p class="performance-title">O Fortuna</p>
+        <p>Here, I surrender to the forces of fate, screaming through movement that I was never meant to be quiet. It is also a stormy and unfiltered truth exposing existing moral hypocrisy.</p>
+
+        <p class="performance-title">Der Holle</p>
+        <p>Through this I visit the darkness society builds around femme bodies, queer souls, and sacred rage. The underworld is not hell. It is truth unleashed.</p>
+
+        <p class="performance-title">Lacrimosa</p>
+        <p>My weeping body in this Butoh channels the grief of exile. From churches, families, and nations. Every tear here carries a hymn.</p>
+
+        <p class="performance-title">Crossing the Threshold</p>
+        <p>I wear a skirt, not to be seen, but to see who dares to look. This performance was a field study, a protest, a prayer. I crossed not just a physical line, but a social one.</p>
+      </div>
+    </section>
+
+    <section class="gallery" aria-label="Butoh Performances">
+      <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/carmen.jpeg" alt="Carmen Performance" />
+        <div class="caption">Carmen</div>
+      </a>
+      <a href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/lostchildhood.jpeg" alt="Reclaiming Lost Childhood" />
+        <div class="caption">Reclaiming Lost Childhood</div>
+      </a>
+      <a href="https://www.instagram.com/reel/DJd8s_4TfJP/" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/ofortuna.jpeg" alt="O Fortuna" />
+        <div class="caption">O Fortuna</div>
+      </a>
+      <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/derholle.jpeg" alt="Der Holle" />
+        <div class="caption">Der Holle</div>
+      </a>
+      <a href="https://www.instagram.com/reel/DJimNzNMOtL/" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/lacrimosa.jpeg" alt="Lacrimosa" />
+        <div class="caption">Lacrimosa</div>
+      </a>
+      <a href="https://www.instagram.com/reel/DI4HG8Es1Od/?utm_source=ig_web_copy_link&igsh=cWdtaTc5OWdhNnVz" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
+        <img src="/crossing.jpeg" alt="Crossing the Threshold" />
+        <div class="caption">Crossing the Threshold</div>
+      </a>
+    </section>
+  </main>
+
+  <div class="connect" tabindex="0">
     If any of these resonates with you, I’d love to connect. You’ll find me writing, dancing, resisting, always human, on 
     <a href="https://www.linkedin.com/in/filsjeanpierremutsinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a> and 
     <a href="https://www.instagram.com/fils_brandy" target="_blank" rel="noopener noreferrer">Instagram</a>.
@@ -309,6 +332,7 @@
         menu.style.display = 'none';
       } else {
         menu.style.display = 'flex';
+        menu.style.flexDirection = 'column';
       }
     }
   </script>
