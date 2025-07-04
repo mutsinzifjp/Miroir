@@ -53,9 +53,10 @@
 
     .intro {
       font-size: 1.2rem;
-      line-height: 1.6;
+      line-height: 1.7;
       color: #ddd;
       margin-bottom: 40px;
+      text-align: left;
     }
 
     .pillars {
@@ -128,7 +129,6 @@
       width: 100%;
     }
 
-    /* Background particle animation */
     body::before {
       content: "";
       position: fixed;
@@ -148,12 +148,30 @@
       100% { opacity: 0.15; transform: scale(1.05); }
     }
 
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #888;
+      font-size: 0.95rem;
+      background: transparent;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    footer p {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
     @media screen and (max-width: 768px) {
       .pillars {
         gap: 20px;
       }
       .pillar {
         padding: 16px;
+      }
+      .intro {
+        text-align: center;
       }
     }
   </style>
@@ -163,17 +181,25 @@
 <canvas id="bgCanvas"></canvas>
 
 <div class="container">
-  <img src="/miroir.png" alt="" class="logo" />
+  <img src="/miroir.png" alt="Miroir Logo" class="logo" />
   <h1>About Miroir</h1>
 
   <div class="intro">
-    Miroir is a living project that challenges how society looks at truth, gender, and resistance. It’s not about trends or approval. It's a space to reflect, confront, and remember. Every action, word, and silence here is intentional.
+    <p><strong>Miroir</strong> is not just a website. It is a truth hub, a living, breathing mirror held up to society's lies, expectations, and hypocrisies. It was created by <strong>Fils Jean Pierre Mutsinzi</strong>, not to showcase himself, but to challenge the system that tries to erase people like him.</p>
+
+    <p>Miroir was born the day I realized that the mirror society gave me was fake. A piece of glass cannot show me who I am, not my pain, my gender, my voice, or my rebellion. I was expected to fit into frames I never chose. So I broke that mirror and made my own.</p>
+
+    <p>This mirror is symbolic; it is a space to reflect, yes, but also to confront. To see how the world sees you, and how you see it. This is not a project of vanity. It is a political act. A philosophical rupture. A spiritual rebellion.</p>
+
+    <p>Through <strong>Miroir</strong>, I use truth-telling, Butoh performance, writing, and defiant presence to shake gender norms and awaken memory. What society fears to name, I reflect. What it tries to erase, I archive. And I invite others to do the same.</p>
+
+    <p><em>Miroir is Fils' creation, but it is not only about Fils. It is for anyone brave enough to face themselves and reflect the truth back to the world.</em></p>
   </div>
 
   <section class="pillars" aria-label="Core principles of Miroir">
     <div class="pillar">
       <h2>Truth</h2>
-      <p>Miroir centers personal and political truths that are usually silenced or denied. It reflects reality, even when it’s uncomfortable.</p>
+      <p>Miroir centers personal and political truths that are usually silenced or denied. It reflects reality, even when it’s uncomfortable — especially when it is.</p>
     </div>
     <div class="pillar">
       <h2>Rebellion</h2>
@@ -181,7 +207,7 @@
     </div>
     <div class="pillar">
       <h2>Memory</h2>
-      <p>Every story here carries memory of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
+      <p>Every story here carries memory, of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
     </div>
   </section>
 
@@ -196,8 +222,16 @@
   </nav>
 </div>
 
+<footer>
+  <p>&copy; 2025 Miroir Project by Fils Jean Pierre Mutsinzi. All rights reserved.</p>
+  <p>
+    No part of this site may be reproduced, stored, or transmitted in any form without prior permission,
+    except for fair use for non-commercial truth-seeking and educational purposes.<br>
+    Miroir is a human dignity-centered truth archive.
+  </p>
+</footer>
+
 <script>
-  // Particle animation script
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
@@ -207,9 +241,7 @@
   const colors = ['#e50914', '#ff1a1a', '#fff'];
 
   class Particle {
-    constructor() {
-      this.reset();
-    }
+    constructor() { this.reset(); }
     reset() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
@@ -227,24 +259,17 @@
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-        this.reset();
-      }
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
     }
   }
 
   function initParticles() {
-    for (let i = 0; i < 100; i++) {
-      particles.push(new Particle());
-    }
+    for (let i = 0; i < 100; i++) particles.push(new Particle());
   }
 
   function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
+    particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animateParticles);
   }
 
