@@ -12,40 +12,42 @@
       background: #000;
       color: #fff;
       font-family: Arial, sans-serif;
-      height: auto;
-      min-height: 100vh;
-      overflow-y: auto;
-      display: block; /* No flex by default on small screens */
+      height: 100%;
+      overflow-y: auto; /* Allow vertical scroll */
     }
 
-    /* On desktop, center vertically & horizontally */
+    body {
+      /* Mobile default: no flex, scroll allowed */
+      display: block;
+      min-height: 100vh; /* Fill viewport */
+      padding-bottom: 60px; /* Bottom space for scroll */
+    }
+
+    /* Container with padding and min height */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px 15px 60px; /* bottom padding for scrolling */
+      min-height: 100vh; /* fill full height */
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Desktop: vertically center container */
     @media (min-width: 768px) {
       body {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
+        padding-bottom: 0;
       }
-    }
-
-    /* Canvas background */
-    canvas#bgCanvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-
-    /* Container holding all content */
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      overflow-y: visible; /* ensure content can flow */
-      text-align: center;
+      .container {
+        min-height: auto;
+        padding-bottom: 20px;
+      }
     }
 
     /* Logo with glow animation */
@@ -53,10 +55,11 @@
       width: 140px;
       max-width: 60%;
       margin-bottom: 20px;
-      filter: drop-shadow(0 0 10px #e50914);
       animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #e50914);
       user-select: none;
     }
+
     @keyframes glow {
       0%, 100% {
         filter: drop-shadow(0 0 10px #e50914);
@@ -66,7 +69,7 @@
       }
     }
 
-    /* Quote text */
+    /* Quote styling */
     .quote {
       font-size: 1.3rem;
       line-height: 1.6;
@@ -83,7 +86,7 @@
       cursor: default;
     }
 
-    /* Call-to-action button */
+    /* Call to action button */
     .cta-button {
       display: inline-block;
       padding: 14px 40px;
@@ -149,8 +152,7 @@
     /* Publications section */
     .publications-section {
       margin-top: 50px;
-      padding-bottom: 40px; /* bottom padding for spacing */
-      text-align: center;
+      padding-bottom: 30px; /* breathing room */
     }
     .publications-section h2 {
       color: #e50914;
@@ -243,6 +245,22 @@
       height: 28px;
       pointer-events: none;
     }
+
+    /* Responsive canvas */
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    /* Fix for iOS Safari viewport */
+    @supports (-webkit-touch-callout: none) {
+      body {
+        height: -webkit-fill-available;
+      }
+    }
   </style>
 </head>
 <body>
@@ -250,7 +268,7 @@
   <canvas id="bgCanvas"></canvas>
 
   <div class="container" role="main" aria-label="Miroir homepage main content">
-    <img src="/miroir.png" alt="Miroir Logo" class="logo" />
+    <img src="/miroir.png" alt="" class="logo" />
 
     <div class="quote" aria-live="polite">
       “A mirror does not lie. It reflects what society tries to erase, truth, memory, and the rebellion of being.”
@@ -353,24 +371,3 @@
       for (let i = 0; i < 150; i++) {
         particles.push(new Particle());
       }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
-</body>
-</html>
