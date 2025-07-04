@@ -48,8 +48,8 @@
     }
 
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      display: flex;
+      flex-direction: column;
       gap: 30px;
       width: 100%;
       max-width: 900px;
@@ -59,29 +59,31 @@
       background: #111;
       border-radius: 12px;
       box-shadow: 0 0 10px #e50914;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #ff1a1a;
+      padding: 20px;
     }
 
     .item img {
       width: 100%;
-      display: block;
-      border-bottom: 2px solid #e50914;
+      border-radius: 8px;
+      border: 2px solid #e50914;
+      margin-bottom: 15px;
     }
 
     .caption {
-      padding: 15px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #e50914;
       font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
       letter-spacing: 1px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #e50914;
     }
 
     nav {
@@ -125,10 +127,11 @@
   <p class="subtitle">Written reflections, articles, and documentation from the Miroir project.</p>
 
   <section class="gallery">
-    <a class="item" href="/triangle-formed-me.pdf" target="_blank" rel="noopener noreferrer">
-      <img src="/thumbnails/triangle-cover.jpg" alt="Cover for The Triangle That Formed Me" />
+    <div class="item">
       <div class="caption">The Triangle That Formed Me</div>
-    </a>
+      <img src="/trianglecover.jpg" alt="Cover of The Triangle That Formed Me" />
+      <iframe src="/triangle-formed-me.pdf#view=FitH" allowfullscreen></iframe>
+    </div>
   </section>
 
   <nav>
