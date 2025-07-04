@@ -17,16 +17,24 @@
       font-family: Arial, sans-serif;
       min-height: 100vh;
     }
+
     h1 {
       margin: 20px;
       color: #e50914;
       text-shadow: 0 0 10px #e50914;
       text-align: center;
     }
+
     #flipbookContainer {
       width: 90vw;
-      max-width: 600px;
+      max-width: 700px;
       height: auto;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .page-flip {
+      margin: auto;
     }
   </style>
 </head>
@@ -37,29 +45,29 @@
 
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
   <script>
-    // Create flipbook container
     const container = document.getElementById('flipbookContainer');
-    const flipCanvas = document.createElement('div');
-    container.appendChild(flipCanvas);
+    const flipBook = document.createElement('div');
+    container.appendChild(flipBook);
 
-    const pageFlip = new window.PageFlip(flipCanvas, {
-      width: 300,
-      height: 420,
+    const pageFlip = new window.PageFlip(flipBook, {
+      width: 500,
+      height: 700,
       size: "stretch",
-      minWidth: 260,
-      maxWidth: 600,
-      maxHeight: 800,
-      drawShadow: true,
-      shadowOpacity: 0.4,
+      minWidth: 315,
+      maxWidth: 1000,
+      maxHeight: 1400,
+      maxShadowOpacity: 0.5,
+      showCover: false,
+      mobileScrollSupport: true
     });
 
-    // Load your images – ensure they exist at /page1.jpg ... /page4.jpg
     pageFlip.loadFromImages([
-      '/page1.jpg',
-      '/page2.jpg',
-      '/page3.jpg',
-      '/page4.jpg'
+      "/page1.jpg",
+      "/page2.jpg",
+      "/page3.jpg",
+      "/page4.jpg"
     ]);
   </script>
+
 </body>
 </html>
