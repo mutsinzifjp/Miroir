@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About Miroir | Human Truth Hub</title>
+  <title>About | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
@@ -91,42 +91,56 @@
       font-size: 1rem;
     }
 
-    nav {
-      margin-top: 40px;
+    /* Hamburger toggle */
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px 30px;
+      flex-direction: column;
       justify-content: center;
-      font-weight: 700;
-      font-size: 1.1rem;
+      gap: 4px;
+      box-shadow: 0 0 10px #e50914;
     }
 
-    nav a {
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    /* Mobile menu */
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px #e50914;
+    }
+
+    .menu a {
       color: #fff;
       text-decoration: none;
-      position: relative;
-      padding-bottom: 6px;
-      transition: color 0.3s ease;
+      font-weight: 600;
+      transition: color 0.2s ease;
     }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      width: 0;
-      background: #e50914;
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover, nav a:focus {
+    .menu a:hover {
       color: #e50914;
-    }
-
-    nav a:hover::after, nav a:focus::after {
-      width: 100%;
     }
 
     body::before {
@@ -178,21 +192,36 @@
 </head>
 <body>
 
+<!-- Hamburger Menu -->
+<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Menu Navigation -->
+<nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+  <a href="/">Home</a>
+  <a href="/about.html">About</a>
+  <a href="/my-mirror.html">My Mirror</a>
+  <a href="/our-voices.html">Our Voices</a>
+  <a href="/truth-tools.html">Truth Tools</a>
+  <a href="/living-archive.html">Living Archive</a>
+  <a href="/performative-data.html">Performative Data</a>
+  <a href="/publications.html">Publications</a>
+</nav>
+
 <canvas id="bgCanvas"></canvas>
 
 <div class="container">
   <img src="/miroir.png" alt="Miroir Logo" class="logo" />
-  <h1>About Miroir</h1>
+  <h1>About</h1>
 
   <div class="intro">
     <p><strong>Miroir</strong> is not just a website. It is a truth hub, a living, breathing mirror held up to society's lies, expectations, and hypocrisies. It was created by <strong>Fils Jean Pierre Mutsinzi</strong>, not to showcase himself, but to challenge the system that tries to erase people like him.</p>
-
     <p>Miroir was born the day I realized that the mirror society gave me was fake. A piece of glass cannot show me who I am, not my pain, my gender, my voice, or my rebellion. I was expected to fit into frames I never chose. So I broke that mirror and made my own.</p>
-
     <p>This mirror is symbolic; it is a space to reflect, yes, but also to confront. To see how the world sees you, and how you see it. This is not a project of vanity. It is a political act. A philosophical rupture. A spiritual rebellion.</p>
-
     <p>Through <strong>Miroir</strong>, I use truth-telling, Butoh performance, writing, and defiant presence to shake gender norms and awaken memory. What society fears to name, I reflect. What it tries to erase, I archive. And I invite others to do the same.</p>
-
     <p><em>Miroir is Fils' creation, but it is not only about Fils. It is for anyone brave enough to face themselves and reflect the truth back to the world.</em></p>
   </div>
 
@@ -210,16 +239,6 @@
       <p>Every story here carries memory, of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
     </div>
   </section>
-
-  <nav aria-label="Site Navigation">
-    <a href="/">Home</a>
-    <a href="/my-mirror.html">My Mirror</a>
-    <a href="/our-voices.html">Our Voices</a>
-    <a href="/truth-tools.html">Truth Tools</a>
-    <a href="/living-archive.html">Living Archive</a>
-    <a href="/performative-data.html">Performative Data</a>
-    <a href="/publications.html">Publications</a>
-  </nav>
 </div>
 
 <footer>
@@ -232,6 +251,13 @@
 </footer>
 
 <script>
+  // Toggle Menu
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
+
+  // Particle Background
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
