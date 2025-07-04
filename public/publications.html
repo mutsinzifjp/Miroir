@@ -5,42 +5,79 @@
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Body & fonts */
     body {
       background: #000;
       color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
-      padding: 40px 20px;
+      padding: 30px 20px;
+      font-family: Arial, sans-serif;
     }
+
+    /* Header */
     h1 {
+      text-align: center;
       color: #e50914;
       font-size: 2.5rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 50px;
       text-shadow: 0 0 10px #e50914;
-      margin-bottom: 40px;
     }
-    .cover-container {
-      max-width: 320px;
+
+    /* Grid gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
       margin: 0 auto;
     }
-    .cover-thumbnail {
-      width: 100%;
-      border: 3px solid #e50914;
-      border-radius: 10px;
-      box-shadow: 0 0 25px #e50914;
+
+    /* Publication card */
+    .card {
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px #e50914;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none; /* remove underline from link */
+      color: inherit; /* keep text color */
     }
-    .cover-thumbnail:hover {
-      transform: scale(1.03);
+    .card:hover {
+      transform: scale(1.05);
       box-shadow: 0 0 35px #ff1a1a;
     }
-    .label {
+
+    /* Images scale to container */
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 3px solid #e50914;
+      border-radius: 12px 12px 0 0;
+      object-fit: contain;
+    }
+
+    /* Caption */
+    .caption {
       color: #e50914;
-      font-size: 1.3rem;
       font-weight: bold;
-      margin-top: 15px;
-      text-shadow: 0 0 8px #e50914;
+      font-size: 1.1rem;
+      padding: 15px;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
   </style>
 </head>
@@ -48,11 +85,19 @@
 
   <h1>Publications</h1>
 
-  <div class="cover-container">
-    <a href="/fliptriangle.html">
-      <img src="/trianglecover.jpg" alt="Cover of The Triangle That Formed Me" class="cover-thumbnail">
+  <div class="gallery">
+    <a href="/fliptriangle.html" class="card" target="_blank" rel="noopener noreferrer" title="Open full flipbook: The Triangle That Formed Me">
+      <img src="/trianglecover.jpg" alt="Cover of The Triangle That Formed Me" />
+      <div class="caption">The Triangle That Formed Me</div>
     </a>
-    <div class="label">The Triangle That Formed Me</div>
+
+    <!-- Add more publication cards here following the same structure -->
+    <!-- Example:
+    <a href="/flipanother.html" class="card" target="_blank" rel="noopener noreferrer" title="Open full flipbook: Another Publication">
+      <img src="/anothercover.jpg" alt="Cover of Another Publication" />
+      <div class="caption">Another Publication Title</div>
+    </a>
+    -->
   </div>
 
 </body>
