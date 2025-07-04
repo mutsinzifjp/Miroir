@@ -4,14 +4,12 @@
   <meta charset="UTF-8" />
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- PageFlip Styles and Script -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/page-flip.browser.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/src/Style/stPageFlip.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 
   <style>
     body {
-      background: #000;
+      background-color: #000;
       color: #fff;
       font-family: 'Arial', sans-serif;
       margin: 0;
@@ -21,80 +19,72 @@
 
     h1 {
       color: #e50914;
-      margin-bottom: 20px;
-      font-size: 2.2rem;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      text-transform: uppercase;
       letter-spacing: 1px;
-      text-shadow: 0 0 5px #e50914;
-    }
-
-    .flipbook-wrapper {
-      max-width: 90vw;
-      margin: 0 auto;
     }
 
     #flipbook {
-      width: 600px;
-      height: 400px;
-      margin: 30px auto;
+      width: 90vw;
+      max-width: 900px;
+      height: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 20px #e50914;
     }
 
-    .cover-image {
-      width: 200px;
-      border: 3px solid #e50914;
-      border-radius: 8px;
-      box-shadow: 0 0 15px #e50914;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      margin-bottom: 20px;
+    .page {
+      width: 100%;
+      height: 100%;
     }
 
-    .cover-image:hover {
-      transform: scale(1.05);
+    .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
-    @media (max-width: 650px) {
-      #flipbook {
-        width: 90vw;
-        height: 300px;
-      }
+    .note {
+      margin-top: 20px;
+      color: #ccc;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
-
   <h1>The Triangle That Formed Me</h1>
 
-  <!-- Optional cover image above -->
-  <img src="/trianglecover.jpg" alt="Triangle Cover" class="cover-image" />
-
-  <!-- Flipbook container -->
-  <div class="flipbook-wrapper">
-    <div id="flipbook"></div>
-  </div>
+  <div id="flipbook"></div>
+  <div class="note">Click or drag pages to turn. Works best on wide screens.</div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const flipbook = new St.PageFlip(
-        document.getElementById("flipbook"),
-        {
-          width: 600,
-          height: 400,
-          size: "stretch",
-          showCover: true,
-          mobileScrollSupport: true,
-          maxShadowOpacity: 0.4,
-          useMouseEvents: true,
-        }
-      );
+    const pages = [
+      "/triangle-pages/page1.jpg",
+      "/triangle-pages/page2.jpg",
+      "/triangle-pages/page3.jpg",
+      "/triangle-pages/page4.jpg"
+    ];
 
-      // Load image pages (update list if more pages)
-      flipbook.loadFromImages([
-        "/triangle-pages/page1.jpg",
-        "/triangle-pages/page2.jpg",
-        "/triangle-pages/page3.jpg",
-        "/triangle-pages/page4.jpg"
-      ]);
+    const flipbook = new St.PageFlip(document.getElementById("flipbook"), {
+      width: 600,
+      height: 500,
+      size: "stretch",
+      maxShadowOpacity: 0.5,
+      showCover: false,
+      mobileScrollSupport: false,
     });
+
+    const pageElements = pages.map(src => {
+      const page = document.createElement("div");
+      page.className = "page";
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "Flipbook page";
+      page.appendChild(img);
+      return page;
+    });
+
+    flipbook.loadFromHTML(pageElements);
   </script>
 </body>
 </html>
