@@ -1,234 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>My Mirror | Miroir</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Butoh Performance Series – Personal Truth in Motion" />
-  <style>
-    body {
-      background: #000;
-      color: #fff;
-      margin: 0;
-      padding: 0 20px;
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+<!-- Keep head unchanged, this is just inside <body> -->
 
-    .centered-header {
-      text-align: center;
-      margin: 40px 0 30px;
-    }
+<header class="centered-header">
+  <img src="/miroir.png" alt="Miroir Logo" class="logo-glow" />
+  <h1 class="glow-title">My Mirror</h1>
+  <p class="subtitle">Butoh Performance Series – Truth in Motion</p>
+</header>
 
-    .logo-glow {
-      max-width: 100px;
-      margin-bottom: 10px;
-      animation: glow 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 10px #e50914);
-    }
+<div class="intro-text">
+  This mirror reflects not just who I am but everything society told me not to be. Each piece here is a gesture, a scream, a whisper, a moment I reclaimed through Butoh and opera. I move not to entertain, but to break silences. I sing not to impress, but to resurrect memories buried under fear.
+</div>
 
-    @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
-      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
-    }
-
-    .glow-title {
-      font-size: 2rem;
-      color: #e50914;
-      letter-spacing: 1px;
-      margin: 10px 0 5px;
-    }
-
-    .subtitle {
-      font-size: 1rem;
-      color: #ccc;
-      margin: 0;
-    }
-
-    .intro-text {
-      max-width: 800px;
-      margin: 0 auto 40px;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: #ddd;
-      text-align: center;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 25px;
-      padding-bottom: 30px;
-      flex-grow: 1;
-    }
-
-    .card {
-      background: #111;
-      border-radius: 12px;
-      overflow: hidden;
-      text-decoration: none;
-      box-shadow: 0 0 10px #e50914;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #ff1a1a;
-    }
-
-    .card img {
-      width: 100%;
-      display: block;
-      border-bottom: 3px solid #e50914;
-    }
-
-    .caption {
-      color: #e50914;
-      padding: 14px;
-      font-weight: bold;
-      font-size: 1rem;
-      text-align: center;
-    }
-
-    .connect {
-      text-align: center;
-      margin-top: 40px;
-      color: #ccc;
-      font-size: 1rem;
-    }
-    .connect a {
-      color: #e50914;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: auto;
-      padding: 25px 10px 20px;
-    }
-
-    .footer-nav {
-      display: flex;
-      flex-wrap: wrap;.
-      gap: 18px;
-      justify-content: center;
-      margin-bottom: 12px;
-    }
-
-    .footer-nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer-nav a:hover {
-      color: #e50914;
-    }
-
-    .footer-text {
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 500px) {
-      .logo-glow {
-        max-width: 80px;
-      }
-      .glow-title {
-        font-size: 1.6rem;
-      }
-      .caption {
-        font-size: 0.9rem;
-      }
-      .footer-nav {
-        gap: 10px;
-        font-size: 0.95rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="centered-header">
-    <img src="/miroir.png" alt="Miroir Logo" class="logo-glow" />
-    <h1 class="glow-title">My Mirror</h1>
-    <p class="subtitle">Butoh Performance Series – Truth in Motion</p>
-  </header>
-
+<section aria-label="Performance Descriptions" style="margin-bottom: 30px;">
   <div class="intro-text">
-    This mirror reflects not just who I am but everything society told me not to be. Each piece here is a gesture, a scream, a whisper, a moment I reclaimed through Butoh and opera. I move not to entertain, but to break silences. I sing not to impress, but to resurrect memories buried under fear.
-  </div>
+    <p class="performance-title">Carmen</p>
+    <p>In this operatic performance, I embody the seduction of power and the punishment of desire. Carmen has always been misunderstood. I let her live in my own voice and in the haunting fire of rebellion.</p>
 
-  <div class="intro-text">
-    <strong>Carmen</strong> : In this operatic performance, I embody the seduction of power and the punishment of desire. Carmen has always been misunderstood. I let her live in my own voice and in the haunting fire of rebellion.
-  </div>
-  <div class="intro-text">
-    <strong>Reclaiming Lost Childhood</strong> : This Butoh was born from grief. The moments stolen by trauma, by shame, by forced conformity. I move like a child who refuses to stay buried.
-  </div>
-  <div class="intro-text">
-    <strong>O Fortuna</strong> : Here, I surrender to the forces of fate, screaming through movement that I was never meant to be quiet. It's a storm. Raw and unfiltered.
-  </div>
-  <div class="intro-text">
-    <strong>Der Holle</strong> : Through this I visit the darkness society builds around femme bodies, queer souls, and sacred rage. The underworld is not hell. It is truth unleashed.
-  </div>
-  <div class="intro-text">
-    <strong>Lacrimosa</strong> : My weeping body in this Butoh channels the grief of exile. From churches, families, nations. Every tear here carries a hymn.
-  </div>
-  <div class="intro-text">
-    <strong>Crossing the Threshold</strong> : I wear a skirt. Not to be seen, but to see who dares to look. This performance was a field study, a protest, a prayer. I crossed not just a physical line, but a social one.
-  </div>
+    <p class="performance-title">Reclaiming Lost Childhood</p>
+    <p>This Butoh was born from grief. The moments stolen by trauma, by shame, by forced conformity. I move like a child who refuses to stay buried.</p>
 
-  <section class="gallery" aria-label="Butoh Performances">
-    <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank">
-      <img src="/carmen.jpeg" alt="Carmen Performance" />
-      <div class="caption">Carmen</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" class="card" target="_blank">
-      <img src="/lostchildhood.jpeg" alt="Reclaiming Lost Childhood" />
-      <div class="caption">Reclaiming Lost Childhood</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJd8s_4TfJP/" class="card" target="_blank">
-      <img src="/ofortuna.jpeg" alt="O Fortuna" />
-      <div class="caption">O Fortuna</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank">
-      <img src="/derholle.jpeg" alt="Der Holle" />
-      <div class="caption">Der Holle</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DJimNzNMOtL/" class="card" target="_blank">
-      <img src="/lacrimosa.jpeg" alt="Lacrimosa" />
-      <div class="caption">Lacrimosa</div>
-    </a>
-    <a href="https://www.instagram.com/reel/DI4HG8Es1Od/?utm_source=ig_web_copy_link&igsh=cWdtaTc5OWdhNnVz" class="card" target="_blank">
-      <img src="/crossing.jpeg" alt="Crossing the Threshold" />
-      <div class="caption">Crossing the Threshold</div>
-    </a>
-  </section>
+    <p class="performance-title">O Fortuna</p>
+    <p>Here, I surrender to the forces of fate, screaming through movement that I was never meant to be quiet. It's a storm. Raw and unfiltered.</p>
 
-  <div class="connect">
-    If any of this resonates, I’d love to connect. You’ll find me writing, dancing, resisting,
-    always human, on <a href="https://www.linkedin.com/in/filsjeanpierremutsinzi" target="_blank">LinkedIn</a> and <a href="https://www.instagram.com/fils_brandy" target="_blank">Instagram</a>.
-    <br/><br/><strong>Watch each one and reflect in the mirror.</strong>
+    <p class="performance-title">Der Holle</p>
+    <p>Through this I visit the darkness society builds around femme bodies, queer souls, and sacred rage. The underworld is not hell. It is truth unleashed.</p>
+
+    <p class="performance-title">Lacrimosa</p>
+    <p>My weeping body in this Butoh channels the grief of exile. From churches, families, nations. Every tear here carries a hymn.</p>
+
+    <p class="performance-title">Crossing the Threshold</p>
+    <p>I wear a skirt. Not to be seen, but to see who dares to look. This performance was a field study, a protest, a prayer. I crossed not just a physical line, but a social one.</p>
   </div>
+</section>
 
-  <footer>
-    <nav class="footer-nav">
-      <a href="/">Home</a>
-      <a href="/our-voices.html">Our Voices</a>
-      <a href="/truth-tools.html">Truth Tools</a>
-      <a href="/living-archive.html">Living Archive</a>
-      <a href="/performative-data.html">Performative Data</a>
-      <a href="/publications.html">Publications</a>
-    </nav>
-    <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
-  </footer>
+<section class="gallery" aria-label="Butoh Performances">
+  <!-- (Keep your existing card structure as is) -->
+</section>
 
-</body>
-</html>
-
+<div class="connect">
+  If any of this resonates, I’d love to connect. You’ll find me writing, dancing, resisting, always human, on 
+  <a href="https://www.linkedin.com/in/filsjeanpierremutsinzi" target="_blank">LinkedIn</a> and 
+  <a href="https://www.instagram.com/fils_brandy" target="_blank">Instagram</a>.
+  <br/><br/>
+  <strong>Watch each one and reflect in the mirror.</strong>
+</div>
