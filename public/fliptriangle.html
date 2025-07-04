@@ -1,4 +1,92 @@
-public/page1.jpg
-public/page2.jpg
-public/page3.jpg
-public/page4.jpg
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Triangle That Formed Me | Flipbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- PageFlip CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #e50914;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    #flipbook {
+      width: 90vw;
+      max-width: 1000px;
+      height: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 30px #e50914;
+    }
+
+    .page-flip {
+      background: #111;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: 2px solid #e50914;
+      border-radius: 30px;
+      color: #e50914;
+      background: transparent;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: #e50914;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>The Triangle That Formed Me</h1>
+
+  <div id="flipbook"></div>
+
+  <a href="/publications.html" class="back-button">← Back to Publications</a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const flipbook = new St.PageFlip(document.getElementById('flipbook'), {
+        width: 500,
+        height: 600,
+        size: 'stretch',
+        minWidth: 315,
+        maxWidth: 1000,
+        minHeight: 400,
+        maxHeight: 1400,
+        maxShadowOpacity: 0.5,
+        showCover: false,
+        mobileScrollSupport: true
+      });
+
+      flipbook.loadFromImages([
+        "/page1.jpg",
+        "/page2.jpg",
+        "/page3.jpg",
+        "/page4.jpg"
+      ]);
+    });
+  </script>
+
+</body>
+</html>
