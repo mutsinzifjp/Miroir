@@ -3,16 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <title>Publications | Miroir</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header img {
+      max-width: 140px;
+      filter: drop-shadow(0 0 10px #e50914);
+      animation: pulse 3s ease-in-out infinite;
+      margin-bottom: 30px;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        filter: drop-shadow(0 0 10px #e50914);
+      }
+      50% {
+        filter: drop-shadow(0 0 20px #ff1a1a);
+      }
+    }
+
+    h1 {
+      color: #e50914;
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    p.subtitle {
+      color: #ccc;
+      opacity: 0.8;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .item {
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #e50914;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff1a1a;
+    }
+
+    .item img {
+      width: 100%;
+      display: block;
+    }
+
+    .caption {
+      padding: 15px;
+      font-size: 1.1rem;
+      color: #e50914;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      margin-top: 50px;
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #e50914;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <h1>Publications</h1>
-  <p>
-    A curated space for my articles, blogs, critical essays, and newsletters.  
-    Insights, reflections, and truth-telling in words and voices.  
-    <strong>Coming soon.</strong>
-  </p>
 
-  <a href="/">← Back Home</a>
+  <header>
+    <img src="/miroir.png" alt="Miroir Logo" />
+  </header>
+
+  <h1>Publications</h1>
+  <p class="subtitle">Written reflections, articles, and documentation from the Miroir project.</p>
+
+  <section class="gallery">
+    <a class="item" href="/triangle-formed-me.pdf" target="_blank" rel="noopener noreferrer">
+      <img src="/thumbnails/triangle-cover.jpg" alt="The Triangle That Formed Me" />
+      <div class="caption">The Triangle That Formed Me</div>
+    </a>
+    <!-- Add more publications here -->
+  </section>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/my-mirror.html">My Mirror</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/performative-data.html">Performative Data</a>
+  </nav>
+
 </body>
 </html>
