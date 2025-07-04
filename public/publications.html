@@ -5,8 +5,9 @@
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- PDF.js and Turn.js Libraries -->
-  <script src="https://unpkg.com/pdfjs-dist/build/pdf.min.js"></script>
+  <!-- Required Libraries -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery is required for Turn.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/turn.js@4/turn.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/turn.js@4/extras/basic.css">
 
@@ -48,9 +49,22 @@
       height: auto;
     }
 
+    #flipbook {
+      width: 90vw;
+      height: 600px;
+      margin: 0 auto;
+    }
+
+    #flipbook .page {
+      width: 100%;
+      height: 100%;
+      background: #111;
+    }
+
     #flipbook canvas {
       display: block;
       margin: 0 auto;
+      width: 100%;
     }
 
     #loading {
@@ -79,39 +93,46 @@
     const flipbook = document.getElementById('flipbook');
     const loading = document.getElementById('loading');
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist/build/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
     openBtn.addEventListener('click', () => {
       openBtn.style.display = 'none';
       flipbookContainer.style.display = 'block';
 
       pdfjsLib.getDocument(pdfURL).promise.then(pdf => {
-        const pageCount = pdf.numPages;
-        const promises = [];
+        const totalPages = pdf.numPages;
+        const renderTasks = [];
 
-        for (let i = 1; i <= pageCount; i++) {
-          promises.push(
+        for (let i = 1; i <= totalPages; i++) {
+          renderTasks.push(
             pdf.getPage(i).then(page => {
               const scale = 1.2;
               const viewport = page.getViewport({ scale });
+
               const canvas = document.createElement('canvas');
               const context = canvas.getContext('2d');
               canvas.width = viewport.width;
               canvas.height = viewport.height;
 
               return page.render({ canvasContext: context, viewport }).promise.then(() => {
-                flipbook.appendChild(canvas);
+                const pageDiv = document.createElement('div');
+                pageDiv.classList.add('page');
+                pageDiv.appendChild(canvas);
+                flipbook.appendChild(pageDiv);
               });
             })
           );
         }
 
-        Promise.all(promises).then(() => {
+        Promise.all(renderTasks).then(() => {
           loading.style.display = 'none';
+
           $('#flipbook').turn({
             width: flipbook.scrollWidth,
             height: flipbook.scrollHeight,
-            autoCenter: true
+            autoCenter: true,
+            gradients: true,
+            elevation: 50
           });
         });
 
