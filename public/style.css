@@ -52,6 +52,7 @@
       color: #ddd;
       text-shadow: 0 0 8px #e50914;
       margin-bottom: 30px;
+      user-select: none;
     }
 
     .cta-button {
@@ -68,6 +69,7 @@
       box-shadow: 0 0 10px #e50914;
       transition: all 0.3s ease;
       margin-bottom: 40px;
+      user-select: none;
     }
 
     .cta-button:hover {
@@ -91,6 +93,7 @@
       gap: 5px;
       cursor: pointer;
       box-shadow: 0 0 10px #e50914;
+      user-select: none;
     }
 
     .menu-toggle span {
@@ -113,6 +116,7 @@
       gap: 15px;
       z-index: 999;
       box-shadow: 0 0 20px #e50914;
+      user-select: none;
     }
 
     .menu a {
@@ -145,6 +149,40 @@
       0% { opacity: 0.05; transform: scale(1); }
       100% { opacity: 0.15; transform: scale(1.05); }
     }
+
+    /* Music toggle button */
+    #musicToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #e50914;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    #musicToggle svg {
+      fill: #e50914;
+      width: 22px;
+      height: 22px;
+      transition: fill 0.3s ease;
+    }
+
+    #musicToggle:hover {
+      background: #e50914;
+    }
+
+    #musicToggle:hover svg {
+      fill: #000;
+    }
   </style>
 </head>
 <body>
@@ -152,14 +190,14 @@
 <canvas id="bgCanvas"></canvas>
 
 <!-- Hamburger -->
-<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" role="button" tabindex="0" onkeypress="if(event.key==='Enter'){ toggleMenu(); }">
   <span></span>
   <span></span>
   <span></span>
 </div>
 
 <!-- Floating Menu -->
-<div class="menu" id="mobileMenu">
+<nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
   <a href="/about-miroir.html">About Miroir</a>
   <a href="/my-mirror.html">My Mirror</a>
   <a href="/our-voices.html">Our Voices</a>
@@ -167,14 +205,14 @@
   <a href="/living-archive.html">Living Archive</a>
   <a href="/performative-data.html">Performative Data</a>
   <a href="/publications.html">Publications</a>
-</div>
+</nav>
 
-<div class="container">
+<div class="container" role="main">
   <img src="/miroir.png" alt="Miroir Logo" class="logo" />
-  <div class="quote">
+  <div class="quote" tabindex="0">
     “A mirror does not lie. It reflects what society tries to erase: truth, memory, and the rebellion of being.”
   </div>
-  <a href="/my-mirror.html" class="cta-button">Enter the Mirror</a>
+  <a href="/my-mirror.html" class="cta-button" role="link" tabindex="0">Enter the Mirror</a>
 </div>
 
 <!-- Audio -->
@@ -183,22 +221,48 @@
 </audio>
 
 <!-- Music toggle -->
-<button id="musicToggle" aria-label="Toggle music">
+<button id="musicToggle" aria-label="Toggle music" title="Toggle music" role="button" tabindex="0">
   <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"></path></svg>
 </button>
 
 <script>
+  // Menu toggle function
   function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    if(menu.style.display === "flex") {
+      menu.style.display = "none";
+    } else {
+      menu.style.display = "flex";
+      menu.style.flexDirection = "column";
+    }
   }
 
+  // Close menu on outside click or ESC key for accessibility
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById("mobileMenu");
+    const toggle = document.querySelector(".menu-toggle");
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.style.display = "none";
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === "Escape") {
+      document.getElementById("mobileMenu").style.display = "none";
+    }
+  });
+
+  // Music toggle button
   const musicToggle = document.getElementById('musicToggle');
   const bgMusic = document.getElementById('bgMusic');
   let isPlaying = false;
 
   musicToggle.addEventListener('click', () => {
-    isPlaying ? bgMusic.pause() : bgMusic.play();
+    if(isPlaying) {
+      bgMusic.pause();
+    } else {
+      bgMusic.play();
+    }
     isPlaying = !isPlaying;
     musicToggle.innerHTML = isPlaying
       ? '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'
