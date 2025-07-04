@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
     body {
       background: #000;
@@ -17,12 +18,13 @@
     h1 {
       color: #e50914;
       margin-bottom: 30px;
-      font-size: 2rem;
+      font-size: 2.5rem;
+      text-shadow: 0 0 15px #e50914;
     }
 
     .cover-container {
       max-width: 320px;
-      margin: 0 auto;
+      margin: 40px auto;
     }
 
     .cover-thumbnail {
@@ -35,7 +37,7 @@
     }
 
     .cover-thumbnail:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
       box-shadow: 0 0 30px #ff1a1a;
     }
 
@@ -43,6 +45,46 @@
       color: #e50914;
       font-size: 1.2rem;
       margin-top: 10px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #e50914;
+    }
+
+    nav {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0;
+      background: #e50914;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover, nav a:focus {
+      color: #e50914;
+    }
+
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
     }
   </style>
 </head>
@@ -50,12 +92,24 @@
 
   <h1>Publications</h1>
 
+  <!-- Flipbook Thumbnail -->
   <div class="cover-container">
     <a href="/fliptriangle.html">
       <img src="/trianglecover.jpg" alt="Triangle Cover" class="cover-thumbnail">
     </a>
     <div class="flipbook-label">The Triangle That Formed Me</div>
   </div>
+
+  <!-- Optional future nav -->
+  <nav>
+    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/my-mirror.html">My Mirror</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/performative-data.html">Performative Data</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
 
 </body>
 </html>
