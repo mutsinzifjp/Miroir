@@ -5,12 +5,143 @@
   <title>My Mirror | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Butoh Performance Series – Personal Truth in Motion" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0 20px;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .centered-header {
+      text-align: center;
+      margin: 40px 0 30px;
+    }
+
+    .logo-glow {
+      max-width: 100px;
+      margin-bottom: 10px;
+      animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #e50914);
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
+      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
+    }
+
+    .glow-title {
+      font-size: 2rem;
+      color: #e50914;
+      letter-spacing: 1px;
+      margin: 10px 0 5px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #ccc;
+      margin: 0;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      padding-bottom: 30px;
+      flex-grow: 1;
+    }
+
+    .card {
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      box-shadow: 0 0 10px #e50914;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ff1a1a;
+    }
+
+    .card img {
+      width: 100%;
+      display: block;
+      border-bottom: 3px solid #e50914;
+    }
+
+    .caption {
+      color: #e50914;
+      padding: 14px;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: auto;
+      padding: 25px 10px 20px;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .footer-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-nav a:hover {
+      color: #e50914;
+    }
+
+    .footer-text {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 500px) {
+      .logo-glow {
+        max-width: 80px;
+      }
+
+      .glow-title {
+        font-size: 1.6rem;
+      }
+
+      .caption {
+        font-size: 0.9rem;
+      }
+
+      .footer-nav {
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <header class="centered-header">
-    <img src="/miroir.png" alt="" class="logo-glow" />
+    <img src="/miroir.png" alt="Miroir Logo" class="logo-glow" />
     <h1 class="glow-title">My Mirror</h1>
     <p class="subtitle">Butoh Performance Series – Truth in Motion</p>
   </header>
@@ -18,27 +149,27 @@
   <main>
     <section class="gallery" aria-label="Butoh Performances">
       <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank">
-        <img src="/carmen.jpeg" alt="" />
+        <img src="/carmen.jpeg" alt="Carmen Performance" />
         <div class="caption">Carmen</div>
       </a>
       <a href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" class="card" target="_blank">
-        <img src="/lostchildhood.jpeg" alt="" />
+        <img src="/lostchildhood.jpeg" alt="Reclaiming Lost Childhood" />
         <div class="caption">Reclaiming Lost Childhood</div>
       </a>
       <a href="https://www.instagram.com/reel/DJd8s_4TfJP/" class="card" target="_blank">
-        <img src="/ofortuna.jpeg" alt="" />
+        <img src="/ofortuna.jpeg" alt="O Fortuna" />
         <div class="caption">O Fortuna</div>
       </a>
       <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank">
-        <img src="/derholle.jpeg" alt="" />
+        <img src="/derholle.jpeg" alt="Der Holle" />
         <div class="caption">Der Holle</div>
       </a>
       <a href="https://www.instagram.com/reel/DJimNzNMOtL/" class="card" target="_blank">
-        <img src="/lacrimosa.jpeg" alt="" />
+        <img src="/lacrimosa.jpeg" alt="Lacrimosa" />
         <div class="caption">Lacrimosa</div>
       </a>
       <a href="https://www.instagram.com/reel/DJMaE9pznIT/" class="card" target="_blank">
-        <img src="/crossing.jpeg" alt="" />
+        <img src="/crossing.jpeg" alt="Crossing the Threshold" />
         <div class="caption">Crossing the Threshold</div>
       </a>
     </section>
@@ -53,7 +184,7 @@
       <a href="/performative-data.html">Performative Data</a>
       <a href="/publications.html">Publications</a>
     </nav>
-    <p class="footer-text">© 2025 Fils. All rights reserved.</p>
+    <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
   </footer>
 
 </body>
