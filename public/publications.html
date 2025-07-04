@@ -12,43 +12,85 @@
       margin: 0;
       padding: 30px 20px;
       font-family: Arial, sans-serif;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
     h1 {
       color: #e50914;
       font-size: 2.5rem;
       margin-bottom: 40px;
       text-shadow: 0 0 10px #e50914;
+      text-align: center;
     }
-    .cover {
-      max-width: 400px;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      width: 100%;
+      max-width: 1000px;
       margin: 0 auto;
+      flex-grow: 1;
+    }
+
+    .cover {
+      max-width: 100%;
       cursor: pointer;
       border: 3px solid #e50914;
       border-radius: 10px;
       box-shadow: 0 0 25px #e50914;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: inline-block;
       text-decoration: none;
       color: inherit;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
     }
+
     .cover img {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 7px;
+      border-bottom: 3px solid #e50914;
     }
+
     .cover:hover {
       transform: scale(1.05);
       box-shadow: 0 0 40px #ff1a1a;
     }
+
     .caption {
       color: #e50914;
       font-weight: bold;
-      font-size: 1.2rem;
-      margin-top: 15px;
-      user-select: none;
+      font-size: 1.1rem;
+      padding: 12px;
+      text-align: center;
       text-shadow: 0 0 8px #e50914;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px 10px;
+    }
+
+    .footer-text {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .caption {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -56,10 +98,23 @@
 
   <h1>Publications</h1>
 
-  <a href="/triangle-formed-me.pdf" target="_blank" rel="noopener noreferrer" class="cover" title="Open PDF: The Triangle That Formed Me">
-    <img src="/trianglecover.jpg" alt="The Triangle That Formed Me Cover" />
-    <div class="caption">The Triangle That Formed Me</div>
-  </a>
+  <section class="grid" aria-label="Published Works">
+    <!-- Triangle That Formed Me -->
+    <a href="/triangle-formed-me.pdf" target="_blank" rel="noopener noreferrer" class="cover" title="Open PDF: The Triangle That Formed Me">
+      <img src="/trianglecover.jpg" alt="The Triangle That Formed Me Cover" />
+      <div class="caption">The Triangle That Formed Me</div>
+    </a>
+
+    <!-- OSF Preprint - Unboxed -->
+    <a href="https://doi.org/10.31219/osf.io/nwydk_v1" target="_blank" rel="noopener noreferrer" class="cover" title="View OSF Preprint: Unboxed">
+      <img src="/unboxedcover.png" alt="Unboxed OSF Preprint Cover" />
+      <div class="caption">Unboxed (Preprint)</div>
+    </a>
+  </section>
+
+  <footer>
+    <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
