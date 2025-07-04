@@ -4,194 +4,60 @@
   <meta charset="UTF-8" />
   <title>Reflections | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', sans-serif;
       background: #000;
       color: #fff;
-      overflow-x: hidden;
+      font-family: 'Arial', sans-serif;
     }
 
-    .menu-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1001;
-      background: transparent;
-      border: 2px solid #e50914;
-      border-radius: 6px;
-      padding: 8px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      box-shadow: 0 0 10px #e50914;
-    }
-
-    .menu-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: #e50914;
-    }
-
-    .menu {
-      position: fixed;
-      top: 65px;
-      right: 20px;
-      background: #111;
-      border: 1px solid #e50914;
-      padding: 15px 20px;
-      border-radius: 10px;
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-      z-index: 1002;
-      box-shadow: 0 0 15px #e50914;
-    }
-
-    .menu a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .menu a:hover {
-      color: #e50914;
-    }
-
-    header {
+    .container {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 0 20px;
       text-align: center;
-      padding: 80px 20px 30px;
     }
 
-    header h1 {
-      font-family: 'Unbounded', cursive;
-      color: #e50914;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    header p {
+    .intro {
       font-size: 1.2rem;
-      color: #ccc;
-      max-width: 700px;
-      margin: 0 auto;
       line-height: 1.6;
+      color: #ddd;
+      margin-bottom: 40px;
     }
 
-    .reflection-card {
-      background: #111;
-      border-left: 5px solid #e50914;
-      margin: 50px auto;
-      max-width: 800px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #e50914;
-      padding: 30px 25px;
-      animation: fadeInUp 1.5s ease;
+    .visual-reflection {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 60px;
+      animation: fadeInZoom 2s ease forwards;
+      opacity: 0;
     }
 
-    .reflection-title {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #e50914;
-      margin-bottom: 10px;
-      font-family: 'Unbounded', cursive;
-    }
-
-    .reflection-content {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: #eee;
-      font-style: italic;
-      position: relative;
-    }
-
-    .reflection-content::before {
-      content: "✦";
-      position: absolute;
-      top: 0;
-      left: -25px;
-      font-size: 1.5rem;
-      color: #ff1a1a;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    @media (max-width: 600px) {
-      .reflection-card {
-        padding: 20px 15px;
-        margin: 30px 10px;
+    @keyframes fadeInZoom {
+      0% {
+        transform: scale(0.95);
+        opacity: 0;
       }
-      header h1 {
-        font-size: 2rem;
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .intro {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <p class="intro"><em>This chamber is not neutral.</em> These are moments when I pause and see the echoes inside me. Raw thoughts, visual truths, and whispers that don’t fit into data or categories — but still matter.</p>
 
-<!-- Hamburger -->
-<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
-<!-- Menu -->
-<nav class="menu" id="mobileMenu">
-  <a href="/about-miroir.html">About Miroir</a>
-  <a href="/my-mirror.html">My Miroir</a>
-  <a href="/our-voices.html">Our Voices</a>
-  <a href="/truth-tools.html">Truth Tools</a>
-  <a href="/living-archive.html">Living Archive</a>
-  <a href="/reflections.html">Reflections</a>
-  <a href="/publications.html">Publications</a>
-</nav>
-
-<header>
-  <h1>Reflections</h1>
-  <p>This section is not neutral. These are moments when I pause and see the echoes inside me. Raw thoughts, visual truths, and whispers that don’t fit into data or categories — but still matter.</p>
-</header>
-
-<!-- First Reflection -->
-<section class="reflection-card">
-  <div class="reflection-title">Where Do I Go Now?</div>
-  <div class="reflection-content">
-    Religion taught me that being different was evil.<br/>
-    School taught me nothing real about gender — just words to memorize.<br/>
-    Media taught me rainbow meant freedom, but never let me feel it.<br/><br/>
-    I was trained to fear difference, to mock softness, to forget nuance.<br/>
-    But now… I stand unsure, still unhealed, still becoming.<br/>
-    Where do I go now? Who do I trust?<br/><br/>
-    I still don’t know.<br/>
-    But I know this: <strong style="color:#fff;">I won’t become what made me silent.</strong>
+    <img src="/reflect1.png" alt="A reflective visual about truth and internalized norms" class="visual-reflection" />
   </div>
-</section>
-
-<footer>
-  &copy; 2025 Miroir by Fils Jean Pierre Mutsinzi. All reflections are protected by memory, truth, and dignity.
-</footer>
-
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-  }
-</script>
-
 </body>
 </html>
