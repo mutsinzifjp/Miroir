@@ -54,20 +54,26 @@
 
   <h1>The Triangle That Formed Me</h1>
 
-  <!-- Thumbnail that opens the flipbook -->
-  <a href="#" onclick="document.getElementById('flipbookEmbed').style.display='block'; this.style.display='none'; return false;">
-    <img src="/trianglecover.jpg" alt="Triangle Cover" class="cover-image" />
-  </a>
+ <!-- Glowing Thumbnail that opens lightbox flipbook -->
+<a href="https://7fa5079c-trial.flowpaper.com/triangleformedme/"
+   class="fp-embed"
+   lightbox="true"
+   data-fp-width="1000"
+   data-fp-height="700"
+   style="display: inline-block; text-align: center;">
+  <img src="/trianglecover.jpg"
+       alt="Triangle Cover"
+       style="max-width: 300px;
+              border: 3px solid #e50914;
+              border-radius: 10px;
+              box-shadow: 0 0 20px #e50914;
+              transition: transform 0.3s ease;
+              cursor: pointer;" />
+</a>
 
-  <!-- Embedded Flipbook -->
-  <div id="flipbookEmbed">
-    <a href="https://7fa5079c-trial.flowpaper.com/triangleformedme/#PreviewMode=Miniature"
-       class="fp-embed"
-       data-fp-width="100%"
-       data-fp-height="600px"
-       style="max-width: 100%;">
-    </a>
-    <script async defer src="https://cdn-online.flowpaper.com/zine/3.9.1/js/embed.min.js"></script>
+<!-- Lightbox script -->
+<script async defer src="https://cdn-online.flowpaper.com/zine/3.9.1/js/embed.min.js"></script>
+
   </div>
 
 </body>
