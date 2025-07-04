@@ -35,7 +35,6 @@
       margin: auto;
     }
 
-    /* Logo */
     .logo {
       width: 140px;
       max-width: 60%;
@@ -54,7 +53,6 @@
       }
     }
 
-    /* Quote */
     .quote {
       font-size: 1.3rem;
       line-height: 1.6;
@@ -66,12 +64,12 @@
       text-shadow: 0 0 8px #e50914;
       transition: color 0.4s ease;
     }
+
     .quote:hover {
       color: #ff1a1a;
       cursor: default;
     }
 
-    /* Call to action button */
     .cta-button {
       display: inline-block;
       padding: 14px 40px;
@@ -89,6 +87,7 @@
       user-select: none;
       margin-bottom: 40px;
     }
+
     .cta-button:hover,
     .cta-button:focus {
       background: #e50914;
@@ -97,9 +96,9 @@
       outline: none;
     }
 
-    /* Navigation bar */
-    nav {
-      margin-top: 50px;
+    /* Desktop nav bar */
+    nav.desktop-nav {
+      margin-top: 40px;
       display: flex;
       flex-wrap: wrap;
       gap: 20px 35px;
@@ -109,14 +108,16 @@
       user-select: none;
       z-index: 2;
     }
-    nav a {
+
+    nav.desktop-nav a {
       color: #fff;
       text-decoration: none;
       position: relative;
       padding-bottom: 6px;
       transition: color 0.3s ease;
     }
-    nav a::after {
+
+    nav.desktop-nav a::after {
       content: '';
       position: absolute;
       left: 0;
@@ -127,68 +128,16 @@
       border-radius: 2px;
       transition: width 0.3s ease;
     }
-    nav a:hover, nav a:focus {
+
+    nav.desktop-nav a:hover, nav.desktop-nav a:focus {
       color: #e50914;
     }
-    nav a:hover::after, nav a:focus::after {
+
+    nav.desktop-nav a:hover::after, nav.desktop-nav a:focus::after {
       width: 100%;
     }
 
-    /* Background subtle animated gradient */
-    body::before {
-      content: "";
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
-      opacity: 0.05;
-      animation: pulseBackground 10s ease-in-out infinite alternate;
-      z-index: -1;
-      pointer-events: none;
-    }
-    @keyframes pulseBackground {
-      0% {
-        opacity: 0.05;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0.15;
-        transform: scale(1.05);
-      }
-    }
-
-    /* Music toggle button */
-    #musicToggle {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #e50914;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 15px #ff1a1a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.3s ease;
-      z-index: 10;
-      user-select: none;
-    }
-    #musicToggle:hover {
-      box-shadow: 0 0 30px #ff1a1a;
-    }
-    #musicToggle svg {
-      fill: #fff;
-      width: 28px;
-      height: 28px;
-      pointer-events: none;
-    }
-
-    /* Hamburger menu toggle */
+    /* Hamburger toggle (mobile only) */
     .menu-toggle {
       position: fixed;
       top: 20px;
@@ -199,7 +148,7 @@
       border-radius: 6px;
       padding: 8px 10px;
       cursor: pointer;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       gap: 4px;
@@ -213,7 +162,6 @@
       background: #e50914;
     }
 
-    /* Mobile menu */
     .menu {
       position: fixed;
       top: 65px;
@@ -240,17 +188,72 @@
       color: #e50914;
     }
 
-    @media (min-width: 768px) {
-      .menu-toggle {
+    /* Music button */
+    #musicToggle {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #e50914;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s ease;
+      z-index: 10;
+      user-select: none;
+    }
+
+    #musicToggle:hover {
+      box-shadow: 0 0 30px #ff1a1a;
+    }
+
+    #musicToggle svg {
+      fill: #fff;
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+    }
+
+    /* Subtle animated background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
+      opacity: 0.05;
+      animation: pulseBackground 10s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes pulseBackground {
+      0% { opacity: 0.05; transform: scale(1); }
+      100% { opacity: 0.15; transform: scale(1.05); }
+    }
+
+    /* Responsive toggling */
+    @media (max-width: 767px) {
+      nav.desktop-nav {
         display: none;
+      }
+      .menu-toggle {
+        display: flex;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Hamburger menu toggle -->
-  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" tabindex="0">
+  <!-- Hamburger menu toggle (visible on mobile) -->
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
     <span></span>
     <span></span>
     <span></span>
@@ -267,20 +270,19 @@
     <a href="/publications.html">Publications</a>
   </nav>
 
-  <!-- Background Canvas -->
+  <!-- Background canvas -->
   <canvas id="bgCanvas"></canvas>
 
-  <!-- Main container -->
-  <div class="container" role="main" aria-label="Miroir homepage main content">
+  <!-- Main content -->
+  <div class="container">
     <img src="/miroir.png" alt="Miroir Logo" class="logo" />
-
-    <div class="quote" aria-live="polite">
+    <div class="quote">
       A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.
     </div>
+    <a href="/about-miroir.html" class="cta-button">Enter the Mirror</a>
 
-    <a href="/about-miroir.html" class="cta-button" role="button" tabindex="0">Enter the Mirror</a>
-
-    <nav aria-label="Primary Navigation">
+    <!-- Desktop navigation -->
+    <nav class="desktop-nav" aria-label="Primary Navigation">
       <a href="/about-miroir.html">About Miroir</a>
       <a href="/my-mirror.html">My Mirror</a>
       <a href="/our-voices.html">Our Voices</a>
@@ -291,20 +293,18 @@
     </nav>
   </div>
 
-  <!-- Background ambient music -->
+  <!-- Audio background -->
   <audio id="bgMusic" loop preload="auto">
     <source src="/relaxing-electronic-ambient-music-354471.mp3" type="audio/mpeg" />
   </audio>
 
   <!-- Music toggle button -->
-  <button id="musicToggle" aria-pressed="false" aria-label="Toggle background music" title="Play/Pause ambient music">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
-    </svg>
+  <button id="musicToggle" aria-label="Toggle music">
+    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"></path></svg>
   </button>
 
   <script>
-    // Hamburger toggle function
+    // Toggle mobile menu
     function toggleMenu() {
       const menu = document.getElementById("mobileMenu");
       menu.style.display = menu.style.display === "flex" ? "none" : "flex";
@@ -318,23 +318,15 @@
     musicToggle.addEventListener('click', () => {
       if (isPlaying) {
         bgMusic.pause();
-        musicToggle.setAttribute('aria-pressed', 'false');
-        musicToggle.innerHTML = `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
-          </svg>`;
+        musicToggle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>`;
       } else {
         bgMusic.play();
-        musicToggle.setAttribute('aria-pressed', 'true');
-        musicToggle.innerHTML = `
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
-          </svg>`;
+        musicToggle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
       }
       isPlaying = !isPlaying;
     });
 
-    // Canvas background animation
+    // Background particles
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -344,9 +336,7 @@
     const colors = ['#e50914', '#ff1a1a', '#fff'];
 
     class Particle {
-      constructor() {
-        this.reset();
-      }
+      constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
@@ -378,10 +368,7 @@
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
+      particles.forEach(p => { p.update(); p.draw(); });
       requestAnimationFrame(animateParticles);
     }
 
