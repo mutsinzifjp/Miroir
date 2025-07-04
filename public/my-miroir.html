@@ -149,6 +149,58 @@
       font-size: 0.9rem;
     }
 
+    /* Hamburger toggle */
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    /* Mobile menu */
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px #e50914;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #e50914;
+    }
+
     @media (max-width: 500px) {
       .logo-glow {
         max-width: 80px;
@@ -167,6 +219,25 @@
   </style>
 </head>
 <body>
+  <!-- Hamburger Menu -->
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Menu Navigation -->
+  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+    <a href="/">Home</a>
+    <a href="/about-miroir.html">About</a>
+    <a href="/my-miroir.html">My Miroir</a>
+    <a href="/our-miroirs.html">Our Miroirs</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/reflections.html">Reflections</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
+
   <header class="centered-header">
     <img src="/miroir.png" alt="Miroir Logo" class="logo-glow" />
     <h1 class="glow-title">My Mirror</h1>
@@ -200,27 +271,27 @@
   </section>
 
   <section class="gallery" aria-label="Butoh Performances">
-    <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank">
+    <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank" rel="noopener noreferrer">
       <img src="/carmen.jpeg" alt="Carmen Performance" />
       <div class="caption">Carmen</div>
     </a>
-    <a href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" class="card" target="_blank">
+    <a href="https://www.instagram.com/reel/DJMXhJ4zHrZ/" class="card" target="_blank" rel="noopener noreferrer">
       <img src="/lostchildhood.jpeg" alt="Reclaiming Lost Childhood" />
       <div class="caption">Reclaiming Lost Childhood</div>
     </a>
-    <a href="https://www.instagram.com/reel/DJd8s_4TfJP/" class="card" target="_blank">
+    <a href="https://www.instagram.com/reel/DJd8s_4TfJP/" class="card" target="_blank" rel="noopener noreferrer">
       <img src="/ofortuna.jpeg" alt="O Fortuna" />
       <div class="caption">O Fortuna</div>
     </a>
-    <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank">
+    <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank" rel="noopener noreferrer">
       <img src="/derholle.jpeg" alt="Der Holle" />
       <div class="caption">Der Holle</div>
     </a>
-    <a href="https://www.instagram.com/reel/DJimNzNMOtL/" class="card" target="_blank">
+    <a href="https://www.instagram.com/reel/DJimNzNMOtL/" class="card" target="_blank" rel="noopener noreferrer">
       <img src="/lacrimosa.jpeg" alt="Lacrimosa" />
       <div class="caption">Lacrimosa</div>
     </a>
-    <a href="https://www.instagram.com/reel/DI4HG8Es1Od/?utm_source=ig_web_copy_link&igsh=cWdtaTc5OWdhNnVz" class="card" target="_blank">
+    <a href="https://www.instagram.com/reel/DI4HG8Es1Od/?utm_source=ig_web_copy_link&igsh=cWdtaTc5OWdhNnVz" class="card" target="_blank" rel="noopener noreferrer">
       <img src="/crossing.jpeg" alt="Crossing the Threshold" />
       <div class="caption">Crossing the Threshold</div>
     </a>
@@ -228,8 +299,8 @@
 
   <div class="connect">
     If any of these resonates with you, I’d love to connect. You’ll find me writing, dancing, resisting, always human, on 
-    <a href="https://www.linkedin.com/in/filsjeanpierremutsinzi" target="_blank">LinkedIn</a> and 
-    <a href="https://www.instagram.com/fils_brandy" target="_blank">Instagram</a>.
+    <a href="https://www.linkedin.com/in/filsjeanpierremutsinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a> and 
+    <a href="https://www.instagram.com/fils_brandy" target="_blank" rel="noopener noreferrer">Instagram</a>.
     <br/><br/>
     <strong>Watch each one and reflect in the mirror.</strong>
   </div>
@@ -245,6 +316,16 @@
     </nav>
     <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'flex';
+      }
+    }
+  </script>
 </body>
 </html>
-
