@@ -2,57 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>The Triangle That Formed Me | Flipbook</title>
+  <title>The Triangle That Formed Me</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- PageFlip CSS & JS -->
+  <!-- PageFlip CSS & JS from jsDelivr -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/css/page-flip.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 
   <style>
     body {
-      margin: 0;
       background: #000;
       color: #fff;
       font-family: 'Arial', sans-serif;
       text-align: center;
-      padding: 30px;
+      padding: 40px 0;
+      margin: 0;
     }
 
     h1 {
       color: #e50914;
       margin-bottom: 30px;
       font-size: 2rem;
+      text-shadow: 0 0 10px #e50914;
     }
 
-    #flipbook {
-      width: 90vw;
-      max-width: 1000px;
-      height: 600px;
+    #flipbook-container {
       margin: 0 auto;
+      width: 90vw;
+      max-width: 900px;
+      height: 600px;
       box-shadow: 0 0 30px #e50914;
+      border: 2px solid #e50914;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
     .page-flip {
-      background: #111;
+      width: 100%;
+      height: 100%;
     }
 
-    .back-button {
-      display: inline-block;
+    footer {
       margin-top: 20px;
-      padding: 10px 20px;
-      border: 2px solid #e50914;
-      border-radius: 30px;
-      color: #e50914;
-      background: transparent;
-      font-weight: bold;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
-
-    .back-button:hover {
-      background: #e50914;
-      color: #fff;
+      font-size: 0.9rem;
+      color: #aaa;
     }
   </style>
 </head>
@@ -60,33 +53,33 @@
 
   <h1>The Triangle That Formed Me</h1>
 
-  <div id="flipbook"></div>
+  <div id="flipbook-container"></div>
 
-  <a href="/publications.html" class="back-button">← Back to Publications</a>
+  <footer>Click or drag pages to turn. Works best on wide screens.</footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const flipbook = new St.PageFlip(document.getElementById('flipbook'), {
-        width: 500,
+    const pageFlip = new St.PageFlip(
+      document.getElementById("flipbook-container"),
+      {
+        width: 450,
         height: 600,
-        size: 'stretch',
+        size: "stretch",
         minWidth: 315,
         maxWidth: 1000,
         minHeight: 400,
-        maxHeight: 1400,
+        maxHeight: 1536,
         maxShadowOpacity: 0.5,
-        showCover: false,
-        mobileScrollSupport: true
-      });
+        showCover: true,
+        mobileScrollSupport: false
+      }
+    );
 
-      flipbook.loadFromImages([
-        "/page1.jpg",
-        "/page2.jpg",
-        "/page3.jpg",
-        "/page4.jpg"
-      ]);
-    });
+    pageFlip.loadFromImages([
+      "/page1.jpg",
+      "/page2.jpg",
+      "/page3.jpg",
+      "/page4.jpg"
+    ]);
   </script>
-
 </body>
 </html>
