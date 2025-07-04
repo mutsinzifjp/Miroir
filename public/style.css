@@ -4,6 +4,10 @@ body {
   margin: 0;
   padding: 30px 20px;
   font-family: Arial, sans-serif;
+
+  /* Mobile friendly scroll and height */
+  min-height: 100vh;  /* allow growth */
+  /* Remove overflow:hidden or fixed height to avoid clipping */
 }
 
 /* Header */
@@ -100,4 +104,21 @@ footer {
 .footer-text {
   color: #888;
   font-size: 0.9rem;
+}
+
+/* Responsive container adjustments (add this if your HTML container uses a class like .container or .gallery) */
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+  }
+  .gallery {
+    gap: 15px;
+  }
+  .card {
+    border-radius: 8px;
+  }
+  .caption {
+    font-size: 1rem;
+    padding: 10px 8px;
+  }
 }
