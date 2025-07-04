@@ -5,19 +5,13 @@
   <title>Publications | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Required Libraries -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery is required for Turn.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/turn.js@4/turn.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/turn.js@4/extras/basic.css">
-
   <style>
     body {
       background: #000;
       color: #fff;
       font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 30px 20px;
       text-align: center;
     }
 
@@ -25,10 +19,11 @@
       color: #e50914;
       margin-bottom: 20px;
       font-size: 2rem;
+      text-shadow: 0 0 10px #e50914;
     }
 
     .cover-image {
-      max-width: 300px;
+      max-width: 320px;
       width: 90%;
       margin: 20px auto;
       border: 3px solid #e50914;
@@ -36,40 +31,22 @@
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.3s ease;
+      display: block;
     }
 
     .cover-image:hover {
       transform: scale(1.03);
     }
 
-    #flipbook-container {
+    #flipbookEmbed {
       display: none;
-      margin: 30px auto;
-      max-width: 90vw;
-      height: auto;
+      margin-top: 40px;
     }
 
-    #flipbook {
-      width: 90vw;
-      height: 600px;
-      margin: 0 auto;
-    }
-
-    #flipbook .page {
-      width: 100%;
-      height: 100%;
-      background: #111;
-    }
-
-    #flipbook canvas {
-      display: block;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    #loading {
-      color: #999;
-      margin-top: 20px;
+    @media screen and (max-width: 768px) {
+      iframe, .fp-embed {
+        height: 500px !important;
+      }
     }
   </style>
 </head>
@@ -77,69 +54,21 @@
 
   <h1>The Triangle That Formed Me</h1>
 
-  <!-- Thumbnail -->
-  <img src="/trianglecover.jpg" alt="Triangle Cover" class="cover-image" id="openFlipbook">
+  <!-- Thumbnail that opens the flipbook -->
+  <a href="#" onclick="document.getElementById('flipbookEmbed').style.display='block'; this.style.display='none'; return false;">
+    <img src="/trianglecover.jpg" alt="Triangle Cover" class="cover-image" />
+  </a>
 
-  <!-- Flipbook Section -->
-  <div id="flipbook-container">
-    <div id="loading">Loading flipbook...</div>
-    <div id="flipbook"></div>
+  <!-- Embedded Flipbook -->
+  <div id="flipbookEmbed">
+    <a href="https://7fa5079c-trial.flowpaper.com/triangleformedme/#PreviewMode=Miniature"
+       class="fp-embed"
+       data-fp-width="100%"
+       data-fp-height="600px"
+       style="max-width: 100%;">
+    </a>
+    <script async defer src="https://cdn-online.flowpaper.com/zine/3.9.1/js/embed.min.js"></script>
   </div>
 
-  <script>
-    const pdfURL = '/triangle-formed-me.pdf';
-    const openBtn = document.getElementById('openFlipbook');
-    const flipbookContainer = document.getElementById('flipbook-container');
-    const flipbook = document.getElementById('flipbook');
-    const loading = document.getElementById('loading');
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-    openBtn.addEventListener('click', () => {
-      openBtn.style.display = 'none';
-      flipbookContainer.style.display = 'block';
-
-      pdfjsLib.getDocument(pdfURL).promise.then(pdf => {
-        const totalPages = pdf.numPages;
-        const renderTasks = [];
-
-        for (let i = 1; i <= totalPages; i++) {
-          renderTasks.push(
-            pdf.getPage(i).then(page => {
-              const scale = 1.2;
-              const viewport = page.getViewport({ scale });
-
-              const canvas = document.createElement('canvas');
-              const context = canvas.getContext('2d');
-              canvas.width = viewport.width;
-              canvas.height = viewport.height;
-
-              return page.render({ canvasContext: context, viewport }).promise.then(() => {
-                const pageDiv = document.createElement('div');
-                pageDiv.classList.add('page');
-                pageDiv.appendChild(canvas);
-                flipbook.appendChild(pageDiv);
-              });
-            })
-          );
-        }
-
-        Promise.all(renderTasks).then(() => {
-          loading.style.display = 'none';
-
-          $('#flipbook').turn({
-            width: flipbook.scrollWidth,
-            height: flipbook.scrollHeight,
-            autoCenter: true,
-            gradients: true,
-            elevation: 50
-          });
-        });
-
-      }).catch(error => {
-        loading.textContent = 'Failed to load PDF: ' + error.message;
-      });
-    });
-  </script>
 </body>
 </html>
