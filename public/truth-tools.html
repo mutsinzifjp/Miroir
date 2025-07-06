@@ -1,191 +1,250 @@
-# Saving the cleaned and final HTML code as a text file so the user can copy-paste it directly.
-final_html_path = "/mnt/data/truth-tools-part-one-final.html"
-
-html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Truth Tools – Part One | Speak the Truth, Stay Alive</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script async src="https://tally.so/widgets/embed.js"></script>
   <style>
     :root {
-      --color-bg-dark: #000000;
-      --color-bg-light: #f5f5f5;
-      --color-text-dark: #eeeeee;
-      --color-text-light: #222222;
+      --color-bg-dark: #000;
+      --color-bg-light: #f9f9f9;
+      --color-text-dark: #eee;
+      --color-text-light: #111;
       --color-accent: #e50914;
       --color-accent-light: #b71c1c;
-      --color-border: #e50914;
     }
     body {
-      background: var(--color-bg-dark);
-      color: var(--color-text-dark);
       margin: 0;
-      padding: 20px 20px 60px 20px;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      transition: background-color 0.5s ease, color 0.5s ease;
-      user-select: text;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      padding: 20px;
+      font-family: sans-serif;
+      background-color: var(--color-bg-dark);
+      color: var(--color-text-dark);
+      transition: all 0.3s ease;
+    }
+    body.light-mode {
+      background-color: var(--color-bg-light);
+      color: var(--color-text-light);
     }
     a {
       color: var(--color-accent);
       text-decoration: none;
-      transition: color 0.3s ease;
     }
-    a:hover, a:focus {
+    a:hover {
       text-decoration: underline;
-      outline: none;
     }
-    body.light-mode {
-      background: var(--color-bg-light);
-      color: var(--color-text-light);
+    header {
+      text-align: center;
+      margin: 80px auto 40px;
+      max-width: 800px;
     }
-    body.light-mode a {
-      color: var(--color-accent-light);
+    header h1 {
+      color: var(--color-accent);
+      font-size: 2.5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      font-weight: bold;
+      color: var(--color-accent);
+    }
+    ul {
+      margin-left: 1.4rem;
+      margin-bottom: 1.4rem;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--color-accent);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #b70f0f;
+    }
+    .mode-toggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: var(--color-accent);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1001;
     }
     .menu-toggle {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      background: transparent;
-      border: 2px solid var(--color-accent);
-      border-radius: 6px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+      top: 15px;
+      right: 15px;
       cursor: pointer;
-      box-shadow: 0 0 10px var(--color-accent);
       z-index: 1001;
-      user-select: none;
     }
     .menu-toggle span {
-      width: 26px;
+      display: block;
+      width: 25px;
       height: 3px;
       background: var(--color-accent);
-      display: block;
-      border-radius: 2px;
-      transition: 0.3s ease;
-    }
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
+      margin: 5px 0;
     }
     .menu {
-      position: fixed;
-      top: 65px;
-      right: 20px;
-      background: #111;
-      border: 1px solid var(--color-border);
-      border-radius: 10px;
-      padding: 15px 25px;
       display: none;
-      flex-direction: column;
-      gap: 15px;
+      position: fixed;
+      top: 60px;
+      right: 15px;
+      background: #111;
+      padding: 20px;
+      border-radius: 8px;
       z-index: 1000;
-      box-shadow: 0 0 15px var(--color-accent);
-      user-select: none;
-      max-width: 220px;
     }
     body.light-mode .menu {
-      background: #ddd;
-      border-color: var(--color-accent-light);
-      box-shadow: 0 0 15px var(--color-accent-light);
+      background: #eee;
     }
     .menu a {
-      font-weight: 600;
-      font-size: 1rem;
+      display: block;
+      margin-bottom: 10px;
       color: var(--color-accent);
     }
-    body.light-mode .menu a {
-      color: var(--color-accent-light);
-    }
-    .menu.show {
-      display: flex;
-      animation: fadeIn 0.3s ease forwards;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    header {
-      max-width: 800px;
-      margin: 80px auto 40px auto;
+    footer {
       text-align: center;
-      user-select: none;
+      font-size: 0.9rem;
+      margin: 60px auto 30px;
+      color: #777;
     }
-    header h1 {
-      font-size: 2.8rem;
-      color: var(--color-accent);
-      margin-bottom: 8px;
-      letter-spacing: 1.5px;
-      text-shadow: 0 0 8px var(--color-accent);
-    }
-    body.light-mode header h1 {
-      color: var(--color-accent-light);
-      text-shadow: none;
-    }
-    header p {
-      font-size: 1.2rem;
-      color: #ccc;
-      font-style: italic;
-      margin: 0;
-    }
-    body.light-mode header p {
-      color: #444;
+    body.light-mode footer {
+      color: #999;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Truth Tools – Part One</h1>
-    <p>Speak the Truth, Stay Alive<br><small>For creators who refuse to be censored, erased, or reshaped to please the algorithm.</small></p>
-  </header>
 
-  <main style="max-width: 800px; margin: auto; padding: 0 10px;">
-    <h2 style="font-weight:700; margin-top: 0;">When I started to speak my truth online, I became my only audience.</h2>
-    <p>I was the only one liking my own posts. I feared my own voice. I rewrote captions five times to make them less offensive. I tried pleasing. I tried silence.</p>
-    <p>But silence never saved me. So I chose truth. Not perfection. Not applause. Just truth.</p>
-    <p>I didn’t have a team. I didn’t know how to code. But I built this entire site by feeding questions to ChatGPT, dragging shapes in Canva, and refusing to give up.</p>
-    <p>You don’t need to be a tech genius to resist. You just need to keep walking — barefoot if you have to.</p>
-    <p>They can hide your post. They can ban your account. But if you’re wise, they’ll never erase your voice.</p>
-    <p>This is not a trend. This is a survival manual for truth-tellers in a system that fears honesty. For the small creators who don’t create to impress — but to wake up the world. This is your mirror, your compass, and your sword.</p>
+<!-- Dark/Light Mode Toggle -->
+<button class="mode-toggle" id="modeToggle">Light Mode</button>
 
-    <h2 style="font-weight:700;">A World Colonized Without Chains</h2>
-    <p>The modern world is so colonized it doesn’t even see the chains — because the chains are now invisible: in ads, beliefs, silence, likes.</p>
-    <p>We live in a system where:</p>
-    <ul>
-      <li><strong>Profits come before people.</strong></li>
-      <li><strong>Truth is treated like stale beer.</strong></li>
-      <li><strong>People censor themselves before being censored.</strong></li>
-    </ul>
-    <p>You will be called “too much.” You will be labeled “crazy,” “angry,” “ungrateful.” That means you’re on the right track.</p>
-    <p>They told me to quiet down, spiritualize it, filter it. I chose instead to unfilter, to bleed where I was once bandaged.</p>
-    <p>Let your content scream the truths your society pretends not to hear.</p>
+<!-- Hamburger Menu -->
+<div class="menu-toggle" id="menuToggle">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+<nav class="menu" id="mobileMenu">
+  <a href="/about-miroir.html">About Miroir</a>
+  <a href="/my-miroir.html">My Miroir</a>
+  <a href="/our-voices.html">Our Voices</a>
+  <a href="/truth-tools.html">Truth Tools</a>
+  <a href="/living-archive.html">Living Archive</a>
+  <a href="/reflections.html">Reflections</a>
+  <a href="/publications.html">Publications</a>
+</nav>
 
-    <h2 style="font-weight:700;">Join, Download and Rise</h2>
-    <p>Ready to start your own truth project?<br>
-    Download the toolkit, share this page, and tell someone who’s just like we were at the beginning: scared, awake, and ready.</p>
-    <p>
-      <a href="#" class="btn" onclick="alert('Toolkit download coming soon!')">Download the Truth Creator Toolkit (PDF)</a><br>
-      <a href="https://instagram.com/fils_brandy" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top: 10px;">Follow my journey on Instagram</a><br>
-      <a href="#" class="btn" style="margin-top: 10px;" onclick="alert('Substack coming soon!')">Join my upcoming Substack for Part Two</a>
-    </p>
-  </main>
+<header>
+  <h1>Truth Tools – Part One</h1>
+  <p>Speak the Truth, Stay Alive<br>For creators who refuse to be censored, erased, or reshaped to please the algorithm.</p>
+</header>
+
+<main>
+  <p>They can hide your post. They can ban your account. But if you’re wise, they’ll never erase your voice.</p>
+  <p>This is not a trend. This is a survival manual for truth-tellers in a system that fears honesty. For the small creators who don’t create to impress — but to wake up the world. This is your mirror, your compass, and your sword.</p>
+
+  <h2>When I started to speak my truth online, I became my only audience.</h2>
+  <p>I was the only one liking my own posts. I feared my own voice. I rewrote captions five times to make them less offensive. I tried pleasing. I tried silence.</p>
+  <p>But silence never saved me. So I chose truth. Not perfection. Not applause. Just truth.</p>
+  <p>I didn’t have a team. I didn’t know how to code. But I built this entire site by feeding questions to ChatGPT, dragging shapes in Canva, and refusing to give up.</p>
+  <p>You don’t need to be a tech genius to resist. You just need to keep walking — barefoot if you have to.</p>
+
+  <p>Download the Truth Creator Toolkit (PDF) — a guide I’m preparing that will include:</p>
+  <ul>
+    <li>The best free tools to create fearlessly (even with no budget)</li>
+    <li>How to plan content that won’t get shadowbanned</li>
+    <li>Emergency backup strategies if your account is deleted</li>
+    <li>How to stay honest while surviving algorithmic punishment</li>
+    <li>Platforms that punish truth — and how to use them smartly</li>
+  </ul>
+
+  <p>Truth in this age is not silenced by bullets. It’s silenced by invisibility.</p>
+  <p>What gets shadowbanned:</p>
+  <ul>
+    <li>Words like resist, Palestine, colonial, rape, queer truth, free thinkers</li>
+    <li>Hashtags like #wakeup, #decolonize, #feministkilljoy</li>
+    <li>Links to activist sites</li>
+    <li>Art that mocks politicians, religion, systems</li>
+  </ul>
+
+  <p>How to stay loud but smart:</p>
+  <ul>
+    <li>Use poetry to hide truth in metaphor</li>
+    <li>Post art instead of rants</li>
+    <li>Avoid banned hashtags</li>
+    <li>Reupload videos across platforms</li>
+    <li>Download your content offline</li>
+  </ul>
+
+  <p>Survival Tips:</p>
+  <ul>
+    <li>Use Archive.org to mirror your work</li>
+    <li>Use Notion to write, backup, and store offline</li>
+    <li>Create backups on USB or drive weekly</li>
+    <li>Own your domain. Never trust only Instagram</li>
+  </ul>
+
+  <p>Toolbox I used:</p>
+  <ul>
+    <li><a href="https://chat.openai.com" target="_blank">ChatGPT</a> – for questions, code, ideas</li>
+    <li><a href="https://canva.com" target="_blank">Canva</a> – for visuals, design, thumbnails</li>
+    <li><a href="https://tally.so" target="_blank">Tally.so</a> – for forms and feedback</li>
+    <li><a href="https://archive.org" target="_blank">Archive.org</a> – for preserving your truth</li>
+    <li><a href="https://notion.so" target="_blank">Notion</a> – for content and journaling</li>
+    <li><a href="https://vercel.com" target="_blank">Vercel</a> + <a href="https://github.com" target="_blank">GitHub</a> – for hosting your site</li>
+  </ul>
+
+  <h2>A World Colonized Without Chains</h2>
+  <p>The modern world is so colonized it doesn’t even see the chains — because the chains are now invisible: in ads, beliefs, silence, likes.</p>
+  <p>We live in a system where:</p>
+  <ul>
+    <li>Profits come before people</li>
+    <li>Truth is treated like stale beer</li>
+    <li>People censor themselves before being censored</li>
+  </ul>
+  <p>You will be called too much. You will be labeled crazy, angry, ungrateful. That means you’re on the right track.</p>
+  <p>They told me to quiet down, spiritualize it, filter it. I chose instead to unfilter, to bleed where I was once bandaged.</p>
+  <p>Let your content scream the truths your society pretends not to hear.</p>
+
+  <h2>Join, Download and Rise</h2>
+  <p>Ready to start your own truth project? Download the toolkit, share this page, and tell someone who’s just like we were at the beginning: scared, awake, and ready.</p>
+  <button data-tally-open="wv6eMQ" data-tally-align-left="1" data-tally-overlay="1" data-tally-auto-close="3000" class="btn">Download the Truth Creator Toolkit</button>
+  <a href="https://instagram.com/fils_brandy" class="btn" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
+</main>
+
+<footer>
+  © 2025 Fils Jean Pierre Mutsinzi | Truth Tools. All rights reserved.
+</footer>
+
+<script>
+  document.getElementById('modeToggle').onclick = function () {
+    document.body.classList.toggle('light-mode');
+    this.textContent = document.body.classList.contains('light-mode') ? 'Dark Mode' : 'Light Mode';
+  };
+
+  const toggleBtn = document.getElementById('menuToggle');
+  const menu = document.getElementById('mobileMenu');
+  toggleBtn.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  });
+</script>
+
 </body>
 </html>
-"""
-
-with open(final_html_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-final_html_path
