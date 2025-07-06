@@ -39,18 +39,15 @@
 
     .cover {
       max-width: 100%;
-      cursor: pointer;
       border: 3px solid #e50914;
       border-radius: 10px;
       box-shadow: 0 0 25px #e50914;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      color: inherit;
       background: #111;
       display: flex;
       flex-direction: column;
       align-items: center;
       overflow: hidden;
+      padding-bottom: 20px;
     }
 
     .cover img {
@@ -61,7 +58,7 @@
     }
 
     .cover:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
       box-shadow: 0 0 40px #ff1a1a;
     }
 
@@ -94,7 +91,6 @@
       }
     }
 
-    /* Hamburger menu toggle */
     .menu-toggle {
       position: fixed;
       top: 20px;
@@ -119,7 +115,6 @@
       background: #e50914;
     }
 
-    /* Menu container */
     .menu {
       position: fixed;
       top: 65px;
@@ -146,7 +141,6 @@
       color: #e50914;
     }
 
-    /* Glowing background animation */
     body::before {
       content: "";
       position: fixed;
@@ -165,58 +159,4 @@
       0% { opacity: 0.05; transform: scale(1); }
       100% { opacity: 0.15; transform: scale(1.05); }
     }
-  </style>
-</head>
-<body>
-
-  <!-- Hamburger menu button -->
-  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Menu -->
-  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
-    <a href="/about-miroir.html">About</a>
-    <a href="/my-miroir.html">My Miroir</a>
-    <a href="/our-miroirs.html">Our Miroirs</a>
-    <a href="/truth-tools.html">Truth Tools</a>
-    <a href="/living-archive.html">Living Archive</a>
-    <a href="/reflections.html">Reflections</a>
-    <a href="/publications.html">Publications</a>
-  </nav>
-
-  <!-- Page title -->
-  <h1>Publications</h1>
-
-  <!-- Publications grid -->
-  <section class="grid" aria-label="Published Works">
-    <!-- Publication 1 -->
-    <a href="/triangle-formed-me.pdf" target="_blank" rel="noopener noreferrer" class="cover" title="Open PDF: The Triangle That Formed Me">
-      <img src="/trianglecover.jpg" alt="The Triangle That Formed Me Cover" />
-      <div class="caption">The Triangle That Formed Me</div>
-    </a>
-
-    <!-- Publication 2 -->
-    <a href="https://doi.org/10.31219/osf.io/nwydk_v1" target="_blank" rel="noopener noreferrer" class="cover" title="View OSF Preprint: Crossing the Threshold">
-      <img src="/unboxedcover.png" alt="Crossing the Threshold Preprint Cover" />
-      <div class="caption">Crossing the Threshold (Preprint)</div>
-    </a>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
-  </footer>
-
-  <!-- JavaScript for menu toggle -->
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
-  </script>
-
-</body>
-</html>
+  <
