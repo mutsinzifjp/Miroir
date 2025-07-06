@@ -16,6 +16,7 @@
       flex-direction: column;
       min-height: 100vh;
       overflow-x: hidden;
+      align-items: center; /* center content horizontally */
     }
 
     h1 {
@@ -24,94 +25,70 @@
       margin-bottom: 10px;
       text-shadow: 0 0 10px #e50914;
       text-align: center;
+      width: 100%;
+      max-width: 800px;
     }
 
     p.intro {
       color: #ccc;
       text-align: center;
       font-size: 1.1rem;
-      margin: 0 auto 30px;
+      margin: 0 auto 40px;
       max-width: 800px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
-      justify-items: center;
+    /* Stack vertically with space */
+    .publication-card {
       width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      flex-grow: 1;
-    }
-
-    .cover {
-      max-width: 100%;
-      cursor: pointer;
+      max-width: 800px;
+      background: #111;
       border: 3px solid #e50914;
       border-radius: 10px;
       box-shadow: 0 0 25px #e50914;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      background: #111;
+      margin-bottom: 40px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: hidden;
     }
 
-    .cover:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px #ff1a1a;
-    }
-
-    .caption {
-      color: #e50914;
-      font-weight: bold;
-      font-size: 1.1rem;
-      padding: 12px;
-      text-align: center;
-      text-shadow: 0 0 8px #e50914;
-    }
-
-    /* 16:9 aspect ratio wrapper */
+    /* For the Canva embed container to keep 16:9 ratio */
     .canva-embed {
       position: relative;
       width: 100%;
       padding-top: 56.25%; /* 16:9 aspect ratio */
-      border-top: 3px solid #e50914;
-      box-sizing: border-box;
+      border-bottom: 3px solid #e50914;
     }
 
     .canva-embed iframe {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       border: none;
-      border-radius: 10px;
+      border-radius: 0 0 10px 10px;
     }
 
-    footer {
+    /* For image in second publication */
+    .publication-image {
+      width: 100%;
+      height: auto;
+      border-bottom: 3px solid #e50914;
+      display: block;
+      border-radius: 0 0 0 0;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .caption {
+      padding: 15px 20px;
+      color: #e50914;
+      font-weight: bold;
+      font-size: 1.2rem;
       text-align: center;
-      margin-top: 40px;
-      padding: 20px 10px;
-    }
-
-    .footer-text {
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 2rem;
-      }
-      .caption {
-        font-size: 1rem;
-      }
+      text-shadow: 0 0 8px #e50914;
+      user-select: none;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     /* Hamburger menu toggle */
@@ -183,12 +160,21 @@
       0% { opacity: 0.05; transform: scale(1); }
       100% { opacity: 0.15; transform: scale(1.05); }
     }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .caption {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Hamburger menu button -->
-  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" tabindex="0" role="button">
     <span></span>
     <span></span>
     <span></span>
@@ -206,39 +192,28 @@
   </nav>
 
   <h1>Publications</h1>
-  <p class="intro">This section showcases selected research and creative experiments published or presented by the author, reflecting on gender, identity, and truth through lived experience and theory.</p>
+  <p class="intro">
+    This section showcases selected research and creative experiments published or presented by the author, reflecting on gender, identity, and truth through lived experience and theory.
+  </p>
 
-  <!-- Publications Grid -->
-  <section class="grid" aria-label="Published Works">
-
-    <!-- Publication 1: Canva only, thumbnail removed -->
-    <div class="cover" title="The Triangle That Formed Me">
-      <div class="canva-embed">
-        <iframe loading="lazy" 
-          src="https://www.canva.com/design/DAGsYcNl5bY/PZVLYjZE5VuoefMDhvmFGg/view?embed" 
-          allowfullscreen></iframe>
-      </div>
+  <!-- Publication 1: Canva embed only -->
+  <section class="publication-card" aria-label="The Triangle That Formed Me">
+    <div class="canva-embed">
+      <iframe loading="lazy" 
+        src="https://www.canva.com/design/DAGsYcNl5bY/PZVLYjZE5VuoefMDhvmFGg/view?embed" 
+        allowfullscreen
+        title="The Triangle That Formed Me Canva Presentation"></iframe>
     </div>
-
-    <!-- Publication 2: Crossing the Threshold -->
-    <a href="https://doi.org/10.31219/osf.io/nwydk_v1" target="_blank" rel="noopener noreferrer" class="cover" title="View OSF Preprint: Crossing the Threshold">
-      <img src="/unboxedcover.png" alt="Crossing the Threshold Preprint Cover" />
-      <div class="caption">Crossing the Threshold (Preprint)</div>
-    </a>
-
   </section>
+
+  <!-- Publication 2: Link with image and caption -->
+  <a href="https://doi.org/10.31219/osf.io/nwydk_v1" target="_blank" rel="noopener noreferrer" class="publication-card" aria-label="Crossing the Threshold Preprint">
+    <img src="/unboxedcover.png" alt="Crossing the Threshold Preprint Cover" class="publication-image" />
+    <div class="caption">Crossing the Threshold (Preprint)</div>
+  </a>
 
   <!-- Footer -->
   <footer>
-    <p class="footer-text">© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
-  </footer>
-
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
-  </script>
-
-</body>
-</html>
+    <p style="color:#888; font-size:0.9rem; text-align:center; margin-top: 40px;">
+      © 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.
+   
