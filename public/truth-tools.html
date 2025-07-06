@@ -1,3 +1,7 @@
+# Saving the cleaned and final HTML code as a text file so the user can copy-paste it directly.
+final_html_path = "/mnt/data/truth-tools-part-one-final.html"
+
+html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +18,6 @@
       --color-accent-light: #b71c1c;
       --color-border: #e50914;
     }
-    /* Base styling for dark mode */
     body {
       background: var(--color-bg-dark);
       color: var(--color-text-dark);
@@ -37,7 +40,6 @@
       text-decoration: underline;
       outline: none;
     }
-    /* Light mode */
     body.light-mode {
       background: var(--color-bg-light);
       color: var(--color-text-light);
@@ -45,7 +47,6 @@
     body.light-mode a {
       color: var(--color-accent-light);
     }
-    /* Hamburger Menu */
     .menu-toggle {
       position: fixed;
       top: 20px;
@@ -79,7 +80,6 @@
     .menu-toggle.active span:nth-child(3) {
       transform: rotate(-45deg) translate(5px, -5px);
     }
-    /* Mobile menu */
     .menu {
       position: fixed;
       top: 65px;
@@ -117,7 +117,6 @@
       from {opacity: 0;}
       to {opacity: 1;}
     }
-    /* Page header */
     header {
       max-width: 800px;
       margin: 80px auto 40px auto;
@@ -144,352 +143,22 @@
     body.light-mode header p {
       color: #444;
     }
-    /* Main content container */
-    main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 10px;
-    }
-    /* Paragraph styling */
-    p {
-      margin-bottom: 1.2rem;
-      font-size: 1.1rem;
-    }
-    ul {
-      margin-left: 1.2rem;
-      margin-bottom: 1.4rem;
-    }
-    ul li {
-      margin-bottom: 0.6rem;
-      font-size: 1.1rem;
-    }
-    /* Section separation line */
-    .section-separator {
-      border-top: 1px solid var(--color-border);
-      margin: 40px 0;
-      opacity: 0.3;
-    }
-    body.light-mode .section-separator {
-      border-color: var(--color-accent-light);
-      opacity: 0.2;
-    }
-    /* Buttons */
-    .btn {
-      background: var(--color-accent);
-      border: none;
-      padding: 12px 28px;
-      font-weight: bold;
-      color: white;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      box-shadow: 0 0 12px var(--color-accent);
-      transition: background 0.3s ease;
-      user-select: none;
-      display: inline-block;
-      text-decoration: none;
-      margin-top: 15px;
-    }
-    .btn:hover,
-    .btn:focus {
-      background: #b70f0f;
-      box-shadow: 0 0 20px #bf1a1a;
-      outline: none;
-    }
-    body.light-mode .btn {
-      background: var(--color-accent-light);
-      box-shadow: 0 0 12px var(--color-accent-light);
-    }
-    body.light-mode .btn:hover,
-    body.light-mode .btn:focus {
-      background: #7f1212;
-      box-shadow: 0 0 20px #8f1919;
-    }
-    /* Comment Section */
-    .comments-section {
-      max-width: 800px;
-      margin: 60px auto 40px auto;
-      padding: 20px 25px;
-      border-left: 4px solid var(--color-border);
-      background: #111;
-      color: var(--color-text-dark);
-      border-radius: 8px;
-      box-shadow: 0 0 12px var(--color-accent);
-    }
-    body.light-mode .comments-section {
-      background: #fafafa;
-      color: var(--color-text-light);
-      border-color: var(--color-accent-light);
-      box-shadow: 0 0 12px var(--color-accent-light);
-    }
-    .comments-section h3 {
-      color: var(--color-accent);
-      margin-bottom: 15px;
-      text-shadow: 0 0 6px var(--color-accent);
-    }
-    body.light-mode .comments-section h3 {
-      color: var(--color-accent-light);
-      text-shadow: none;
-    }
-    form label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    form input[type="text"], form input[type="email"], form textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #444;
-      background: #222;
-      color: #eee;
-      resize: vertical;
-      font-size: 1rem;
-      margin-bottom: 15px;
-      transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
-    }
-    body.light-mode form input[type="text"],
-    body.light-mode form input[type="email"],
-    body.light-mode form textarea {
-      background: #fff;
-      color: #222;
-      border-color: #ccc;
-    }
-    form textarea {
-      min-height: 90px;
-    }
-    form button[type="submit"] {
-      background: var(--color-accent);
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      font-weight: 700;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 0 0 12px var(--color-accent);
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-    body.light-mode form button[type="submit"] {
-      background: var(--color-accent-light);
-      box-shadow: 0 0 12px var(--color-accent-light);
-    }
-    form button[type="submit"]:hover {
-      background: #b70f0f;
-      box-shadow: 0 0 20px #bf1a1a;
-      outline: none;
-    }
-    body.light-mode form button[type="submit"]:hover {
-      background: #7f1212;
-      box-shadow: 0 0 20px #8f1919;
-    }
-    /* Footer */
-    footer {
-      text-align: center;
-      color: #666;
-      font-size: 0.9rem;
-      user-select: none;
-      margin: 60px auto 30px auto;
-      max-width: 800px;
-    }
-    body.light-mode footer {
-      color: #999;
-    }
-    /* Dark/Light mode toggle button */
-    .mode-toggle {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: var(--color-accent);
-      border: none;
-      padding: 10px 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      color: white;
-      font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 0 12px var(--color-accent);
-      z-index: 1002;
-      user-select: none;
-      transition: background 0.3s ease;
-    }
-    .mode-toggle:hover, .mode-toggle:focus {
-      background: #b70f0f;
-      outline: none;
-      box-shadow: 0 0 20px #bf1a1a;
-    }
-    body.light-mode .mode-toggle {
-      background: var(--color-accent-light);
-      box-shadow: 0 0 12px var(--color-accent-light);
-      color: white;
-    }
-    body.light-mode .mode-toggle:hover, body.light-mode .mode-toggle:focus {
-      background: #7f1212;
-      box-shadow: 0 0 20px #8f1919;
-    }
-    /* Responsive */
-    @media (max-width: 600px) {
-      body {
-        padding: 15px 15px 50px 15px;
-      }
-      header h1 {
-        font-size: 2rem;
-      }
-      main {
-        padding: 0 5px;
-      }
-      .menu {
-        max-width: 180px;
-        padding: 15px 20px;
-        top: 60px;
-        right: 10px;
-      }
-      .menu-toggle {
-        top: 15px;
-        right: 15px;
-      }
-      .mode-toggle {
-        top: 15px;
-        left: 15px;
-        padding: 8px 14px;
-        font-size: 0.9rem;
-      }
-    }
   </style>
 </head>
 <body>
-
-  <!-- Dark/Light mode toggle -->
-  <button class="mode-toggle" id="modeToggle" aria-label="Toggle dark and light mode">Light Mode</button>
-
-  <!-- Hamburger menu toggle -->
-  <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Mobile Menu -->
-  <nav class="menu" id="mobileMenu" aria-label="Main navigation" role="navigation">
-    <a href="/about-miroir.html" tabindex="0">About Miroir</a>
-    <a href="/my-miroir.html" tabindex="0">My Miroir</a>
-    <a href="/our-voices.html" tabindex="0">Our Voices</a>
-    <a href="/truth-tools.html" tabindex="0">Truth Tools</a>
-    <a href="/living-archive.html" tabindex="0">Living Archive</a>
-    <a href="/reflections.html" tabindex="0">Reflections</a>
-    <a href="/publications.html" tabindex="0">Publications</a>
-  </nav>
-
-  <!-- Page Header -->
   <header>
     <h1>Truth Tools – Part One</h1>
     <p>Speak the Truth, Stay Alive<br><small>For creators who refuse to be censored, erased, or reshaped to please the algorithm.</small></p>
   </header>
 
-  <!-- Main continuous content -->
-  <main>
-    <p>They can hide your post. They can ban your account. But if you’re wise, they’ll never erase your voice.</p>
-    <p>This is not a trend. This is a survival manual for truth-tellers in a system that fears honesty. For the small creators who don’t create to impress — but to wake up the world. This is your mirror, your compass, and your sword.</p>
-
-    <hr class="section-separator" />
-
+  <main style="max-width: 800px; margin: auto; padding: 0 10px;">
     <h2 style="font-weight:700; margin-top: 0;">When I started to speak my truth online, I became my only audience.</h2>
-    <p>I was the only one liking my own posts. I feared my own voice. I rewrote captions five times to make them less “offensive.” I tried pleasing. I tried silence.</p>
+    <p>I was the only one liking my own posts. I feared my own voice. I rewrote captions five times to make them less offensive. I tried pleasing. I tried silence.</p>
     <p>But silence never saved me. So I chose truth. Not perfection. Not applause. Just truth.</p>
     <p>I didn’t have a team. I didn’t know how to code. But I built this entire site by feeding questions to ChatGPT, dragging shapes in Canva, and refusing to give up.</p>
     <p>You don’t need to be a tech genius to resist. You just need to keep walking — barefoot if you have to.</p>
-
-    <hr class="section-separator" />
-
-    <p>Download the Truth Creator Toolkit (PDF) — a guide I’m preparing that will include:</p>
-    <ul>
-      <li>The best free tools to create fearlessly (even with no budget)</li>
-      <li>How to plan content that won’t get shadowbanned</li>
-      <li>Emergency backup strategies if your account is deleted</li>
-      <li>How to stay honest while surviving algorithmic punishment</li>
-      <li>Platforms that punish truth — and how to use them smartly</li>
-    </ul>
-    <p>You are not alone. You’re just early.</p>
-
-    <hr class="section-separator" />
-
-    <p>Truth in this age is not silenced by bullets. It’s silenced by invisibility.</p>
-    <p>What gets shadowbanned:</p>
-    <ul>
-      <li>Posts with words like “resist,” “Palestine,” “colonial,” “rape,” “queer truth,” “free thinkers”</li>
-      <li>Hashtags like #wakeup, #decolonize, #feministkilljoy</li>
-      <li>Repeated links to activist sites</li>
-      <li>Art that mocks politicians, religion, systems</li>
-    </ul>
-    <p>How to stay loud but smart:</p>
-    <ul>
-      <li>Use poetry to hide truth in metaphor.</li>
-      <li>Post art instead of rants. (It slips through filters.)</li>
-      <li>Avoid banned hashtags; use unique ones.</li>
-      <li>Reupload videos across platforms.</li>
-      <li>Always download your content offline.</li>
-    </ul>
-    <p>Survival Tips:</p>
-    <ul>
-      <li>Use Archive.org to mirror your work.</li>
-      <li>Use Notion to write, backup, and store offline.</li>
-      <li>Create backups on USB or drive weekly.</li>
-      <li>Own your domain. Never trust only Instagram.</li>
-    </ul>
-
-    <hr class="section-separator" />
-
-    <p>I created everything you see here without knowing how to code.</p>
-    <p>Here’s my toolkit for truth-tellers:</p>
-    <table style="width:100%; border-collapse: collapse; margin-bottom: 20px;">
-      <thead>
-        <tr style="border-bottom: 1px solid var(--color-border);">
-          <th style="text-align:left; padding: 6px;">Tool</th>
-          <th style="text-align:left; padding: 6px;">Purpose</th>
-          <th style="text-align:left; padding: 6px;">Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding: 6px;">ChatGPT</td>
-          <td style="padding: 6px;">Ask anything: design, code, strategy</td>
-          <td style="padding: 6px;"><a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a></td>
-        </tr>
-        <tr>
-          <td style="padding: 6px;">Canva</td>
-          <td style="padding: 6px;">Make graphics, pages, posters</td>
-          <td style="padding: 6px;"><a href="https://canva.com" target="_blank" rel="noopener noreferrer">canva.com</a></td>
-        </tr>
-        <tr>
-          <td style="padding: 6px;">Tally.so</td>
-          <td style="padding: 6px;">Build simple forms or surveys</td>
-          <td style="padding: 6px;"><a href="https://tally.so" target="_blank" rel="noopener noreferrer">tally.so</a></td>
-        </tr>
-        <tr>
-          <td style="padding: 6px;">Archive.org</td>
-          <td style="padding: 6px;">Save your work in the cloud, forever</td>
-          <td style="padding: 6px;"><a href="https://archive.org" target="_blank" rel="noopener noreferrer">archive.org</a></td>
-        </tr>
-        <tr>
-          <td style="padding: 6px;">Notion</td>
-          <td style="padding: 6px;">Write, plan, and save offline</td>
-          <td style="padding: 6px;"><a href="https://notion.so" target="_blank" rel="noopener noreferrer">notion.so</a></td>
-        </tr>
-        <tr>
-          <td style="padding: 6px;">GitHub + Vercel</td>
-          <td style="padding: 6px;">Free website hosting</td>
-          <td style="padding: 6px;">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a>, 
-            <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p>You don't need to master them all — just start with what scares you the least.</p>
-
-    <hr class="section-separator" />
+    <p>They can hide your post. They can ban your account. But if you’re wise, they’ll never erase your voice.</p>
+    <p>This is not a trend. This is a survival manual for truth-tellers in a system that fears honesty. For the small creators who don’t create to impress — but to wake up the world. This is your mirror, your compass, and your sword.</p>
 
     <h2 style="font-weight:700;">A World Colonized Without Chains</h2>
     <p>The modern world is so colonized it doesn’t even see the chains — because the chains are now invisible: in ads, beliefs, silence, likes.</p>
@@ -503,8 +172,6 @@
     <p>They told me to quiet down, spiritualize it, filter it. I chose instead to unfilter, to bleed where I was once bandaged.</p>
     <p>Let your content scream the truths your society pretends not to hear.</p>
 
-    <hr class="section-separator" />
-
     <h2 style="font-weight:700;">Join, Download and Rise</h2>
     <p>Ready to start your own truth project?<br>
     Download the toolkit, share this page, and tell someone who’s just like we were at the beginning: scared, awake, and ready.</p>
@@ -514,69 +181,11 @@
       <a href="#" class="btn" style="margin-top: 10px;" onclick="alert('Substack coming soon!')">Join my upcoming Substack for Part Two</a>
     </p>
   </main>
-
-  <!-- Comments Section -->
-  <section class="comments-section" aria-label="Comments section">
-    <h3>Leave Your Comment</h3>
-    <form id="commentForm" aria-label="Submit your comment">
-      <label for="name">Name (required):</label>
-      <input type="text" id="name" name="name" placeholder="Your name" required />
-      <label for="email">Email (optional, for follow-up):</label>
-      <input type="email" id="email" name="email" placeholder="Your email (optional)" />
-      <label for="comment">Comment (required):</label>
-      <textarea id="comment" name="comment" placeholder="Write your thoughts here..." required></textarea>
-      <button type="submit">Submit Comment</button>
-    </form>
-    <div id="commentMessage" role="alert" style="margin-top:15px;"></div>
-  </section>
-
-  <footer>
-    © 2025 Fils Jean Pierre Mutsinzi | Truth Tools. All rights reserved.
-  </footer>
-
-  <script>
-    // Hamburger Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      mobileMenu.classList.toggle('show');
-    });
-    menuToggle.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        menuToggle.click();
-      }
-    });
-
-    // Dark / Light Mode Toggle
-    const modeToggle = document.getElementById('modeToggle');
-    modeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      if(document.body.classList.contains('light-mode')){
-        modeToggle.textContent = 'Dark Mode';
-      } else {
-        modeToggle.textContent = 'Light Mode';
-      }
-    });
-
-    // Comment form submission simulation
-    const commentForm = document.getElementById('commentForm');
-    const commentMessage = document.getElementById('commentMessage');
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = commentForm.name.value.trim();
-      const comment = commentForm.comment.value.trim();
-      if(!name || !comment) {
-        commentMessage.style.color = '#ff4c4c';
-        commentMessage.textContent = 'Please fill in all required fields.';
-        return;
-      }
-      commentMessage.style.color = '#8bc34a';
-      commentMessage.textContent = `Thank you, ${name}. Your comment has been received. (Currently, this demo does not save comments.)`;
-      commentForm.reset();
-    });
-  </script>
-
 </body>
 </html>
+"""
+
+with open(final_html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+final_html_path
