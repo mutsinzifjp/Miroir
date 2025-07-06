@@ -129,6 +129,8 @@
       text-decoration: none;
       box-shadow: 0 0 10px #e50914;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
     .card:hover, .card:focus-visible {
       transform: scale(1.05); 
@@ -147,6 +149,8 @@
       height: 315px;
       display: block;
       border: none;
+      border-bottom: 3px solid #e50914;
+      user-select: none;
     }
     .caption {
       padding: 14px;
@@ -162,6 +166,28 @@
       display: block;
       margin-bottom: 6px;
       font-size: 1.1rem;
+    }
+    .reaction-container {
+      margin: 8px 14px 16px;
+      font-size: 16px;
+      color: #e50914;
+      user-select: none;
+      display: flex;
+      align-items: center;
+    }
+    .reaction-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 24px;
+      margin-left: 12px;
+      color: #e50914;
+      transition: transform 0.2s ease;
+      padding: 0;
+      line-height: 1;
+    }
+    .reaction-btn:hover {
+      transform: scale(1.3);
     }
     .connect {
       text-align: center; 
@@ -235,31 +261,67 @@
     <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
       <img src="/carmen.jpeg" alt="Carmen Performance" />
       <div class="caption"><strong>Carmen</strong> In this operatic performance, I embody the seduction of power and the punishment of desire. Carmen has always been misunderstood. I let her live in my own voice and in the haunting fire of rebellion.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
     </a>
 
     <div class="card">
       <iframe src="https://www.youtube.com/embed/3fUqvy8bFww" title="Reclaiming My Lost Childhood" allowfullscreen></iframe>
       <div class="caption"><strong>Reclaiming Lost Childhood</strong> This Butoh was born from grief, the moments stolen by trauma, by shame, by forced conformity. I present how society wanted to erase my real identity by punishing, mocking, and bullying me, but I refused to be caged.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
     </div>
 
     <div class="card">
       <iframe src="https://www.youtube.com/embed/9asLUL9DurI" title="O Fortuna Butoh" allowfullscreen></iframe>
       <div class="caption"><strong>O Fortuna</strong> Here, I surrender to the forces of fate, screaming through movement that I was never meant to be quiet. It is also a stormy and unfiltered truth exposing existing moral hypocrisy.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
     </div>
 
     <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank" rel="noopener noreferrer">
       <img src="/derholle.jpeg" alt="Der Holle" />
       <div class="caption"><strong>Der Holle</strong> Through this I visit the darkness society builds around femme bodies, queer souls, and sacred rage. The underworld is not hell. It is truth unleashed.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
     </a>
 
     <div class="card">
       <iframe src="https://www.youtube.com/embed/_tjlJVjHuIU" title="Lacrimosa Requiem" allowfullscreen></iframe>
       <div class="caption"><strong>Lacrimosa</strong> My weeping body in this Butoh channels the grief of exile. From churches, families, and nations. Every tear here carries a hymn.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
     </div>
 
     <div class="card">
       <iframe src="https://www.youtube.com/embed/zNJcmT7-fPo" title="Crossing the Threshold" allowfullscreen></iframe>
       <div class="caption"><strong>Crossing the Threshold</strong> I wear a skirt, not to be seen, but to see who dares to look. This performance was a field study, a protest, a prayer. I crossed not just a physical line, but a social one.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
     </div>
   </section>
 
