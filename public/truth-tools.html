@@ -2,18 +2,564 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Truth Tools | Miroir</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Truth Tools – Part One | Speak the Truth, Stay Alive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* Base & Layout */
+    body {
+      background: #000;
+      color: #eee;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a {
+      color: #e50914;
+      text-decoration: none;
+    }
+    a:hover, a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    /* Hamburger Menu */
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #e50914;
+      z-index: 1001;
+      user-select: none;
+    }
+    .menu-toggle span {
+      width: 26px;
+      height: 3px;
+      background: #e50914;
+      display: block;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+    /* Animate hamburger toggle */
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    /* Mobile menu */
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      border-radius: 10px;
+      padding: 15px 25px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1000;
+      box-shadow: 0 0 15px #e50914;
+      user-select: none;
+      max-width: 220px;
+    }
+    .menu a {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    /* Show menu when active */
+    .menu.show {
+      display: flex;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    /* Page header */
+    header {
+      text-align: center;
+      margin: 80px 0 40px;
+      user-select: none;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #e50914;
+      margin-bottom: 8px;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 8px #e50914;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      font-style: italic;
+    }
+    /* Section styling */
+    section {
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+      background: #111;
+      border-left: 5px solid #e50914;
+      padding: 20px 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #e50914;
+      user-select: text;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      color: #e50914;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      font-weight: 700;
+      text-shadow: 0 0 6px #e50914;
+    }
+    section h2 .toggle-icon {
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: #ff4c4c;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+    section h2[aria-expanded="true"] .toggle-icon {
+      transform: rotate(45deg);
+    }
+    section .content {
+      margin-top: 15px;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #ddd;
+    }
+    /* Highlight important quotes */
+    blockquote {
+      margin: 15px 0;
+      padding-left: 15px;
+      border-left: 3px solid #ff1a1a;
+      font-style: italic;
+      color: #ff7777;
+      user-select: text;
+    }
+    /* Buttons */
+    .btn-download, .btn-follow, .btn-subscribe {
+      background: #e50914;
+      border: none;
+      padding: 12px 24px;
+      font-weight: bold;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 0 12px #ff1a1a;
+      user-select: none;
+      transition: background 0.3s ease;
+      margin-top: 15px;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-download:hover,
+    .btn-follow:hover,
+    .btn-subscribe:hover {
+      background: #ff1a1a;
+      box-shadow: 0 0 20px #ff3333;
+      outline: none;
+    }
+    /* Comment Section */
+    .comments-section {
+      max-width: 800px;
+      margin: 0 auto 60px auto;
+      background: #111;
+      border-left: 5px solid #e50914;
+      padding: 20px 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #e50914;
+      color: #ddd;
+    }
+    .comments-section h3 {
+      color: #e50914;
+      margin-bottom: 15px;
+      text-shadow: 0 0 6px #e50914;
+    }
+    form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    form input[type="text"], form input[type="email"], form textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
+      resize: vertical;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    form textarea {
+      min-height: 90px;
+    }
+    form button[type="submit"] {
+      background: #e50914;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 0 12px #ff1a1a;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    form button[type="submit"]:hover {
+      background: #ff1a1a;
+      box-shadow: 0 0 20px #ff3333;
+      outline: none;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 15px 15px 50px 15px;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      section {
+        padding: 18px 15px;
+        margin-bottom: 30px;
+      }
+      .menu {
+        max-width: 180px;
+        padding: 15px 20px;
+        top: 60px;
+        right: 10px;
+      }
+      .menu-toggle {
+        top: 15px;
+        right: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Truth Tools</h1>
-  <p>
-    Practical guides, legal rights, and decolonial frameworks  
-    designed to arm you with knowledge, power, and clarity.  
-    Tools for dismantling lies and building freedom.  
-    <strong>Coming soon.</strong>
-  </p>
 
-  <a href="/">← Back Home</a>
+  <!-- Hamburger menu toggle -->
+  <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Mobile Menu -->
+  <nav class="menu" id="mobileMenu" aria-label="Main navigation" role="navigation">
+    <a href="/about-miroir.html" tabindex="0">About Miroir</a>
+    <a href="/my-miroir.html" tabindex="0">My Miroir</a>
+    <a href="/our-voices.html" tabindex="0">Our Voices</a>
+    <a href="/truth-tools.html" tabindex="0">Truth Tools</a>
+    <a href="/living-archive.html" tabindex="0">Living Archive</a>
+    <a href="/reflections.html" tabindex="0">Reflections</a>
+    <a href="/publications.html" tabindex="0">Publications</a>
+  </nav>
+
+  <!-- Page Header -->
+  <header>
+    <h1>Truth Tools – Part One</h1>
+    <p>Speak the Truth, Stay Alive<br><small>For creators who refuse to be censored, erased, or reshaped to please the algorithm.</small></p>
+  </header>
+
+  <!-- Sections with toggle -->
+  <main>
+
+    <section>
+      <h2 tabindex="0" aria-expanded="false" aria-controls="section1-content" class="toggle-header">
+        Hero Title + Subtitle
+        <span class="toggle-icon">+</span>
+      </h2>
+      <div id="section1-content" class="content" hidden>
+        <p><strong>Speak the Truth, Stay Alive</strong></p>
+        <p>They can hide your post. They can ban your account. But if you’re wise, they’ll never erase your voice.</p>
+        <p>This is not a trend. This is a survival manual for truth-tellers in a system that fears honesty. For the small creators who don’t create to impress — but to wake up the world. This is your mirror, your compass, and your sword.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 tabindex="0" aria-expanded="false" aria-controls="section2-content" class="toggle-header">
+        Your Story – The Lonely Beginning
+        <span class="toggle-icon">+</span>
+      </h2>
+      <div id="section2-content" class="content" hidden>
+        <blockquote>“When I started to speak my truth online, I became my only audience.”</blockquote>
+        <p>I was the only one liking my own posts. I feared my own voice. I rewrote captions five times to make them less “offensive.” I tried pleasing. I tried silence.</p>
+        <p>But silence never saved me. So I chose truth. Not perfection. Not applause. Just truth.</p>
+        <p>I didn’t have a team. I didn’t know how to code. But I built this entire site by feeding questions to ChatGPT, dragging shapes in Canva, and refusing to give up.</p>
+        <p>You don’t need to be a tech genius to resist. You just need to keep walking — barefoot if you have to.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 tabindex="0" aria-expanded="false" aria-controls="section3-content" class="toggle-header">
+        Toolkit Download + Strategy
+        <span class="toggle-icon">+</span>
+      </h2>
+      <div id="section3-content" class="content" hidden>
+        <p>🎁 <a href="#" class="btn-download" onclick="alert('Toolkit download coming soon!')">Download: The Truth Creator Toolkit (PDF)</a></p>
+        <p>Inside this guide:</p>
+        <ul>
+          <li>The best free tools to create fearlessly (even with no budget)</li>
+          <li>How to plan content that won’t get shadowbanned</li>
+          <li>Emergency backup strategies if your account is deleted</li>
+          <li>How to stay honest while surviving algorithmic punishment</li>
+          <li>Platforms that punish truth — and how to use them smartly</li>
+        </ul>
+        <p>You are not alone. You’re just early.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 tabindex="0" aria-expanded="false" aria-controls="section4-content" class="toggle-header">
+        Shadowban & Digital Surveillance – Speak Smart
+        <span class="toggle-icon">+</span>
+      </h2>
+      <div id="section4-content" class="content" hidden>
+        <blockquote>Truth in this age is not silenced by bullets. It’s silenced by invisibility.</blockquote>
+        <h3>What gets shadowbanned:</h3>
+        <ul>
+          <li>Posts with words like “resist,” “Palestine,” “colonial,” “rape,” “queer truth,” “free thinkers”</li>
+          <li>Hashtags like #wakeup, #decolonize, #feministkilljoy</li>
+          <li>Repeated links to activist sites</li>
+          <li>Art that mocks politicians, religion, systems</li>
+        </ul>
+        <h3>How to stay loud but smart:</h3>
+        <ul>
+          <li>Use <strong>poetry</strong> to hide truth in metaphor.</li>
+          <li>Post <strong>art</strong> instead of rants. (It slips through filters.)</li>
+          <li>Avoid banned hashtags; use unique ones.</li>
+          <li>Reupload videos across platforms.</li>
+          <li>Always <strong>download your content offline</strong>.</li>
+        </ul>
+        <h3>Survival Tips:</h3>
+        <ul>
+          <li>Use Archive.org to mirror your work.</li>
+          <li>Use Notion to write, backup, and store offline.</li>
+          <li>Create backups on USB or drive weekly.</li>
+          <li>Own your domain. Never trust only Instagram.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 tabindex="0" aria-expanded="false" aria-controls="section5-content" class="toggle-header">
+        Safe Tech Tools (For Non-Coders)
+        <span class="toggle-icon">+</span>
+      </h2>
+      <div id="section5-content" class="content" hidden>
+        <p>I created everything you see here without knowing how to code.</p>
+        <p>Here’s my toolkit for truth-tellers:</p>
+        <table style="width:100%; border-collapse: collapse; margin-bottom: 15px;">
+          <thead>
+            <tr style="border-bottom: 1px solid #e50914;">
+              <th style="text-align:left; padding: 6px;">Tool</th>
+              <th style="text-align:left; padding: 6px;">Purpose</th>
+              <th style="text-align:left; padding: 6px;">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 6px;">ChatGPT</td>
+              <td style="padding: 6px;">Ask anything: design, code, strategy</td>
+              <td style="padding: 6px;"><a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 6px;">Canva</td>
+              <td style="padding: 6px;">Make graphics, pages, posters</td>
+              <td style="padding: 6px;"><a href="https://canva.com" target="_blank" rel="noopener noreferrer">canva.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 6px;">Tally.so</td>
+              <td style="padding: 6px;">Build simple forms or surveys</td>
+              <td style="padding: 6px;"><a href="https://tally.so" target="_blank" rel="noopener noreferrer">tally.so</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 6px;">Archive.org</td>
+              <td style="padding: 6px;">Save your work in the cloud, forever</td>
+              <td style="padding: 6px;"><a href="https://archive.org" target="_blank" rel="noopener noreferrer">archive.org</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 6px;">Notion</td>
+              <td style="padding: 6px;">Write, plan, and save offline</td>
+              <td style="padding: 6px;"><a href="https://notion.so" target="_blank" rel="noopener noreferrer">notion.so</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 6px;">GitHub + Vercel</td>
+              <td style="padding: 6px;">Free website hosting</td>
+              <td style="padding: 6px;">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a>, 
+                <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>You don't need to master them all — just start with what scares you the least.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 tabindex="0" aria-expanded="false" aria-controls="section6-content" class="toggle-header">
+        Philosophical Fire – A World Colonized Without Chains
+        <span class="toggle-icon">+</span>
+      </h2>
+      <div id="section6-content" class="content" hidden>
+        <blockquote>“The modern world is so colonized it doesn’t even see the chains — because the chains are now invisible: in ads, beliefs, silence, likes.”</blockquote>
+        <p>We live in a system where:</p>
+        <ul>
+          <li><strong>Profits come before people.</strong></li>
+          <li><strong>Truth is treated like a stale beer.</strong></li>
+          <li><strong>People censor themselves before being censored.</strong></li>
+        </ul>
+        <p>You will be called “too much.” You will be labeled “crazy,” “angry,” “ungrateful.” That means you’re on the right track.</p>
+        <p>They told me to quiet down, spiritualize it, filter it. I chose instead to <strong>unfilter</strong>, to bleed where I was once bandaged.</p>
+        <p>Let your content scream the truths your society pretends not to hear.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 tabindex="0" aria-expanded="false" aria-controls="section7-content" class="toggle-header">
+        Call to Action – Join, Download, Rise
+        <span class="toggle-icon">+</span>
+      </h2>
+      <div id="section7-content" class="content" hidden>
+        <p><strong>Ready to start your own truth project?</strong><br>
+        Download the toolkit, share this page, and tell someone who’s just like we were at the beginning: scared, awake, and ready.</p>
+        <p>
+          <a href="#" class="btn-download" onclick="alert('Toolkit download coming soon!')">Download the Truth Creator Toolkit (PDF)</a><br>
+          <a href="https://instagram.com/fils_brandy" target="_blank" rel="noopener noreferrer" class="btn-follow" style="margin-top:10px; display:inline-block;">Follow my journey on Instagram</a><br>
+          <a href="#" class="btn-subscribe" style="margin-top:10px; display:inline-block;" onclick="alert('Substack coming soon!')">Join my upcoming Substack for Part Two</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Comments Section -->
+  <section class="comments-section" aria-label="Comments section">
+    <h3>Leave Your Comment</h3>
+    <form id="commentForm" aria-label="Submit your comment">
+      <label for="name">Name (required):</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+      <label for="email">Email (optional, for follow-up):</label>
+      <input type="email" id="email" name="email" placeholder="Your email (optional)" />
+      <label for="comment">Comment (required):</label>
+      <textarea id="comment" name="comment" placeholder="Write your thoughts here..." required></textarea>
+      <button type="submit">Submit Comment</button>
+    </form>
+    <div id="commentMessage" role="alert" style="margin-top:15px;"></div>
+  </section>
+
+  <footer style="text-align:center; color:#666; font-size:0.9rem; user-select:none; margin-bottom:30px;">
+    © 2025 Fils Jean Pierre Mutsinzi | Truth Tools. All rights reserved.
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('show');
+    });
+    menuToggle.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuToggle.click();
+      }
+    });
+
+    // Toggle sections show/hide
+    const toggles = document.querySelectorAll('.toggle-header');
+    toggles.forEach(header => {
+      header.addEventListener('click', () => {
+        toggleSection(header);
+      });
+      header.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleSection(header);
+        }
+      });
+    });
+    function toggleSection(header) {
+      const expanded = header.getAttribute('aria-expanded') === 'true';
+      const content = document.getElementById(header.getAttribute('aria-controls'));
+      if(expanded){
+        header.setAttribute('aria-expanded', 'false');
+        content.hidden = true;
+      } else {
+        header.setAttribute('aria-expanded', 'true');
+        content.hidden = false;
+      }
+    }
+
+    // Fade in sections on scroll
+    function isInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) - 100
+      );
+    }
+    function revealOnScroll() {
+      document.querySelectorAll('section').forEach(section => {
+        if(isInViewport(section)) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Comment form submission simulation
+    const commentForm = document.getElementById('commentForm');
+    const commentMessage = document.getElementById('commentMessage');
+
+    commentForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = commentForm.name.value.trim();
+      const comment = commentForm.comment.value.trim();
+      if(!name || !comment) {
+        commentMessage.style.color = '#ff4c4c';
+        commentMessage.textContent = 'Please fill in all required fields.';
+        return;
+      }
+      commentMessage.style.color = '#8bc34a';
+      commentMessage.textContent = `Thank you, ${name}. Your comment has been received. (Currently, this demo does not save comments.)`;
+      commentForm.reset();
+    });
+  </script>
+
 </body>
 </html>
