@@ -1,5 +1,4 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -11,6 +10,7 @@
       --red: #e50914;
       --dark: #000;
       --light: #fff;
+      --gray: #ccc;
     }
 
     body {
@@ -20,12 +20,7 @@
       font-family: 'Arial', sans-serif;
       padding: 20px;
       line-height: 1.6;
-      animation: flickerBg 10s infinite ease-in-out;
-    }
-
-    @keyframes flickerBg {
-      0%, 100% { background-color: #000; }
-      50% { background-color: #0a0a0a; }
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     header {
@@ -33,51 +28,41 @@
       width: 100%;
       top: 0;
       left: 0;
-      background: rgba(0, 0, 0, 0.9);
-      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.95);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      z-index: 1000;
+      justify-content: space-between;
+      padding: 10px 20px;
+      z-index: 999;
+      box-shadow: 0 0 10px var(--red);
     }
 
     .logo {
-      display: block;
-      margin: 0 auto;
       height: 45px;
+      margin: 0 auto;
+      display: block;
     }
 
     .top-controls {
       position: absolute;
+      top: 15px;
       right: 20px;
-      top: 10px;
       display: flex;
-      align-items: center;
       gap: 15px;
     }
 
-    .toggle-theme {
+    .toggle-theme, .hamburger {
+      font-size: 1.4rem;
       background: none;
       border: none;
-      color: var(--light);
-      font-size: 1.5rem;
       cursor: pointer;
+      color: var(--light);
     }
 
     .hamburger {
-      font-size: 1.5rem;
-      background: none;
-      border: none;
       color: var(--red);
-      cursor: pointer;
+      text-shadow: 0 0 5px var(--red);
       animation: pulse 2s infinite;
-      text-shadow: 0 0 8px var(--red);
-    }
-
-    @keyframes pulse {
-      0% { text-shadow: 0 0 8px var(--red); }
-      50% { text-shadow: 0 0 20px var(--red); }
-      100% { text-shadow: 0 0 8px var(--red); }
     }
 
     nav {
@@ -88,9 +73,8 @@
       right: 20px;
       background: #111;
       border-radius: 10px;
-      overflow: hidden;
       box-shadow: 0 0 10px var(--red);
-      z-index: 999;
+      overflow: hidden;
     }
 
     nav a {
@@ -106,8 +90,8 @@
 
     .content {
       max-width: 850px;
-      margin: 120px auto 60px;
-      animation: fadeIn 1.2s ease-out;
+      margin: 100px auto 60px;
+      animation: fadeInUp 1.2s ease-out;
     }
 
     a {
@@ -131,37 +115,44 @@
       box-shadow: 0 0 15px var(--red);
     }
 
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 0.9rem;
+      padding: 30px 0;
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 6px var(--red); }
+      50% { text-shadow: 0 0 20px var(--red); }
+      100% { text-shadow: 0 0 6px var(--red); }
+    }
+
     @keyframes glowPulse {
       0% { box-shadow: 0 0 5px var(--red); }
       50% { box-shadow: 0 0 20px var(--red); }
       100% { box-shadow: 0 0 5px var(--red); }
     }
 
-    footer {
-      text-align: center;
-      color: #999;
-      font-size: 0.9rem;
-      padding-bottom: 30px;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(15px);}
-      to {opacity: 1; transform: translateY(0);}
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 768px) {
-      .content { padding: 0 10px; }
-      nav { right: 10px; width: 200px; }
+      nav {
+        width: 220px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER with LOGO and Controls -->
+  <!-- HEADER -->
   <header>
     <img src="/miroir.png" alt="Miroir Logo" class="logo">
     <div class="top-controls">
-      <button class="toggle-theme" id="themeToggle" title="Toggle Theme">🌙</button>
+      <button class="toggle-theme" id="themeToggle">🌙</button>
       <button class="hamburger" id="menuToggle">☰</button>
     </div>
   </header>
@@ -176,8 +167,7 @@
     <a href="/reflections.html">Reflections</a>
     <a href="/publications.html">Publications</a>
   </nav>
-
-  <!-- MAIN CONTENT -->
+<!-- CONTENT BLOCK -->
   <div class="content">
 
       <div class="content">
