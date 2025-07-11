@@ -302,36 +302,48 @@
 
     <h3>Wanna Join Me?</h3>
     <p>Subscribe to my Substack. Wanna collaborate?</p>
-    <button class="tally-button" data-tally-open="wv6eMQ" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Submit Your Voice</button>
-  </div>
+    <button class="tally-button"
+  data-tally-open="wv6eMQ"
+  data-tally-emoji-text="👋"
+  data-tally-emoji-animation="wave">
+  Submit Your Story
+</button>
+
 
   <!-- Tally Script -->
-  <script async src="https://tally.so/widgets/embed.js"></script>
+<script async src="https://tally.so/widgets/embed.js"></script>
+
     
   <!-- FOOTER -->
   <footer>© 2025 Miroir. All rights reserved.</footer>
     
   <script>
-    const themeToggle = document.getElementById("themeToggle");
-    const body = document.body;
-    themeToggle.addEventListener("click", () => {
-      if (body.style.background === "white") {
-        body.style.background = "#000";
-        body.style.color = "#fff";
-        themeToggle.textContent = "🌙";
-      } else {
-        body.style.background = "#fff";
-        body.style.color = "#000";
-        themeToggle.textContent = "☀️";
-      }
-    });
+  const themeToggle = document.getElementById("themeToggle");
+  const body = document.body;
 
-    const menuToggle = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
-    menuToggle.addEventListener("click", () => {
-      navMenu.style.display = navMenu.style.display === "flex" ? "none" : "flex";
-    });
-  </script>
+  let isDark = true; // track current mode
+
+  themeToggle.addEventListener("click", () => {
+    if (isDark) {
+      body.style.background = "#fff";
+      body.style.color = "#000";
+      document.querySelectorAll("a").forEach(link => link.style.color = "#d63384");
+      themeToggle.textContent = "☀️";
+    } else {
+      body.style.background = "#000";
+      body.style.color = "#fff";
+      document.querySelectorAll("a").forEach(link => link.style.color = "#d63384");
+      themeToggle.textContent = "🌙";
+    }
+    isDark = !isDark;
+  });
+
+  const menuToggle = document.getElementById("menuToggle");
+  const navMenu = document.getElementById("navMenu");
+  menuToggle.addEventListener("click", () => {
+    navMenu.style.display = navMenu.style.display === "flex" ? "none" : "flex";
+  });
+</script>
 
 </body>
 </html>
