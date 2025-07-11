@@ -183,6 +183,48 @@
     #musicToggle:hover svg {
       fill: #000;
     }
+/* === Smooth page transitions === */
+body {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+body.fade-in {
+  opacity: 1;
+}
+
+/* === Paragraph scroll-in animation === */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Fix: glowing button for Submit without pink text === */
+.tally-button {
+  display: inline-block;
+  background: #e50914;
+  color: white;
+  padding: 12px 24px;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 0 12px #e50914;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.tally-button:hover {
+  box-shadow: 0 0 24px #ff1a1a;
+  transform: scale(1.05);
+}
   </style>
 </head>
 <body>
@@ -321,5 +363,26 @@
     canvas.height = window.innerHeight;
   });
 </script>
+    // Fade in the page on load
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("fade-in");
+});
+
+// Animate paragraphs on scroll
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+document.querySelectorAll(".scroll-fade").forEach((el) => {
+  observer.observe(el);
+});
+
 </body>
 </html>
