@@ -3,202 +3,243 @@
 <head>
   <meta charset="UTF-8" />
   <title>Truth Tools | Miroir</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
   <style>
     :root {
-      --bg: #000;
-      --text: #fff;
-      --accent: #e50914;
-    }
-    body.light {
-      --bg: #fff;
-      --text: #000;
+      --red: #e50914;
+      --dark: #000;
+      --light: #fff;
     }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Arial', sans-serif;
+      background: var(--dark);
+      color: var(--light);
       margin: 0;
-      padding: 0;
-      transition: background 0.3s, color 0.3s;
+      font-family: 'Arial', sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+      padding: 20px;
+      line-height: 1.6;
     }
+
     header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      position: sticky;
-      top: 0;
-      background: var(--bg);
       z-index: 10;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
+
     .logo {
-      font-size: 1.5rem;
+      color: var(--red);
       font-weight: bold;
-      color: var(--accent);
+      font-size: 1.2rem;
     }
+
+    .toggle-theme {
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
     nav {
       display: none;
       flex-direction: column;
-      gap: 15px;
-      position: absolute;
+      background: #111;
+      position: fixed;
       top: 60px;
-      left: 20px;
-      background: var(--bg);
-      padding: 10px 15px;
-      border: 1px solid var(--accent);
+      right: 20px;
       border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px #000;
     }
+
     nav a {
-      color: var(--text);
+      color: var(--light);
       text-decoration: none;
-      font-weight: bold;
+      padding: 12px 20px;
+      display: block;
+      transition: background 0.3s ease;
     }
-    .nav-toggle {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+
+    nav a:hover {
+      background: var(--red);
+    }
+
+    .hamburger {
       cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--light);
+      background: none;
+      border: none;
     }
-    .bar {
-      width: 25px;
-      height: 3px;
-      background: var(--text);
-    }
-    .dark-toggle {
-      cursor: pointer;
-      font-size: 1.3rem;
-      color: var(--text);
-    }
+
     .content {
-      max-width: 850px;
-      margin: auto;
-      padding: 30px 20px;
+      max-width: 800px;
+      margin: 100px auto 40px;
       animation: fadeIn 1s ease-out;
     }
-    .content h1 {
-      color: var(--accent);
-      text-align: center;
-      margin-bottom: 1em;
-    }
-    .content a {
-      color: var(--accent);
+
+    a {
+      color: var(--red);
       text-decoration: underline;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .tally-button {
+      margin-top: 40px;
+      padding: 12px 20px;
+      background: var(--red);
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
     }
-    @media (min-width: 768px) {
+
+    .tally-button:hover {
+      box-shadow: 0 0 12px var(--red);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @media (max-width: 768px) {
       nav {
-        display: flex !important;
-        position: static;
-        flex-direction: row;
-        gap: 25px;
-        background: none;
-        border: none;
+        width: 200px;
       }
-      .nav-toggle { display: none; }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="logo">MIROIR</div>
-    <div class="nav-toggle" onclick="toggleNav()">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-    <nav id="navMenu">
-      <a href="/index.html">Home</a>
-      <a href="/publications.html">Publications</a>
-      <a href="/fliptriangle.html">Flipbook</a>
-      <a href="/truth-tools.html" style="color: var(--accent);">Truth Tools</a>
-    </nav>
-    <div class="dark-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-      <i class="fas fa-moon" id="themeIcon"></i>
+    <div class="logo">Miroir</div>
+    <div>
+      <button class="toggle-theme" id="themeToggle" title="Toggle Theme">🌙</button>
+      <button class="hamburger" id="menuToggle">☰</button>
     </div>
   </header>
 
+  <nav id="navMenu">
+    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/my-miroir.html">My Miroir</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/reflections.html">Reflections</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
+
   <div class="content">
     <h1>A Survival Kit for Unfiltered Creators</h1>
-    <p><em>[For creators who refuse to be reshaped by silence, fear, or algorithms.]</em></p>
+    <p><strong>[For creators who refuse to be reshaped by silence, fear, or algorithms.]</strong></p>
     <p>They can hide your post. They can ban your account, but if your voice is rooted in purpose, not provocation, it will always find a way to be heard.</p>
+    
     <p><strong>Dear Truth-Telling Creators,</strong></p>
-    <p>We live in a world that often prefers polite lies over bold honesty... <em>a world where being agreeable is more celebrated than being awake. In such a world, those who dare to speak up, to name what is unjust or buried, are met not with applause but suspicion. We are taught to soften our voices while our communities burn, to be likable instead of truthful.
-That is why I created this survival guide for creators who don’t post for claps but to awaken. This is not a goldmine; it is a mirror, a companion for those ready to dig with their bare hands and speak truths that aren’t always trending.
-When I started sharing my truth online, I was my own audience. I liked my own posts, I hesitated with every word, editing and re-editing to not offend. I tried pleasing, I tried silence, but silence never saved me. So I just chose truth over perfection or applause.
-I had no team, I had no tech background, but I built this space by asking questions to ChatGPT, dragging shapes in Canva, and refusing to vanish. You don’t need to be a genius to build something real; you just need to keep going, even if it’s barefoot.
-What You’ll Find Here
-You will get a toolkit to help you speak boldly and navigate smartly:
-The best free tools to create fearlessly (even with no budget)
-How to plan content that avoids visibility suppression
-Backup strategies in case your content is removed
-How to stay honest without putting yourself in harm’s way
-Ways to use online platforms with clarity and caution
-This is also a collaboration. I’ve included an open form where you can offer your own insights, because this isn’t just my voice, it’s our shared breath.
-Invisibility Is the New Censorship
-In today’s digital world, truth is not always shot down by force. It’s often shadowed by algorithms, muted, discredited, and made to vanish.
-I’ve seen creators get their accounts flagged or quietly de-ranked, not because they spread harm, but because they dared to speak from lived pain. I’ve seen poetic posts labeled as violations, art mistaken for hate, and honest terms mistaken for danger.
-Here are real examples:
-In 2021, Instagram and Twitter removed hundreds of #SaveSheikhJarrah posts (Al Jazeera)
-Feminist and decolonial resistance content were flagged and removed by the Instagram and TikTok algorithms (Sage, Time)
-Queer creators using words like “femme” or “nonbinary” were suppressed (TeenVogue, them)
-How to Stay Loud and Smart:
-Some of us call a spade a spade, some of us name injustice directly, but we must also recognize: not everyone you speak for will stand beside you once you’re targeted. So here are strategies to speak the truth while staying safe:
-Use metaphor, poetry, or art to veil bold messages
-Replace rants with symbolic visuals
-Avoid flagged hashtags
-Re-upload your work across platforms
-Download your content weekly
-Some of the Tools to Protect and Amplify Your Work:
-Archive.org: For mirroring your truth in public records
-Notion: To write, reflect, and backup your voice
-USB/Drives: For offline safety
-Create Your Own Domain: Never trust one platform alone
-Toolbox I Personally Use:
-ChatGPT: For questions, structure, and brainstorming
-Adobe Express: For quick, simple animations
-Canva: For design and story visuals
-Tally.so: For open forms and collaboration
-Notion: For journaling and drafts
-Vercel + GitHub: For free website hosting
-You don’t need a publisher to tell your truth; you can publish your book yourself and share your work in ways no algorithm can bury.
-Some of the Platforms to consider:
-OSF, Zenodo, and preprint servers for self-publishing with a DOI
-Amazon KDP for books
-Substack & Medium for blogs and letters
-A World Colonized Without Chains
-We live in a world where chains no longer jingle, they shimmer in ad banners, trends, in likes, or even silence.
-This is a world where:
-Profit often outweighs people
-The truth is framed as an inconvenience
-People silence themselves before being silenced
-So when they tell you you’re too much, label you as angry, intense, or ungrateful, remember: that might be the moment your truth struck deep. You don’t need to edit your fire, and you don’t need to sweeten your voice.
-They told me to tone it down, spiritualize it, and make it digestible, and I chose to unfilter and speak where I was once silent.
-Let your content say what your society refuses to hear.
-Wanna Join Me?
-Ready to begin your own truth project? Subscribe to my Substack for real tools, no fluff.
-Wanna collaborate? Fill out this form. Tell your story, your tools, your struggle to the world. You can submit anonymously, and your privacy will be respected. Just come as you are, because the truth isn’t owned. It’s shared.
->
+    <p>We live in a world that often prefers polite lies over bold honesty... to be likable instead of truthful.</p>
+
+    <p>That is why I created this survival guide... speak truths that aren’t always trending.</p>
+
+    <p>When I started sharing my truth online... I just chose truth over perfection or applause.</p>
+
+    <p>I had no team... You don’t need to be a genius to build something real; you just need to keep going, even if it’s barefoot.</p>
+
+    <h3>What You’ll Find Here</h3>
+    <ul>
+      <li>The best free tools to create fearlessly (even with no budget)</li>
+      <li>How to plan content that avoids visibility suppression</li>
+      <li>Backup strategies in case your content is removed</li>
+      <li>How to stay honest without putting yourself in harm’s way</li>
+      <li>Ways to use online platforms with clarity and caution</li>
+    </ul>
+
+    <p>This is also a collaboration... it’s our shared breath.</p>
+
+    <h3>Invisibility Is the New Censorship</h3>
+    <p>Truth is not always shot down by force. It’s often shadowed by algorithms...</p>
+    <ul>
+      <li>Instagram and Twitter removed hundreds of <a href="https://www.aljazeera.com/news/2021/5/19/instagram-twitter-delete-accounts-palestinian-activists" target="_blank">#SaveSheikhJarrah posts</a> (Al Jazeera)</li>
+      <li>Feminist and decolonial content removed by algorithms (<a href="https://time.com/6080614/instagram-tiktok-censoring-palestine-content/" target="_blank">Time</a>, Sage)</li>
+      <li>Queer creators suppressed (<a href="https://www.teenvogue.com/story/instagram-censoring-lgbtq-accounts" target="_blank">TeenVogue</a>, <a href="https://www.them.us/story/instagram-shadowbanning-queer-creators" target="_blank">them</a>)</li>
+    </ul>
+
+    <h3>How to Stay Loud and Smart</h3>
+    <ul>
+      <li>Use metaphor, poetry, or art to veil bold messages</li>
+      <li>Replace rants with symbolic visuals</li>
+      <li>Avoid flagged hashtags</li>
+      <li>Re-upload your work across platforms</li>
+      <li>Download your content weekly</li>
+    </ul>
+
+    <h3>Some of the Tools I Recommend</h3>
+    <ul>
+      <li><a href="https://archive.org/" target="_blank">Archive.org</a></li>
+      <li><a href="https://notion.so" target="_blank">Notion</a></li>
+      <li>USB/Drives for offline safety</li>
+      <li>Your own domain name</li>
+    </ul>
+
+    <h3>My Toolbox</h3>
+    <ul>
+      <li><a href="https://chat.openai.com/" target="_blank">ChatGPT</a></li>
+      <li><a href="https://express.adobe.com/" target="_blank">Adobe Express</a></li>
+      <li><a href="https://canva.com" target="_blank">Canva</a></li>
+      <li><a href="https://tally.so/" target="_blank">Tally.so</a></li>
+      <li>Vercel + GitHub</li>
+    </ul>
+
+    <h3>Publishing Platforms</h3>
+    <ul>
+      <li><a href="https://osf.io/" target="_blank">OSF</a></li>
+      <li><a href="https://zenodo.org/" target="_blank">Zenodo</a></li>
+      <li><a href="https://kdp.amazon.com/" target="_blank">Amazon KDP</a></li>
+      <li><a href="https://substack.com/" target="_blank">Substack</a></li>
+    </ul>
+
+    <h3>A World Colonized Without Chains</h3>
+    <p>We live in a world where chains no longer jingle, they shimmer in ad banners...</p>
+
+    <p>Let your content say what your society refuses to hear.</p>
+
+    <h3>Wanna Join Me?</h3>
+    <p>Subscribe to my Substack. Wanna collaborate?</p>
+    <button class="tally-button" data-tally-open="wv6eMQ" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Submit Your Voice</button>
   </div>
 
-  <script>
-    function toggleNav() {
-      const nav = document.getElementById("navMenu");
-      nav.style.display = nav.style.display === "flex" ? "none" : "flex";
-    }
+  <!-- Tally Script -->
+  <script async src="https://tally.so/widgets/embed.js"></script>
 
-    function toggleTheme() {
-      const body = document.body;
-      const icon = document.getElementById("themeIcon");
-      body.classList.toggle("light");
-      icon.classList.toggle("fa-moon");
-      icon.classList.toggle("fa-sun");
-    }
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    themeToggle.addEventListener("click", () => {
+      if (body.style.background === "white") {
+        body.style.background = "#000";
+        body.style.color = "#fff";
+        themeToggle.textContent = "🌙";
+      } else {
+        body.style.background = "#fff";
+        body.style.color = "#000";
+        themeToggle.textContent = "☀️";
+      }
+    });
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.getElementById("navMenu");
+    menuToggle.addEventListener("click", () => {
+      navMenu.style.display = navMenu.style.display === "flex" ? "none" : "flex";
+    });
   </script>
+
 </body>
 </html>
