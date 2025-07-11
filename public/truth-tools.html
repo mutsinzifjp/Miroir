@@ -1,18 +1,11 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Truth Tools | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-  <!-- Tally Form -->
-  <script async src="https://tally.so/widgets/embed.js"></script>
-
-  <!-- Styles -->
   <style>
     :root {
       --red: #e50914;
@@ -24,18 +17,24 @@
       background: var(--dark);
       color: var(--light);
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      transition: background 0.4s ease, color 0.4s ease;
-      line-height: 1.7;
-      animation: fadeIn 1s ease-out;
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+      line-height: 1.6;
+      animation: flickerBg 10s infinite ease-in-out;
+    }
+
+    @keyframes flickerBg {
+      0%, 100% { background-color: #000; }
+      50% { background-color: #0a0a0a; }
     }
 
     header {
       position: fixed;
       width: 100%;
       top: 0;
+      left: 0;
       background: rgba(0, 0, 0, 0.9);
-      padding: 12px 20px;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -43,18 +42,21 @@
     }
 
     .logo {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--red);
+      display: block;
+      margin: 0 auto;
+      height: 45px;
     }
 
-    .top-buttons {
+    .top-controls {
+      position: absolute;
+      right: 20px;
+      top: 10px;
       display: flex;
       align-items: center;
       gap: 15px;
     }
 
-    .theme-toggle, .menu-toggle {
+    .toggle-theme {
       background: none;
       border: none;
       color: var(--light);
@@ -62,24 +64,39 @@
       cursor: pointer;
     }
 
+    .hamburger {
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--red);
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      text-shadow: 0 0 8px var(--red);
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 8px var(--red); }
+      50% { text-shadow: 0 0 20px var(--red); }
+      100% { text-shadow: 0 0 8px var(--red); }
+    }
+
     nav {
       display: none;
       flex-direction: column;
-      background: #111;
-      position: absolute;
+      position: fixed;
       top: 60px;
       right: 20px;
-      border-radius: 6px;
-      box-shadow: 0 0 10px #000;
+      background: #111;
+      border-radius: 10px;
       overflow: hidden;
-      animation: fadeIn 0.3s ease-out;
+      box-shadow: 0 0 10px var(--red);
+      z-index: 999;
     }
 
     nav a {
       color: var(--light);
-      text-decoration: none;
       padding: 12px 20px;
-      display: block;
+      text-decoration: none;
       transition: background 0.3s ease;
     }
 
@@ -88,14 +105,9 @@
     }
 
     .content {
-      padding: 100px 20px 40px;
-      max-width: 800px;
-      margin: auto;
-      animation: slideFade 0.8s ease-out;
-    }
-
-    h1, h2, h3 {
-      color: var(--red);
+      max-width: 850px;
+      margin: 120px auto 60px;
+      animation: fadeIn 1.2s ease-out;
     }
 
     a {
@@ -103,64 +115,69 @@
       text-decoration: underline;
     }
 
-    ul {
-      padding-left: 20px;
-    }
-
     .tally-button {
-      margin-top: 30px;
-      padding: 12px 20px;
+      margin-top: 40px;
+      padding: 12px 24px;
       background: var(--red);
+      border: none;
+      border-radius: 30px;
       color: white;
       font-weight: bold;
-      border: none;
-      border-radius: 25px;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      animation: glowPulse 2s infinite;
     }
 
     .tally-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px var(--red);
+      box-shadow: 0 0 15px var(--red);
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 5px var(--red); }
+      50% { box-shadow: 0 0 20px var(--red); }
+      100% { box-shadow: 0 0 5px var(--red); }
+    }
+
+    footer {
+      text-align: center;
+      color: #999;
+      font-size: 0.9rem;
+      padding-bottom: 30px;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideFade {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
     @media (max-width: 768px) {
-      nav { width: 220px; }
+      .content { padding: 0 10px; }
+      nav { right: 10px; width: 200px; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- Header -->
+  <!-- HEADER with LOGO and Controls -->
   <header>
-    <div class="logo">Miroir</div>
-    <div class="top-buttons">
-      <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
-      <button class="menu-toggle" id="menuToggle" title="Menu">☰</button>
+    <img src="/miroir.png" alt="Miroir Logo" class="logo">
+    <div class="top-controls">
+      <button class="toggle-theme" id="themeToggle" title="Toggle Theme">🌙</button>
+      <button class="hamburger" id="menuToggle">☰</button>
     </div>
-    <nav id="navMenu">
-      <a href="/about-miroir.html">About Miroir</a>
-      <a href="/my-miroir.html">My Miroir</a>
-      <a href="/our-voices.html">Our Voices</a>
-      <a href="/truth-tools.html">Truth Tools</a>
-      <a href="/living-archive.html">Living Archive</a>
-      <a href="/reflections.html">Reflections</a>
-      <a href="/publications.html">Publications</a>
-    </nav>
   </header>
 
-  <!-- Main Content -->
+  <!-- NAV MENU -->
+  <nav id="navMenu">
+    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/my-miroir.html">My Miroir</a>
+    <a href="/our-voices.html">Our Voices</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/reflections.html">Reflections</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
   <div class="content">
 
       <div class="content">
@@ -220,8 +237,8 @@
 
     <h3>Some of the Tools I Recommend</h3>
     <ul>
-      <li><a href="https://archive.org/" target="_blank">Archive.org for mirroring your truth in public records.</a></li>
-      <li><a href="https://notion.so" target="_blank">Notion for journaling and drafts.</a></li>
+      <li><a href="https://archive.org/" target="_blank">Archive.org</a>for mirroring your truth in public records.</li> 
+      <li><a href="https://notion.so" target="_blank">Notion</a> for journaling and drafts.</li>
       <li>USB/Drives for offline safety.</li>
       <li>Your own domain name.</li>
     </ul>
@@ -268,7 +285,10 @@
 
   <!-- Tally Script -->
   <script async src="https://tally.so/widgets/embed.js"></script>
-
+    
+  <!-- FOOTER -->
+  <footer>© 2025 Miroir. All rights reserved.</footer>
+    
   <script>
     const themeToggle = document.getElementById("themeToggle");
     const body = document.body;
