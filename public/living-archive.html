@@ -1,19 +1,1261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Living Archive | Miroir</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Archive - Miroir</title>
+    <style>
+        /* Reset and foundation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Site Logo */
+        .site-logo {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            padding: 1rem;
+            opacity: 0;
+            animation: logoFadeIn 2s ease 0.5s forwards;
+        }
+
+        .site-logo img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .site-logo img:hover {
+            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6));
+            transform: scale(1.05);
+        }
+
+        @keyframes logoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Hamburger Menu */
+        .hamburger-menu {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1002;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            border-color: #ff0000;
+        }
+
+        .hamburger-icon {
+            width: 25px;
+            height: 20px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: 0.3s ease-in-out;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: #fff;
+            border-radius: 1px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger-icon span:nth-child(1) { top: 0px; }
+        .hamburger-icon span:nth-child(2) { top: 8px; }
+        .hamburger-icon span:nth-child(3) { top: 16px; }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 4rem;
+            right: -320px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
+            transition: right 0.3s ease;
+            z-index: 1001;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-menu.active {
+            right: 1rem;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-menu a:hover {
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            border-bottom-color: #ff0000;
+            transform: translateX(10px);
+        }
+
+        /* Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #ff0000;
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(45deg, #000 0%, #111 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 L80,80 M80,20 L20,80 M50,0 L50,100 M0,50 L100,50" stroke="rgba(255,0,0,0.1)" stroke-width="0.5" fill="none"/></svg>');
+            opacity: 0.3;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.1; transform: scale(1.02); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            animation: slideUp 1s ease 0.5s both;
+            color: #ff0000;
+        }
+
+        .hero-intro {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+            animation: slideUp 1s ease 0.8s both;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Archive Container */
+        .archive-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Filter Tags */
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+
+        .filter-tag {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: #ff0000;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Archive Sections */
+        .archive-section {
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .archive-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: #ff0000;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #ff0000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; width: 100px; }
+            50% { opacity: 1; width: 150px; }
+        }
+
+        /* Archive Grid */
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .archive-item {
+            background: rgba(17, 17, 17, 0.9);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .archive-item:hover {
+            transform: translateY(-5px);
+            border-color: #ff0000;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .archive-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .archive-item:hover::before {
+            left: 100%;
+        }
+
+        .item-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff0000;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .item-date {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ff0000;
+        }
+
+        .item-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .item-tag {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Timeline Visualization */
+        .timeline-container {
+            margin: 6rem 0;
+            position: relative;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ff0000;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: timelineSlide 0.8s ease forwards;
+        }
+
+        .timeline-item:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(odd) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes timelineSlide {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-content {
+            position: relative;
+            background: rgba(17, 17, 17, 0.9);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
+            width: 45%;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-content:hover {
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -30px;
+            border-left-color: #333;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -30px;
+            border-right-color: #333;
+            transform: translateY(-50%);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 15px;
+            height: 15px;
+            background: #ff0000;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            top: -10px;
+            background: #000;
+            color: #ff0000;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            transform: translateX(-50%);
+            font-weight: bold;
+            border: 1px solid #ff0000;
+        }
+
+        /* Quote Submission */
+        .quote-submission {
+            background: linear-gradient(135deg, #111 0%, #000 100%);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .quote-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quote-input {
+            width: 100%;
+            min-height: 120px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            color: #fff;
+            font-family: Georgia, serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .quote-input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .quote-input::placeholder {
+            color: #666;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .site-logo img {
+                height: 50px;
+            }
+
+            .hamburger-menu {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+
+            .nav-menu {
+                width: calc(100vw - 2rem);
+                right: -100vw;
+                top: 4rem;
+                margin: 0 1rem;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .archive-container {
+                padding: 2rem 1rem;
+            }
+
+            .archive-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-tags {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px !important;
+            }
+
+            .timeline-content::before {
+                left: -30px !important;
+                border-right-color: #333 !important;
+                border-left-color: transparent !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-year {
+                left: 20px;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Glitch effect for special moments */
+        .glitch {
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        /* Bleeding effect */
+        .bleeding {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bleeding::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #ff0000, transparent);
+            animation: bleed 4s ease-in-out infinite;
+        }
+
+        @keyframes bleed {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-  <h1>Living Archive</h1>
-  <p>
-    A growing collection of public submissions, research, and stories —  
-    tagged, curated, and alive.  
-    This space will hold the echoes of collective memory and resilience.  
-    <strong>Coming soon.</strong>
-  </p>
+    <!-- Site Logo -->
+    <div class="site-logo">
+        <img src="miroir.png" alt="Miroir Logo">
+    </div>
 
-  <a href="/">← Back Home</a>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="my-mirror.html">My Miroir</a></li>
+            <li><a href="our-mirrors.html">Our Miroirs</a></li>
+            <li><a href="truth-tools.html">Truth Tools</a></li>
+            <li><a href="living-archive.html">Living Archive</a></li>
+            <li><a href="reflections.html">Reflections</a></li>
+            <li><a href="publications.html">Publications</a></li>
+        </ul>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="glitch">LIVING ARCHIVE</h1>
+        <div class="hero-intro">
+            Welcome to the breathing vault of memory and resistance. Here, fragments of truth float in digital amber—
+            whispers of the past bleeding into dreams of the future. Each entry pulses with the heartbeat of those who dared to crack 
+            the mirror, who chose authenticity over acceptance, who wrote their existence in the margins of a world 
+            that refused to see them. This is not a museum of the dead, but a sanctuary for the living, 
+            where every scar tells a story and every dream builds tomorrow.
+        </div>
+    </section>
+
+    <div class="archive-container">
+        <!-- Filter Tags -->
+        <div class="filter-tags">
+            <div class="filter-tag active" data-filter="all">All Fragments</div>
+            <div class="filter-tag" data-filter="femme-rebellion">Femme Rebellion</div>
+            <div class="filter-tag" data-filter="truth-scars">Truth Scars</div>
+            <div class="filter-tag" data-filter="field-notes">Field Notes</div>
+            <div class="filter-tag" data-filter="decoloniality">Decoloniality</div>
+            <div class="filter-tag" data-filter="butoh">Butoh</div>
+            <div class="filter-tag" data-filter="diary-fragments">Diary Fragments</div>
+            <div class="filter-tag" data-filter="resistance">Resistance</div>
+            <div class="filter-tag" data-filter="gender-storms">Gender Storms</div>
+        </div>
+
+        <!-- Whispers of the Past -->
+        <section class="archive-section" id="whispers">
+            <h2 class="section-title bleeding">Whispers of the Past</h2>
+            <div class="archive-grid">
+                <div class="archive-item" data-tags="femme-rebellion,diary-fragments">
+                    <div class="item-type">Memory Fragment</div>
+                    <div class="item-date">May 26, 2025</div>
+                    <h3 class="item-title">The Day I Wore Truth</h3>
+                    <div class="item-content">
+                        "As I opened the classroom door, I felt chains breaking. The air entered my lungs differently—
+                        the breath of someone who had stopped asking for permission to exist. The stares weren't violence; 
+                        they were mirrors reflecting their own limitations."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">femme-rebellion</span>
+                        <span class="item-tag">diary-fragments</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="truth-scars,resistance">
+                    <div class="item-type">Scar Story</div>
+                    <div class="item-date">Childhood - Present</div>
+                    <h3 class="item-title">The Violence of "Normal"</h3>
+                    <div class="item-content">
+                        "They called it correction, but I felt it as erasure. Every time they said 'act like a boy,' 
+                        a piece of my soul learned to hide. The scar isn't on my skin—it's in the space between 
+                        who I am and who they demanded I become."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">truth-scars</span>
+                        <span class="item-tag">resistance</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="field-notes,gender-storms">
+                    <div class="item-type">Field Research</div>
+                    <div class="item-date">2025 Ongoing</div>
+                    <h3 class="item-title">Silent Observers & Open Supporters</h3>
+                    <div class="item-content">
+                        "The silence revealed more than words. Some paralyzed by unfamiliarity, others celebrating courage 
+                        while acknowledging fear. Their reactions mapped the geography of societal gender surveillance—
+                        invisible checkpoints where bodies are measured against imaginary standards."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">field-notes</span>
+                        <span class="item-tag">gender-storms</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="decoloniality,resistance">
+                    <div class="item-type">Historical Echo</div>
+                    <div class="item-date">Pre-Colonial Rwanda</div>
+                    <h3 class="item-title">Before the Binary Arrived</h3>
+                    <div class="item-content">
+                        "Before colonization imposed rigid gender categories, our ancestors understood fluidity. 
+                        The binary is not our tradition—it is the colonizer's gift that keeps giving trauma. 
+                        Reclaiming indigenous understanding of identity is decolonizing the body."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">decoloniality</span>
+                        <span class="item-tag">resistance</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="butoh,truth-scars">
+                    <div class="item-type">Performance Note</div>
+                    <div class="item-date">Future Placeholder</div>
+                    <h3 class="item-title">Body as Language</h3>
+                    <div class="item-content">
+                        "[PLACEHOLDER: Document future butoh performances where the body speaks what language cannot contain. 
+                        Movement as resistance, gesture as truth, dance as the crack that splits rigid categories.]"
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">butoh</span>
+                        <span class="item-tag">truth-scars</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="diary-fragments,gender-storms">
+                    <div class="item-type">Mirror Meditation</div>
+                    <div class="item-date">Timeless</div>
+                    <h3 class="item-title">Why Can't I See Myself Fully?</h3>
+                    <div class="item-content">
+                        "Standing before a mirror, I asked: Why do I need this reflection to know my face? 
+                        Some mirrors make me beautiful, others grotesque. All of them lie. The real mirror 
+                        lives in the eyes of others—and that mirror has been cracked since birth."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">diary-fragments</span>
+                        <span class="item-tag">gender-storms</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Visualization -->
+        <section class="timeline-container">
+            <h2 class="section-title">Timeline of Resistance</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Pre-1900</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Indigenous Gender Fluidity</h3>
+                        <p>Before colonial imposition, many cultures recognized multiple genders and fluid expressions. 
+                        The binary was not universal truth but imperial control.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1950s-60s</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Early Gender Pioneers</h3>
+                        <p>[PLACEHOLDER: Document historical figures who challenged gender norms in this era. 
+                        Research and add specific activists, artists, and everyday people who resisted.]</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1969</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Stonewall & Beyond</h3>
+                        <p>Uprising that changed everything. Trans women of color leading the resistance, 
+                        throwing the first stones against a system that criminalized their existence.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1990s</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Gender Theory Revolution</h3>
+                        <p>[PLACEHOLDER: Academic awakening and real-world impact of gender theory. 
+                        Document how scholarship began catching up to lived experience.]</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2000s</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Digital Age Visibility</h3>
+                        <p>Social media as double-edged sword: platform for authenticity and target for harassment. 
+                        The internet amplified both liberation and violence.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>The Skirt Experiment</h3>
+                        <p>One morning in Delhi, a student wore truth to class. The mirrors cracked, 
+                        the research began, and the archive was born. Small acts, infinite ripples.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">Future</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>[Your Story Here]</h3>
+                        <p>[PLACEHOLDER: Space for future entries, personal milestones, cultural shifts, 
+                        and moments when the mirror cracks a little more.]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Futures Yet Dreamed -->
+        <section class="archive-section" id="futures">
+            <h2 class="section-title bleeding">Futures Yet Dreamed</h2>
+            <div class="archive-grid">
+                <div class="archive-item" data-tags="resistance,future-visions">
+                    <div class="item-type">Future Letter</div>
+                    <div class="item-date">2050</div>
+                    <h3 class="item-title">Letter from Tomorrow's Child</h3>
+                    <div class="item-content">
+                        "Dear Past-Self, I write from a world where children choose their own pronouns at breakfast, 
+                        where bathrooms are not battlegrounds, where clothing has no gender. Thank you for cracking 
+                        the first mirror. The light got in, and we built worlds in that crack."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">resistance</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="decoloniality,future-visions">
+                    <div class="item-type">Speculative Vision</div>
+                    <div class="item-date">2030s</div>
+                    <h3 class="item-title">The Great Unlearning</h3>
+                    <div class="item-content">
+                        "Schools begin teaching the history of the binary as imperial violence. Children learn that gender 
+                        is a language, not a prison. The textbooks call it 'The Great Unlearning'—when humanity 
+                        remembered it had always been more than two."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">decoloniality</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="butoh,future-visions">
+                    <div class="item-type">Dream Performance</div>
+                    <div class="item-date">2027</div>
+                    <h3 class="item-title">Bodies Without Borders</h3>
+                    <div class="item-content">
+                        "[FUTURE PLACEHOLDER: Imagined butoh performance in a post-binary world. Bodies moving without 
+                        explanation, dancing beyond categories, celebrating the space between masculine and feminine 
+                        as infinite possibility.]"
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">butoh</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="truth-scars,future-visions">
+                    <div class="item-type">Healing Prophecy</div>
+                    <div class="item-date">2040s</div>
+                    <h3 class="item-title">When Scars Become Maps</h3>
+                    <div class="item-content">
+                        "The scars we carry from binary violence become maps for future generations. 
+                        They learn from our wounds where not to step, how to build bridges across the cracks, 
+                        how to honor the pain that purchased their freedom."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">truth-scars</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Submission -->
+        <section class="quote-submission">
+            <h2 class="section-title">Contribute Your Truth</h2>
+            <p style="margin-bottom: 2rem; font-style: italic; opacity: 0.8;">
+                Share an anonymous fragment of truth. A moment when you cracked a mirror. 
+                A realization that changed everything. A whisper from your resistance.
+            </p>
+            <div class="quote-form">
+                <textarea 
+                    class="quote-input" 
+                    id="truthQuote"
+                    placeholder="Write your truth here... it could be a single line that changed your life, a moment of resistance, a scar that became a star, or a dream of the future you're building..."
+                    maxlength="500">
+                </textarea>
+                <button class="submit-btn" onclick="submitTruth()">Add to Archive</button>
+            </div>
+            <div id="submissionStatus" style="margin-top: 1rem; font-style: italic; opacity: 0.8;"></div>
+        </section>
+    </div>
+
+    <script>
+        // Progress bar
+        function updateProgressBar() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Back to top functionality
+        function toggleBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        // Hamburger menu functionality
+        function initHamburgerMenu() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+
+            function toggleMenu() {
+                hamburgerMenu.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+            }
+
+            function closeMenu() {
+                hamburgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            hamburgerMenu.addEventListener('click', toggleMenu);
+            navOverlay.addEventListener('click', closeMenu);
+
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMenu();
+                }
+            });
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('.archive-section');
+            const windowHeight = window.innerHeight;
+            const triggerPoint = windowHeight * 0.7;
+
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                
+                if (sectionTop < triggerPoint) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        // Filter functionality
+        function initFilters() {
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const archiveItems = document.querySelectorAll('.archive-item');
+
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    // Remove active from all tags
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    // Add active to clicked tag
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    archiveItems.forEach(item => {
+                        if (filter === 'all') {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            const itemTags = item.getAttribute('data-tags');
+                            if (itemTags && itemTags.includes(filter)) {
+                                item.style.display = 'block';
+                                setTimeout(() => {
+                                    item.style.opacity = '1';
+                                    item.style.transform = 'translateY(0)';
+                                }, 100);
+                            } else {
+                                item.style.opacity = '0';
+                                item.style.transform = 'translateY(20px)';
+                                setTimeout(() => {
+                                    item.style.display = 'none';
+                                }, 300);
+                            }
+                        }
+                    });
+                });
+            });
+        }
+
+        // Truth submission
+        function submitTruth() {
+            const truthInput = document.getElementById('truthQuote');
+            const statusDiv = document.getElementById('submissionStatus');
+            const truth = truthInput.value.trim();
+
+            if (truth.length < 10) {
+                statusDiv.textContent = 'Your truth deserves more words. Share deeper.';
+                statusDiv.style.color = '#ff0000';
+                return;
+            }
+
+            // Here you would normally send to a server
+            // For now, we'll simulate success
+            statusDiv.textContent = 'Your truth has been added to the archive. Thank you for contributing to the collective memory.';
+            statusDiv.style.color = '#00ff00';
+            truthInput.value = '';
+
+            // In real implementation, you would:
+            // 1. Send truth to your backend
+            // 2. Save to database
+            // 3. Moderate content
+            // 4. Display in archive after approval
+            
+            setTimeout(() => {
+                statusDiv.textContent = '';
+            }, 5000);
+        }
+
+        // Enhanced hover effects
+        function initEnhancedEffects() {
+            const archiveItems = document.querySelectorAll('.archive-item');
+            
+            archiveItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initHamburgerMenu();
+            initFilters();
+            initEnhancedEffects();
+            revealOnScroll();
+            toggleBackToTop();
+        });
+
+        // Scroll events
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            toggleBackToTop();
+            revealOnScroll();
+        });
+
+        // Back to top click
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Random glitch effects
+        setInterval(() => {
+            const glitchElements = document.querySelectorAll('.glitch');
+            glitchElements.forEach(element => {
+                element.style.animation = 'none';
+                setTimeout(() => {
+                    element.style.animation = 'glitch 3s infinite';
+                }, 10);
+            });
+        }, 10000);
+    </script>
 </body>
 </html>
