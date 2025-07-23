@@ -3,8 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cracked Mirror</title>
+    <title>Living Archive - Miroir</title>
     <style>
+        /* Root color variables for theming */
+        :root {
+            --bg-primary: #000;
+            --bg-secondary: #111;
+            --text-primary: #fff;
+            --text-secondary: #999;
+            --accent-color: #ff0000;
+            --border-color: #333;
+            --card-bg: rgba(17, 17, 17, 0.9);
+            --overlay-bg: rgba(0, 0, 0, 0.5);
+            --input-bg: rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #fff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --accent-color: #dc3545;
+            --border-color: #dee2e6;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --overlay-bg: rgba(0, 0, 0, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.9);
+        }
+
         /* Reset and foundation */
         * {
             margin: 0;
@@ -14,20 +39,20 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: #000;
-            color: #fff;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.7;
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Typography hierarchy */
+        /* Typography */
         h1, h2, h3 {
             font-family: 'Helvetica Neue', sans-serif;
             font-weight: 300;
             letter-spacing: 1px;
         }
 
-        /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
         }
@@ -176,7 +201,7 @@
             transform: translateX(10px);
         }
 
-        /* Overlay for mobile menu */
+        /* Overlay */
         .nav-overlay {
             position: fixed;
             top: 0;
@@ -195,45 +220,6 @@
             visibility: visible;
         }
 
-        /* Header adjustment for logo */
-        .header {
-            position: fixed;
-            top: 80px;
-            width: 100%;
-            background: transparent;
-            z-index: 999;
-            padding: 1rem 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            position: relative;
-            color: #fff;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 1px;
-            background: #ff0000;
-            transform: translate(-50%, -50%) rotate(15deg);
-            opacity: 0.7;
-        }
-
         /* Back to top button */
         .back-to-top {
             position: fixed;
@@ -241,8 +227,8 @@
             right: 2rem;
             width: 50px;
             height: 50px;
-            background: #ff0000;
-            color: #fff;
+            background: var(--accent-color);
+            color: var(--bg-primary);
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -262,22 +248,61 @@
         }
 
         .back-to-top:hover {
-            background: #fff;
-            color: #000;
+            background: var(--text-primary);
+            color: var(--bg-primary);
             transform: scale(1.1);
         }
 
-        /* Hero section */
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #ff0000;
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1002;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            box-shadow: 0 0 15px var(--accent-color);
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(45deg, #000 0%, #111 100%);
+            background: linear-gradient(45deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
             position: relative;
             overflow: hidden;
+            padding: 6rem 2rem 4rem;
         }
 
         .hero::before {
@@ -298,21 +323,23 @@
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             margin-bottom: 2rem;
             position: relative;
             z-index: 2;
             animation: slideUp 1s ease 0.5s both;
+            color: #ff0000;
         }
 
-        .hero .subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
-            opacity: 0.8;
-            max-width: 600px;
-            font-style: italic;
+        .hero-intro {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
             z-index: 2;
             position: relative;
             animation: slideUp 1s ease 0.8s both;
+            font-style: italic;
+            line-height: 1.8;
         }
 
         @keyframes slideUp {
@@ -326,291 +353,360 @@
             }
         }
 
-        /* Section base styles */
-        .section {
-            min-height: 100vh;
-            padding: 8rem 2rem 4rem;
-            max-width: 1000px;
+        /* Archive Container */
+        .archive-container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Filter Tags */
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+
+        .filter-tag {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: #ff0000;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Archive Sections */
+        .archive-section {
+            margin-bottom: 6rem;
             opacity: 0;
             transform: translateY(50px);
             transition: all 1s ease;
         }
 
-        .section.visible {
+        .archive-section.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .section h2 {
+        .section-title {
             font-size: clamp(2rem, 4vw, 3rem);
             margin-bottom: 3rem;
+            text-align: center;
             position: relative;
-            padding-bottom: 1rem;
+            color: #ff0000;
         }
 
-        .section h2::after {
+        .section-title::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
             height: 2px;
             background: #ff0000;
             animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; width: 50px; }
-            50% { opacity: 1; width: 100px; }
+            0%, 100% { opacity: 0.5; width: 100px; }
+            50% { opacity: 1; width: 150px; }
         }
 
-        /* Content styling */
-        .philosophical-text {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            text-align: justify;
-            position: relative;
-            animation: fadeInText 0.8s ease both;
+        /* Archive Grid */
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        @keyframes fadeInText {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .quote {
-            font-style: italic;
-            border-left: 3px solid #ff0000;
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            opacity: 0.9;
-            background: rgba(255, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .quote:hover {
-            background: rgba(255, 0, 0, 0.1);
-            transform: translateX(10px);
-        }
-
-        .research-insight {
-            background: #111;
-            padding: 2rem;
-            margin: 2rem 0;
+        .archive-item {
+            background: rgba(17, 17, 17, 0.9);
             border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
             position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .research-insight:hover {
-            border-color: #ff0000;
-            background: #1a1a1a;
-        }
-
-        .research-insight::before {
-            content: 'Lived Truth';
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background: #000;
-            padding: 0 10px;
-            font-size: 0.8rem;
-            color: #ff0000;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Interactive elements */
-        .interactive-mirror {
-            width: 200px;
-            height: 200px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            margin: 2rem auto;
-            position: relative;
-            cursor: pointer;
+            overflow: hidden;
             transition: all 0.5s ease;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            cursor: pointer;
         }
 
-        .interactive-mirror:hover {
+        .archive-item:hover {
+            transform: translateY(-5px);
             border-color: #ff0000;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
-            transform: rotate(5deg) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
         }
 
-        .interactive-mirror::before {
+        .archive-item::before {
             content: '';
             position: absolute;
-            top: 20%;
-            left: 30%;
-            width: 40%;
-            height: 2px;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .archive-item:hover::before {
+            left: 100%;
+        }
+
+        .item-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
             background: #ff0000;
-            transform: rotate(-35deg);
-            opacity: 0.7;
-            transition: all 0.3s ease;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .interactive-mirror:hover::before {
-            transform: rotate(-35deg) scale(1.2);
-            opacity: 1;
+        .item-date {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
         }
 
-        /* Reaction grid */
-        .reaction-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ff0000;
         }
 
-        .reaction-item {
-            background: #111;
-            padding: 1.5rem;
-            border-left: 3px solid #ff0000;
-            transition: all 0.3s ease;
-            transform: translateY(20px);
+        .item-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .item-tag {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Timeline Visualization */
+        .timeline-container {
+            margin: 6rem 0;
+            position: relative;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ff0000;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
             opacity: 0;
-            animation: staggerIn 0.6s ease forwards;
+            animation: timelineSlide 0.8s ease forwards;
         }
 
-        .reaction-item:nth-child(1) { animation-delay: 0.1s; }
-        .reaction-item:nth-child(2) { animation-delay: 0.2s; }
-        .reaction-item:nth-child(3) { animation-delay: 0.3s; }
-        .reaction-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(even) {
+            animation-delay: 0.2s;
+        }
 
-        @keyframes staggerIn {
+        .timeline-item:nth-child(odd) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes timelineSlide {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .reaction-item:hover {
-            background: #222;
-            border-left: 5px solid #ff0000;
-            transform: translateX(10px);
-        }
-
-        .reaction-item h4 {
-            color: #ff0000;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Testimonies */
-        .testimony {
-            background: #111;
-            padding: 2rem;
-            margin: 2rem 0;
-            border-left: 4px solid #ff0000;
-            font-style: italic;
+        .timeline-content {
             position: relative;
-            overflow: hidden;
+            background: rgba(17, 17, 17, 0.9);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
+            width: 45%;
             transition: all 0.3s ease;
         }
 
-        .testimony:hover {
-            background: #1a1a1a;
-            transform: translateX(5px);
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
         }
 
-        .testimony::before {
-            content: '"';
-            font-size: 4rem;
+        .timeline-content:hover {
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .timeline-content::before {
+            content: '';
             position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -30px;
+            border-left-color: #333;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -30px;
+            border-right-color: #333;
+            transform: translateY(-50%);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 15px;
+            height: 15px;
+            background: #ff0000;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
             top: -10px;
-            left: 10px;
-            color: #ff0000;
-            opacity: 0.3;
-        }
-
-        /* Fractured transition */
-        .section-break {
-            height: 100px;
-            background: linear-gradient(45deg, transparent 45%, #ff0000 49%, #ff0000 51%, transparent 55%);
-            margin: 4rem 0;
-            opacity: 0.3;
-            position: relative;
-            animation: fracture 3s ease-in-out infinite;
-        }
-
-        @keyframes fracture {
-            0%, 100% { transform: scaleX(1); }
-            50% { transform: scaleX(1.02); }
-        }
-
-        .section-break::before,
-        .section-break::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(-45deg, transparent 45%, #ff0000 49%, #ff0000 51%, transparent 55%);
-        }
-
-        .section-break::after {
-            background: linear-gradient(135deg, transparent 45%, #ff0000 49%, #ff0000 51%, transparent 55%);
-        }
-
-        /* Final section styling */
-        .final-section {
-            background: linear-gradient(45deg, #111 0%, #000 100%);
-            padding: 6rem 2rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .final-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,0,0,0.1)" stroke-width="1"/><circle cx="50" cy="50" r="20" fill="none" stroke="rgba(255,0,0,0.15)" stroke-width="0.5"/></svg>');
-            opacity: 0.2;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .final-message {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            margin-bottom: 2rem;
-            font-weight: bold;
-            color: #ff0000;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Footer */
-        .footer {
             background: #000;
-            padding: 4rem 2rem 2rem;
+            color: #ff0000;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            transform: translateX(-50%);
+            font-weight: bold;
+            border: 1px solid #ff0000;
+        }
+
+        /* Quote Submission */
+        .quote-submission {
+            background: linear-gradient(135deg, #111 0%, #000 100%);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 4rem 0;
             text-align: center;
-            border-top: 1px solid #333;
-            margin-top: 4rem;
         }
 
-        .footer .copyright {
-            font-size: 0.9rem;
-            opacity: 0.7;
+        .quote-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quote-input {
+            width: 100%;
+            min-height: 120px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            color: #fff;
+            font-family: Georgia, serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .quote-input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .quote-input::placeholder {
+            color: #666;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
         }
 
-        /* Responsive design */
+        .submit-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .site-logo img {
                 height: 50px;
+            }
+
+            .theme-toggle {
+                top: 0.5rem;
+                left: 0.5rem;
+                width: 45px;
+                height: 45px;
             }
 
             .hamburger-menu {
@@ -628,23 +724,41 @@
             .nav-menu.active {
                 right: 0;
             }
-            
-            .section {
-                padding: 6rem 1rem 2rem;
-            }
-            
-            .philosophical-text {
-                font-size: 1.1rem;
-            }
-            
-            .quote,
-            .research-insight {
-                margin: 1rem 0;
-                padding: 1rem;
+
+            .archive-container {
+                padding: 2rem 1rem;
             }
 
-            .reaction-grid {
+            .archive-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .filter-tags {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px !important;
+            }
+
+            .timeline-content::before {
+                left: -30px !important;
+                border-right-color: var(--border-color) !important;
+                border-left-color: transparent !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-year {
+                left: 20px;
             }
 
             .back-to-top {
@@ -653,51 +767,11 @@
                 width: 45px;
                 height: 45px;
             }
-
-            .header {
-                top: 60px;
-            }
         }
 
-        /* Text effects */
-        .emphasis {
-            color: #ff0000;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .emphasis:hover {
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-        }
-
-        /* Scroll progress indicator */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: #ff0000;
-            z-index: 10000;
-            transition: width 0.1s ease;
-        }
-
-        /* Enhanced animations for better UX */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Glitch effects */
+        /* Glitch effect for special moments */
         .glitch {
-            position: relative;
-            animation: glitch 2s infinite;
+            animation: glitch 3s infinite;
         }
 
         @keyframes glitch {
@@ -707,9 +781,36 @@
             60% { transform: translate(2px, 2px); }
             80% { transform: translate(2px, -2px); }
         }
+
+        /* Bleeding effect */
+        .bleeding {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bleeding::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #ff0000, transparent);
+            animation: bleed 4s ease-in-out infinite;
+        }
+
+        @keyframes bleed {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+        🌙
+    </div>
+
     <!-- Site Logo -->
     <div class="site-logo">
         <img src="miroir.png" alt="Miroir Logo">
@@ -744,233 +845,388 @@
     <!-- Progress bar -->
     <div class="progress-bar" id="progressBar"></div>
 
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">THE CRACKED MIRROR</div>
-        </nav>
-    </header>
-
     <!-- Back to top button -->
     <button class="back-to-top" id="backToTop">↑</button>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1 class="glitch">THE CRACKED MIRROR</h1>
-        <p class="subtitle">An experiment in courage, a confrontation with truth,<br>a reflection of society's fears.</p>
-    </section>
-
-    <!-- Origin Story -->
-    <section id="origin" class="section">
-        <h2>The Origin of the Crack</h2>
-        
-        <div class="philosophical-text">
-            This archive emerges from lived experience—from a childhood shaped by gender harassment, from a society that demanded conformity to categories that felt like prisons. I write as someone who has felt the violence of stereotypes, who has been reduced to an object for others' comfort.
-        </div>
-
-        <div class="philosophical-text">
-            Standing before a mirror, I once asked myself: Why can't I see myself fully? Why do I need this reflection to know my face, yet it shows me only fragments, distortions, lies? Some mirrors make me beautiful, others make me grotesque. All of them betray the truth of who I am.
-        </div>
-
-        <div class="research-insight">
-            Then came the realization: the mirror is not just on the wall. It lives in the eyes of others, in their judgments, in their fear of what they cannot categorize. The shame I felt watching a man labeled "mad" was not his—it was society's, internalized as my own.
-        </div>
-
-        <div class="philosophical-text">
-            The <span class="emphasis">illusion of binary gender</span> has caused immeasurable suffering. It has silenced voices, constrained bodies, and punished those who dare to exist beyond its narrow borders. This digital space exists to crack that illusion, to reveal the arbitrary nature of the categories that govern our lives.
-        </div>
-
-        <div class="quote">
-            Every person forced to hide their truth, every child told their natural expression is wrong, every adult living in fear of discovery—they are the reason this mirror must reflect honestly.
-        </div>
-
-        <div class="philosophical-text">
-            I am not writing to inspire but to <span class="emphasis">awaken</span>. To disturb the comfortable sleep of those who benefit from rigid categories. To be a voice for all who have been told their existence is somehow wrong, invalid, or threatening to the natural order.
+        <h1 class="glitch">LIVING ARCHIVE</h1>
+        <div class="hero-intro">
+            Welcome to the breathing vault of memory and resistance. Here, fragments of truth float in digital amber—
+            whispers of the past bleeding into dreams of the future. Each entry pulses with the heartbeat of those who dared to crack 
+            the mirror, who chose authenticity over acceptance, who wrote their existence in the margins of a world 
+            that refused to see them. This is not a museum of the dead, but a sanctuary for the living, 
+            where every scar tells a story and every dream builds tomorrow.
         </div>
     </section>
 
-    <div class="section-break"></div>
-
-    <!-- The Experiment -->
-    <section id="experiment" class="section">
-        <h2>The Day I Wore Truth</h2>
-        
-        <div class="philosophical-text">
-            On May 26th, 2025, I conducted an experiment in vulnerability. I, a male student, wore a skirt to class, to the street, to the spaces where society least expected it. Not as performance, not as protest, but as <span class="emphasis">honest expression</span>.
+    <div class="archive-container">
+        <!-- Filter Tags -->
+        <div class="filter-tags">
+            <div class="filter-tag active" data-filter="all">All Fragments</div>
+            <div class="filter-tag" data-filter="femme-rebellion">Femme Rebellion</div>
+            <div class="filter-tag" data-filter="truth-scars">Truth Scars</div>
+            <div class="filter-tag" data-filter="field-notes">Field Notes</div>
+            <div class="filter-tag" data-filter="decoloniality">Decoloniality</div>
+            <div class="filter-tag" data-filter="body-resistance">Body Resistance</div>
+            <div class="filter-tag" data-filter="diary-fragments">Diary Fragments</div>
+            <div class="filter-tag" data-filter="resistance">Resistance</div>
+            <div class="filter-tag" data-filter="gender-storms">Gender Storms</div>
         </div>
 
-        <div class="interactive-mirror"></div>
+        <!-- Whispers of the Past -->
+        <section class="archive-section" id="whispers">
+            <h2 class="section-title bleeding">Whispers of the Past</h2>
+            <div class="archive-grid">
+                <div class="archive-item" data-tags="femme-rebellion,diary-fragments">
+                    <div class="item-type">Memory Fragment</div>
+                    <div class="item-date">May 26, 2025</div>
+                    <h3 class="item-title">The Day I Crossed the Borders</h3>
+                    <div class="item-content">
+                        "As I opened the classroom door, I felt chains breaking. The air entered my lungs differently—
+                        the breath of someone who had stopped asking for permission to exist. The stares weren't violence; 
+                        they were mirrors reflecting their own limitations."
+                        <em style="display: block; margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            — From my field experiment. Full story in 
+                            <a href="https://books2read.com/u/31AQ9n" target="_blank" style="color: #ff0000;">Crossing the Threshold</a>
+                        </em>
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">femme-rebellion</span>
+                        <span class="item-tag">diary-fragments</span>
+                    </div>
+                </div>
 
-        <div class="research-insight">
-            The fears before the experiment were heavier than any hatred I encountered. I imagined violence, mockery, administrative punishment. Instead, I discovered that my internalized terror was often greater than their actual discomfort.
-        </div>
+                <div class="archive-item" data-tags="truth-scars,resistance">
+                    <div class="item-type">Scar Story</div>
+                    <div class="item-date">Childhood - Present</div>
+                    <h3 class="item-title">The Violence of "Normal"</h3>
+                    <div class="item-content">
+                        "They called it correction, but I felt it as erasure. Every time they said 'act like a boy,' 
+                        a piece of my soul learned to hide. The scar isn't on my skin—it's in the space between 
+                        who I am and who they demanded I become."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">truth-scars</span>
+                        <span class="item-tag">resistance</span>
+                    </div>
+                </div>
 
-        <div class="philosophical-text">
-            As I opened the classroom door, I felt chains breaking. The air entered my lungs differently—the breath of someone who had stopped asking for permission to exist. The courage wasn't in wearing the skirt; it was in <span class="emphasis">refusing to explain myself</span>.
-        </div>
+                <div class="archive-item" data-tags="field-notes,gender-storms">
+                    <div class="item-type">Field Research</div>
+                    <div class="item-date">2025 Ongoing</div>
+                    <h3 class="item-title">Silent Observers & Open Supporters</h3>
+                    <div class="item-content">
+                        "The silence revealed more than words. Some paralyzed by unfamiliarity, others celebrating courage 
+                        while acknowledging fear. Their reactions mapped the geography of societal gender surveillance—
+                        invisible checkpoints where bodies are measured against imaginary standards."
+                        <em style="display: block; margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            — Field notes from my skirt experiment, May 26, 2025. Read the full research in 
+                            <a href="https://books2read.com/u/31AQ9n" target="_blank" style="color: #ff0000;">Crossing the Threshold</a>
+                        </em>
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">field-notes</span>
+                        <span class="item-tag">gender-storms</span>
+                    </div>
+                </div>
 
-        <div class="quote">
-            "How can a femboy be allowed among us?" This was my deepest fear—not their words, but the voice inside me that had learned to see myself through their eyes, to police myself with their prejudices.
-        </div>
+                <div class="archive-item" data-tags="decoloniality,resistance">
+                    <div class="item-type">Historical Echo</div>
+                    <div class="item-date">Medieval England</div>
+                    <h3 class="item-title">Eleanor Rykener's Defiance</h3>
+                    <div class="item-content">
+                        "In 1394, Eleanor Rykener was arrested in London for living as both man and woman, 
+                        working across gender lines in different cities. Her story defies fixed identity categories, 
+                        representing one of the clearest examples of gender nonconformity in medieval records."
+                        <em style="display: block; margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            — Based on historical court records. Source: 
+                            <a href="https://historicengland.org.uk/research/inclusive-heritage/lgbtq-heritage-project/trans-and-gender-nonconforming-histories/" target="_blank" style="color: #ff0000;">Historic England LGBTQ Heritage Project</a>
+                        </em>
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">decoloniality</span>
+                        <span class="item-tag">resistance</span>
+                    </div>
+                </div>
 
-        <div class="philosophical-text">
-            The experiment revealed that gender norms are not natural laws but <span class="emphasis">technologies of control</span>. Every stare, every silence, every confused reaction was evidence of a system struggling to categorize what refuses categorization.
-        </div>
-    </section>
+                <div class="archive-item" data-tags="body-resistance,truth-scars">
+                    <div class="item-type">Body as Resistance Art</div>
+                    <div class="item-date">Ongoing</div>
+                    <h3 class="item-title">Movement as Language</h3>
+                    <div class="item-content">
+                        "The body speaks what language cannot contain. Through dance, opera, and conscious movement, 
+                        I transform the body that was once mocked and abused into an instrument of resistance. 
+                        Every gesture defies shame, every movement reclaims authenticity."
+                        
+                        <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(255, 0, 0, 0.1); border: 1px solid #ff0000; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;" 
+                             onmouseover="this.style.boxShadow='0 0 15px rgba(255, 0, 0, 0.3)'; this.style.transform='scale(1.02)'" 
+                             onmouseout="this.style.boxShadow='none'; this.style.transform='scale(1)'"
+                             onclick="window.open('https://www.canva.com/design/DAGt7uvyN_w/L6ZQpnyKt1k1U3J5q_DmZw/edit?utm_content=DAGt7uvyN_w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton', '_blank')">
+                            <strong>🎭 Watch: Body as Resistance</strong><br>
+                            <span style="font-size: 0.9rem; opacity: 0.8;">Collection of butoh performances, opera, and movement art pieces</span>
+                        </div>
+                        
+                        <em style="display: block; margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            Art doesn't require conformity—it requires truth. Dancing, singing, fashion, and movement 
+                            can all resist gender norms through conscious, transformative awareness, not rage.
+                        </em>
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">body-resistance</span>
+                        <span class="item-tag">truth-scars</span>
+                    </div>
+                </div>
 
-    <div class="section-break"></div>
-
-    <!-- Society's Reactions -->
-    <section id="reactions" class="section">
-        <h2>The Mirror Speaks Back</h2>
-        
-        <div class="philosophical-text">
-            Society responded in four distinct ways, each revealing different aspects of how gender surveillance operates in everyday life. Their reactions became <span class="emphasis">maps of their own limitations</span>.
-        </div>
-
-        <div class="reaction-grid">
-            <div class="reaction-item">
-                <h4>The Silent Observers</h4>
-                <p>They watched but did not engage, confused by what they saw. Their silence revealed uncertainty, not acceptance—the paralysis of minds unprepared for alternatives to binary thinking.</p>
+                <div class="archive-item" data-tags="diary-fragments,gender-storms">
+                    <div class="item-type">Mirror Meditation</div>
+                    <div class="item-date">Timeless</div>
+                    <h3 class="item-title">Why Can't I See Myself Fully?</h3>
+                    <div class="item-content">
+                        "Standing before a mirror, I asked: Why do I need this reflection to know my face? 
+                        Some mirrors make me beautiful, others grotesque. All of them lie. The real mirror 
+                        lives in the eyes of others—and that mirror has been cracked since birth."
+                        <em style="display: block; margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            — Personal reflection. More insights in 
+                            <a href="https://books2read.com/u/31AQ9n" target="_blank" style="color: #ff0000;">Crossing the Threshold</a>
+                        </em>
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">diary-fragments</span>
+                        <span class="item-tag">gender-storms</span>
+                    </div>
+                </div>
             </div>
-            <div class="reaction-item">
-                <h4>The Open Supporters</h4>
-                <p>They celebrated courage while acknowledging fear. "I was amazed at your confidence," one said, revealing how rare authentic self-expression has become in our surveilled world.</p>
+        </section>
+
+        <!-- Timeline Visualization -->
+        <section class="timeline-container">
+            <h2 class="section-title">Timeline of Resistance</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Medieval-1800s</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Historical Gender Crossing</h3>
+                        <p><strong>Eleanor Rykener (1394):</strong> Lived as both man and woman in medieval London, documented in court records as working across gender lines.</p>
+                        <p><strong>Chevalier d'Eon (1728-1810):</strong> French diplomat and soldier who lived as a man early in life, later as a woman in London, challenging 18th-century gender norms.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            <em>Sources: <a href="https://historicengland.org.uk/research/inclusive-heritage/lgbtq-heritage-project/trans-and-gender-nonconforming-histories/" target="_blank" style="color: #ff0000;">Historic England</a></em>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1950s-60s</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Medical & Social Pioneers</h3>
+                        <p><strong>Christine Jorgensen (1952):</strong> Became the first widely publicized American to undergo gender-confirmation surgery, creating worldwide awareness.</p>
+                        <p><strong>Michael Dillon (1915-1962):</strong> First person worldwide to transition female-to-male through hormones and surgery.</p>
+                        <p><strong>Virginia Prince:</strong> Transgender activist who developed correspondence networks and worked with Alfred Kinsey to bring transgender needs to social scientists.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            <em>Sources: <a href="https://www.nationalgeographic.com/history/article/how-historians-are-documenting-lives-of-transgender-people" target="_blank" style="color: #ff0000;">National Geographic</a>, <a href="https://historicengland.org.uk/research/inclusive-heritage/lgbtq-heritage-project/trans-and-gender-nonconforming-histories/trans-pioneers/" target="_blank" style="color: #ff0000;">Historic England</a></em>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1969</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Stonewall & Liberation</h3>
+                        <p>The uprising that changed everything. Trans women of color including Marsha P. Johnson and Sylvia Rivera were "in the vanguard" of resistance, standing against a system that criminalized their existence. This marked the transition from assimilationist politics to radical liberation movements.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            <em>Source: <a href="https://en.wikipedia.org/wiki/History_of_transgender_people_in_the_United_States" target="_blank" style="color: #ff0000;">Transgender History in the United States</a></em>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1990s</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Gender Theory Revolution</h3>
+                        <p><strong>Judith Butler's "Gender Trouble" (1990):</strong> Introduced the theory of gender performativity, arguing that gender is not fixed but performed through repeated acts. This revolutionized academic understanding and became foundational to queer theory.</p>
+                        <p><strong>Academic Impact:</strong> The work influenced fields from psychology to performance studies, challenging the sex/gender binary and providing theoretical framework for understanding gender diversity.</p>
+                        <p><strong>Emergence of "Genderqueer":</strong> The 1990s saw the dichotomy of male/female challenged, giving way to understanding gender as a spectrum.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            <em>Sources: <a href="https://en.wikipedia.org/wiki/Gender_Trouble" target="_blank" style="color: #ff0000;">Gender Trouble - Wikipedia</a>, <a href="https://www.psychiatry.org/psychiatrists/diversity/education/transgender-and-gender-nonconforming-patients/history-and-epidemiology" target="_blank" style="color: #ff0000;">American Psychiatric Association</a></em>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2000s</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Digital Age Transformation</h3>
+                        <p><strong>Online Communities:</strong> Social media platforms created new spaces for transgender and gender-nonconforming people to connect, share experiences, and build support networks across geographical boundaries.</p>
+                        <p><strong>Visibility & Vulnerability:</strong> The internet became both a platform for authenticity and a target for harassment, amplifying both liberation and challenges.</p>
+                        <p><strong>Medical Advances:</strong> 2013 saw DSM-5 change "Gender Identity Disorder" to "Gender Dysphoria," reducing pathologization. 2015 brought APA guidelines for working with transgender clients.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            <em>Sources: <a href="https://www.psychiatry.org/psychiatrists/diversity/education/transgender-and-gender-nonconforming-patients/history-and-epidemiology" target="_blank" style="color: #ff0000;">APA History & Epidemiology</a></em>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Crossing the Threshold</h3>
+                        <p>One morning in Delhi, I wore truth to class. The mirrors cracked, 
+                        the research began, and the archive was born. Small acts, infinite ripples.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            <em>Read the full story: <a href="https://books2read.com/u/31AQ9n" target="_blank" style="color: #ff0000;">Crossing the Threshold</a></em>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">Future</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Beyond Conformity</h3>
+                        <p>A world where authenticity replaces conformity. Where children learn empathy over obedience, where bodies are languages not prisons, where the mirror reflects truth instead of imposed limitations.</p>
+                        <p>Educational systems teach critical thinking instead of compliance. Religious and cultural institutions celebrate human uniqueness. Media amplifies diverse voices. And every person is free to exist without categories, without explanation, without apology.</p>
+                        <p><em>The future belongs to those who crack mirrors and let light in.</em></p>
+                    </div>
+                </div>
             </div>
-            <div class="reaction-item">
-                <h4>The Uncomfortable</h4>
-                <p>"I felt uncomfortable because I could not get the courage to do it." Their discomfort was not with me, but with their own recognition of boundaries they had never questioned.</p>
+        </section>
+
+        <!-- Futures Yet Dreamed -->
+        <section class="archive-section" id="futures">
+            <h2 class="section-title bleeding">Futures Yet Dreamed</h2>
+            <div class="archive-grid">
+                <div class="archive-item" data-tags="resistance,future-visions">
+                    <div class="item-type">Future Letter</div>
+                    <div class="item-date">2050</div>
+                    <h3 class="item-title">Letter from Tomorrow's Child</h3>
+                    <div class="item-content">
+                        "Dear Past-Self, I write from a world where children choose their own pronouns at breakfast, 
+                        where bathrooms are not battlegrounds, where clothing has no gender. Thank you for cracking 
+                        the first mirror. The light got in, and we built worlds in that crack."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">resistance</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="decoloniality,future-visions">
+                    <div class="item-type">Speculative Vision</div>
+                    <div class="item-date">2030s</div>
+                    <h3 class="item-title">The Great Unlearning</h3>
+                    <div class="item-content">
+                        "Schools begin teaching the history of the binary as imperial violence. Children learn that gender 
+                        is a language, not a prison. The textbooks call it 'The Great Unlearning'—when humanity 
+                        remembered it had always been more than two."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">decoloniality</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="body-resistance,future-visions">
+                    <div class="item-type">Dream Performance</div>
+                    <div class="item-date">2027</div>
+                    <h3 class="item-title">Bodies Without Borders</h3>
+                    <div class="item-content">
+                        "Imagined performances in a post-conformity world. Bodies moving without 
+                        explanation, dancing beyond categories, celebrating the space between rigid definitions 
+                        as infinite possibility. Art becomes the language of liberation, where every gesture 
+                        is both resistance and celebration."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">body-resistance</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
+
+                <div class="archive-item" data-tags="truth-scars,future-visions">
+                    <div class="item-type">Healing Prophecy</div>
+                    <div class="item-date">2040s</div>
+                    <h3 class="item-title">When Scars Become Maps</h3>
+                    <div class="item-content">
+                        "The scars we carry from binary violence become maps for future generations. 
+                        They learn from our wounds where not to step, how to build bridges across the cracks, 
+                        how to honor the pain that purchased their freedom."
+                    </div>
+                    <div class="item-tags">
+                        <span class="item-tag">truth-scars</span>
+                        <span class="item-tag">future-visions</span>
+                    </div>
+                </div>
             </div>
-            <div class="reaction-item">
-                <h4>The Critics</h4>
-                <p>"It didn't suit you," they said, revealing how aesthetics become weapons of conformity. Their criticism exposed their investment in maintaining the very categories that constrain them.</p>
+        </section>
+
+        <!-- Story Submission -->
+        <section class="quote-submission">
+            <h2 class="section-title">Share Your Story</h2>
+            <p style="margin-bottom: 2rem; font-style: italic; opacity: 0.8;">
+                Add your voice to the living archive. Share a moment when you cracked a mirror, 
+                a realization that changed everything, or a whisper from your resistance.
+            </p>
+            <div style="text-align: center;">
+                <div style="margin: 2rem 0; padding: 2rem; background: rgba(255, 0, 0, 0.1); border: 1px solid #ff0000; border-radius: 15px; cursor: pointer; transition: all 0.3s ease; display: inline-block; min-width: 300px;" 
+                     onmouseover="this.style.boxShadow='0 0 20px rgba(255, 0, 0, 0.3)'; this.style.transform='scale(1.05)'" 
+                     onmouseout="this.style.boxShadow='none'; this.style.transform='scale(1)'"
+                     onclick="window.open('https://tally.so/r/wv6eMQ', '_blank')">
+                    <strong style="font-size: 1.2rem;">📝 Submit Your Story</strong><br>
+                    <span style="font-size: 1rem; opacity: 0.8; display: block; margin-top: 0.5rem;">
+                        Anonymous submissions welcome
+                    </span>
+                </div>
             </div>
-        </div>
+            <p style="font-size: 0.9rem; opacity: 0.7; text-align: center; margin-top: 1rem;">
+                Your story becomes part of the collective memory of resistance and authenticity
+            </p>
+        </section>
+    </div>
 
-        <div class="research-insight">
-            The most revealing finding: many admitted they would have reacted more harshly if I had been a local student rather than a foreigner. My otherness provided a shield that exposed the conditional nature of their tolerance.
-        </div>
-
-        <div class="philosophical-text">
-            Why do we distance ourselves from what we cannot name instead of facing the mirror? The <span class="emphasis">courage to face the mirror is the beginning of self-awareness</span>. When we stop deflecting and start recognizing the arbitrary nature of the categories that constrain us, we discover our power to exist beyond them.
-        </div>
-    </section>
-
-    <div class="section-break"></div>
-
-    <!-- Hidden Revelations -->
-    <section id="revelations" class="section">
-        <h2>What the Crack Revealed</h2>
-        
-        <div class="philosophical-text">
-            The experiment exposed the <span class="emphasis">violence of the ordinary</span>. Every day, in every interaction, gender norms are enforced through subtle surveillance. A glance, a comment, a silence—all become tools of conformity.
-        </div>
-
-        <div class="research-insight">
-            Gender is not something we are but something we repeatedly do. Each time society calls a child "boy" or "girl," it creates the very identity it claims to describe. When this repetition fails, when the body refuses to conform, the entire system reveals its constructed nature.
-        </div>
-
-        <div class="philosophical-text">
-            The most insidious discovery: how much of what I thought was natural was simply habit. How much of what I believed was my authentic self was actually the internalization of external expectations. The mirror had been lying to me my entire life.
-        </div>
-
-        <div class="quote">
-            "Their silence had nothing to do with me; I took it as a win, but it was neither approval nor rejection." Sometimes the absence of reaction reveals more than the strongest opposition.
-        </div>
-
-        <div class="philosophical-text">
-            Contemporary culture multiplies the mirrors—selfies, surveillance cameras, social media profiles—each promising truth while delivering <span class="emphasis">evidence for prosecution</span>. Evidence used against bodies that fail to conform to impossible standards.
-        </div>
-
-        <div class="philosophical-text">
-            To unlearn the image is not to refuse representation but to recognize its violence. The crack in the mirror is not damage—it is <span class="emphasis">clarity</span>. What we took for reflection was always distortion. What we feared as brokenness was always the possibility of seeing truly.
-        </div>
-    </section>
-
-    <div class="section-break"></div>
-
-    <!-- Testimonies of Truth -->
-    <section id="awakening" class="section">
-        <h2>Voices from the Crack</h2>
-        
-        <div class="testimony">
-            I learned that my fears were often larger than their hatred. The violence I expected exceeded the discomfort I encountered. But this revealed something more troubling: how thoroughly I had internalized their limitations as my own.
-        </div>
-
-        <div class="testimony">
-            Their silence meant neither acceptance nor rejection. It meant paralysis—the inability to process what doesn't fit their categories. I realized I was forcing them to confront the poverty of their imagination.
-        </div>
-
-        <div class="philosophical-text">
-            These voices speak from the <span class="emphasis">space of experiment</span>—those who have tested the boundaries and discovered their permeability. They testify not to victimhood but to the power of bodies that refuse containment.
-        </div>
-
-        <div class="testimony">
-            The hardest realization: how much of what I thought was natural was simply habit. How much of what I believed was my authentic self was actually the internalization of external expectations.
-        </div>
-
-        <div class="testimony">
-            I discovered that challenging gender norms reveals more about the observers than the observed. Their reactions mapped the geography of their fears, the boundaries of their comfort, the limits of their empathy.
-        </div>
-
-        <div class="research-insight">
-            "I felt empowered like a man wearing a woman's softness, and a man's fierceness, saying all are mine." The experiment revealed that gender categories are not natural divisions but artificial limitations on human possibility.
-        </div>
-
-        <div class="testimony">
-            The question is not whether society will accept us. The question is whether we will continue to seek permission for our own existence. The crack begins when we stop asking for approval.
-        </div>
-
-        <div class="philosophical-text">
-            The crack in the mirror multiplies infinitely. Each person who refuses the binary creates <span class="emphasis">new possibilities for others</span>. Not through representation but through the simple fact of existence—proof that alternatives are possible.
-        </div>
-    </section>
-
-    <!-- Final Section -->
-    <section class="final-section">
-        <div class="final-message">
-            The Mirror Will Always Crack
-        </div>
-        <div class="philosophical-text">
-            This is not an ending but a beginning. Every time someone chooses authenticity over acceptance, courage over comfort, truth over tolerance—the mirror cracks a little more. The reflection becomes clearer. The lie becomes visible.
-        </div>
-        <div class="philosophical-text">
-            The illusion of binary gender has had its day. What emerges from the cracks is not chaos but <span class="emphasis">infinite possibility</span>. Not destruction but liberation. Not fear but recognition—of ourselves, of each other, of the truth that was always there, waiting to be seen.
-        </div>
-        <div class="quote">
-            The most radical act is not breaking the mirror but looking away from it. Returning attention to the felt sense of embodiment, the knowledge that exists before and beyond the image, the truth that no reflection can contain.
-        </div>
-    </section>
-
-    <!-- Call to Action Section -->
-    <section class="final-section" style="border-top: 1px solid #333; background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);">
-        <div class="final-message" style="font-size: clamp(1.2rem, 2.5vw, 2rem); margin-bottom: 3rem;">
-            The Story Continues...
-        </div>
-        <div class="philosophical-text" style="font-size: 1.3rem; margin-bottom: 2rem;">
-            This digital mirror reflects only fragments of a deeper truth. The complete journey—the raw diary entries, the unfiltered interviews, the theoretical frameworks that illuminate lived experience—awaits those ready to <span class="emphasis">go deeper</span>.
-        </div>
-        <div class="philosophical-text" style="margin-bottom: 3rem;">
-            If these reflections have cracked something open within you, if you recognize yourself in these words, if you are ready to question everything you've been told about identity, truth, and freedom—then the full story calls to you.
-        </div>
-        <div class="quote" style="font-size: 1.1rem; text-align: center; border: 2px solid #ff0000; padding: 2rem; background: rgba(255, 0, 0, 0.1); margin: 2rem auto; max-width: 600px; transition: all 0.3s ease; cursor: pointer;" id="bookLink">
-            <strong>Discover the complete research, unfiltered testimonies, and philosophical foundations that challenge everything we think we know about gender.</strong><br><br>
-            <span style="font-size: 1.2rem; color: #ff0000; font-weight: bold;">Read the Full Story</span><br>
-            <span style="font-size: 0.9rem; opacity: 0.8;">Click to access the complete work</span>
-        </div>
-        <div class="philosophical-text" style="font-size: 1rem; opacity: 0.8; text-align: center;">
-            For those who dare to see their reflection clearly,<br>
-            for those who choose courage over comfort,<br>
-            for those ready to crack their own mirrors.
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="copyright">Copyright © Fils Jean Pierre Mutsinzi. All Rights Reserved.</div>
+    <!-- Copyright Footer -->
+    <footer style="text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid #333; color: #666; font-size: 0.9rem;">
+        Copyright © Fils Jean Pierre Mutsinzi, 2025. All Rights Reserved.
     </footer>
 
     <script>
+        // Theme Toggle Functionality
+        function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Set initial theme (default to dark)
+            let currentTheme = 'dark';
+            
+            function updateThemeIcon() {
+                themeToggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+                themeToggle.title = currentTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            }
+            
+            function toggleTheme() {
+                if (currentTheme === 'dark') {
+                    body.setAttribute('data-theme', 'light');
+                    currentTheme = 'light';
+                } else {
+                    body.removeAttribute('data-theme');
+                    currentTheme = 'dark';
+                }
+                updateThemeIcon();
+                
+                // Add smooth transition effect
+                body.style.transition = 'background 0.3s ease, color 0.3s ease';
+                setTimeout(() => {
+                    body.style.transition = '';
+                }, 300);
+            }
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            updateThemeIcon();
+        }
+
         // Progress bar
         function updateProgressBar() {
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -986,51 +1242,6 @@
                 backToTop.classList.add('visible');
             } else {
                 backToTop.classList.remove('visible');
-            }
-        }
-
-        // Smooth reveal animation on scroll
-        function revealOnScroll() {
-            const sections = document.querySelectorAll('.section, .fade-in-up');
-            const windowHeight = window.innerHeight;
-            const triggerPoint = windowHeight * 0.7;
-
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                
-                if (sectionTop < triggerPoint) {
-                    section.classList.add('visible');
-                }
-            });
-
-            // Stagger animation for reaction items
-            const reactionItems = document.querySelectorAll('.reaction-item');
-            reactionItems.forEach((item, index) => {
-                const itemTop = item.getBoundingClientRect().top;
-                if (itemTop < triggerPoint) {
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, index * 100);
-                }
-            });
-        }
-
-        // Interactive mirror effect
-        function initMirrorInteraction() {
-            const mirror = document.querySelector('.interactive-mirror');
-            if (mirror) {
-                mirror.addEventListener('click', function() {
-                    this.style.transform = 'rotate(' + (Math.random() * 360) + 'deg) scale(1.1)';
-                    this.style.borderColor = '#ff0000';
-                    this.style.boxShadow = '0 0 50px rgba(255, 0, 0, 0.5)';
-                    
-                    setTimeout(() => {
-                        this.style.transform = 'rotate(0deg) scale(1)';
-                        this.style.borderColor = '#fff';
-                        this.style.boxShadow = 'none';
-                    }, 1000);
-                });
             }
         }
 
@@ -1057,13 +1268,11 @@
             hamburgerMenu.addEventListener('click', toggleMenu);
             navOverlay.addEventListener('click', closeMenu);
 
-            // Close menu when clicking on a navigation link
             const navLinks = document.querySelectorAll('.nav-menu a');
             navLinks.forEach(link => {
                 link.addEventListener('click', closeMenu);
             });
 
-            // Close menu on escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeMenu();
@@ -1071,66 +1280,96 @@
             });
         }
 
-        // Enhanced hover effects
-        function initEnhancedEffects() {
-            // Emphasis elements glow effect
-            const emphasisElements = document.querySelectorAll('.emphasis');
-            emphasisElements.forEach(element => {
-                element.addEventListener('mouseenter', function() {
-                    this.style.textShadow = '0 0 10px #ff0000, 0 0 20px #ff0000';
-                });
-                element.addEventListener('mouseleave', function() {
-                    this.style.textShadow = 'none';
-                });
-            });
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('.archive-section');
+            const windowHeight = window.innerHeight;
+            const triggerPoint = windowHeight * 0.7;
 
-            // Quote hover effects
-            const quotes = document.querySelectorAll('.quote');
-            quotes.forEach(quote => {
-                quote.addEventListener('mouseenter', function() {
-                    this.style.textShadow = '1px 0 #ff0000, -1px 0 #ff0000';
-                    setTimeout(() => {
-                        this.style.textShadow = 'none';
-                    }, 200);
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                
+                if (sectionTop < triggerPoint) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        // Filter functionality
+        function initFilters() {
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const archiveItems = document.querySelectorAll('.archive-item');
+
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    // Remove active from all tags
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    // Add active to clicked tag
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    archiveItems.forEach(item => {
+                        if (filter === 'all') {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            const itemTags = item.getAttribute('data-tags');
+                            if (itemTags && itemTags.includes(filter)) {
+                                item.style.display = 'block';
+                                setTimeout(() => {
+                                    item.style.opacity = '1';
+                                    item.style.transform = 'translateY(0)';
+                                }, 100);
+                            } else {
+                                item.style.opacity = '0';
+                                item.style.transform = 'translateY(20px)';
+                                setTimeout(() => {
+                                    item.style.display = 'none';
+                                }, 300);
+                            }
+                        }
+                    });
                 });
             });
         }
 
-        // Initialize all interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            initHamburgerMenu();
-            initMirrorInteraction();
-            initEnhancedEffects();
-            revealOnScroll(); // Initial check
-            toggleBackToTop(); // Initial check
+        // Enhanced hover effects
+        function initEnhancedEffects() {
+            const archiveItems = document.querySelectorAll('.archive-item');
+            
+            archiveItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
 
-            // Book link functionality
-            const bookLink = document.getElementById('bookLink');
-            if (bookLink) {
-                bookLink.addEventListener('click', function() {
-                    window.open('https://books2read.com/u/31AQ9n', '_blank');
-                });
-                
-                bookLink.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.02)';
-                    this.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.3)';
-                });
-                
-                bookLink.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                    this.style.boxShadow = 'none';
-                });
-            }
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initThemeToggle();
+            initHamburgerMenu();
+            initFilters();
+            initEnhancedEffects();
+            revealOnScroll();
+            toggleBackToTop();
         });
 
-        // Scroll event listeners
+        // Scroll events
         window.addEventListener('scroll', function() {
             updateProgressBar();
             toggleBackToTop();
             revealOnScroll();
         });
 
-        // Back to top click handler
+        // Back to top click
         document.getElementById('backToTop').addEventListener('click', function() {
             window.scrollTo({
                 top: 0,
@@ -1138,31 +1377,16 @@
             });
         });
 
-        // Subtle random effects
+        // Random glitch effects
         setInterval(() => {
-            const emphasisElements = document.querySelectorAll('.emphasis');
-            if (emphasisElements.length > 0) {
-                const randomElement = emphasisElements[Math.floor(Math.random() * emphasisElements.length)];
-                randomElement.style.textShadow = '0 0 5px #ff0000';
+            const glitchElements = document.querySelectorAll('.glitch');
+            glitchElements.forEach(element => {
+                element.style.animation = 'none';
                 setTimeout(() => {
-                    randomElement.style.textShadow = 'none';
-                }, 150);
-            }
-        }, 4000);
-
-        // Header hide/show on scroll
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const header = document.querySelector('.header');
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-            lastScrollTop = scrollTop;
-        });
+                    element.style.animation = 'glitch 3s infinite';
+                }, 10);
+            });
+        }, 10000);
     </script>
 </body>
 </html>
