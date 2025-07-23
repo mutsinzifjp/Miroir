@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Living Archive - Miroir</title>
     <style>
+        /* Root color variables for theming */
+        :root {
+            --bg-primary: #000;
+            --bg-secondary: #111;
+            --text-primary: #fff;
+            --text-secondary: #999;
+            --accent-color: #ff0000;
+            --border-color: #333;
+            --card-bg: rgba(17, 17, 17, 0.9);
+            --overlay-bg: rgba(0, 0, 0, 0.5);
+            --input-bg: rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #fff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --accent-color: #dc3545;
+            --border-color: #dee2e6;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --overlay-bg: rgba(0, 0, 0, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.9);
+        }
+
         /* Reset and foundation */
         * {
             margin: 0;
@@ -14,10 +39,11 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: #000;
-            color: #fff;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.7;
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Typography */
@@ -201,8 +227,8 @@
             right: 2rem;
             width: 50px;
             height: 50px;
-            background: #ff0000;
-            color: #fff;
+            background: var(--accent-color);
+            color: var(--bg-primary);
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -222,8 +248,8 @@
         }
 
         .back-to-top:hover {
-            background: #fff;
-            color: #000;
+            background: var(--text-primary);
+            color: var(--bg-primary);
             transform: scale(1.1);
         }
 
@@ -239,6 +265,32 @@
             transition: width 0.1s ease;
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1002;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            box-shadow: 0 0 15px var(--accent-color);
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -247,7 +299,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(45deg, #000 0%, #111 100%);
+            background: linear-gradient(45deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
             position: relative;
             overflow: hidden;
             padding: 6rem 2rem 4rem;
@@ -650,6 +702,13 @@
                 height: 50px;
             }
 
+            .theme-toggle {
+                top: 0.5rem;
+                left: 0.5rem;
+                width: 45px;
+                height: 45px;
+            }
+
             .hamburger-menu {
                 top: 0.5rem;
                 right: 0.5rem;
@@ -686,20 +745,23 @@
             .timeline-content {
                 width: calc(100% - 50px);
                 margin-left: 50px !important;
+                margin-top: 1rem;
             }
 
             .timeline-content::before {
                 left: -30px !important;
-                border-right-color: #333 !important;
+                border-right-color: var(--border-color) !important;
                 border-left-color: transparent !important;
             }
 
             .timeline-dot {
                 left: 20px;
+                top: 50px;
             }
 
             .timeline-year {
                 left: 20px;
+                top: 10px;
             }
 
             .back-to-top {
@@ -747,6 +809,11 @@
     </style>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+        🌙
+    </div>
+
     <!-- Site Logo -->
     <div class="site-logo">
         <img src="miroir.png" alt="Miroir Logo">
@@ -1129,6 +1196,40 @@
     </footer>
 
     <script>
+        // Theme Toggle Functionality
+        function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Set initial theme (default to dark)
+            let currentTheme = 'dark';
+            
+            function updateThemeIcon() {
+                themeToggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+                themeToggle.title = currentTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            }
+            
+            function toggleTheme() {
+                if (currentTheme === 'dark') {
+                    body.setAttribute('data-theme', 'light');
+                    currentTheme = 'light';
+                } else {
+                    body.removeAttribute('data-theme');
+                    currentTheme = 'dark';
+                }
+                updateThemeIcon();
+                
+                // Add smooth transition effect
+                body.style.transition = 'background 0.3s ease, color 0.3s ease';
+                setTimeout(() => {
+                    body.style.transition = '';
+                }, 300);
+            }
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            updateThemeIcon();
+        }
+
         // Progress bar
         function updateProgressBar() {
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -1256,6 +1357,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function() {
+            initThemeToggle();
             initHamburgerMenu();
             initFilters();
             initEnhancedEffects();
