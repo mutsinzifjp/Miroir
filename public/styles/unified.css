@@ -873,3 +873,30 @@ input[type="range"]::-moz-range-thumb:hover {
 .min-w-8 {
   min-width: 2rem;
 }
+
+/* Avatar and image utilities */
+.w-12 { width: 3rem; }
+.h-12 { height: 3rem; }
+
+/* Flex utilities */
+.flex-1 { flex: 1; }
+
+/* Text sizes */
+.text-xs { font-size: var(--fs-xs); }
+
+/* Form validation states */
+.form-input:invalid {
+  border-color: var(--accent-secondary);
+}
+
+.form-textarea:invalid {
+  border-color: var(--accent-secondary);
+}
+
+.form-input:valid {
+  border-color: var(--accent-primary);
+}
+
+.form-textarea:valid {
+  border-color: var(--accent-primary);
+}
