@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey Timeline | Miroir</title>
+    <meta name="description" content="An interactive timeline showcasing the journey of truth, resistance, and authentic expression." />
+    <meta name="theme-color" content="#e50914" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Enhanced Features CSS -->
+    <link rel="stylesheet" href="/miroir-features.css" />
+    
+    <style>
+        body {
+            background: var(--theme-bg, #000);
+            color: var(--theme-text, #fff);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px 40px;
+            background: linear-gradient(135deg, var(--theme-bg) 0%, rgba(229, 9, 20, 0.1) 100%);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            color: var(--theme-accent, #e50914);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--theme-accent);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .journey-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .journey-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--theme-accent, #e50914);
+            border-radius: 25px;
+            color: var(--theme-accent, #e50914);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .journey-btn:hover,
+        .journey-btn.active {
+            background: var(--theme-accent, #e50914);
+            color: var(--theme-bg, #000);
+            box-shadow: 0 0 15px var(--theme-accent);
+        }
+
+        .timeline-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--theme-accent, #e50914);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Enhanced timeline styles */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--theme-accent, #e50914), transparent);
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--theme-accent);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--theme-accent, #e50914);
+            border-radius: 20px;
+            margin: 0 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(229, 9, 20, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-content:hover::before {
+            opacity: 1;
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px var(--theme-accent);
+            transform: scale(1.02) translateY(-5px);
+        }
+
+        .timeline-marker {
+            width: 30px;
+            height: 30px;
+            background: var(--theme-accent, #e50914);
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 20px var(--theme-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--theme-bg, #000);
+            align-self: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--theme-accent, #e50914);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            color: var(--theme-text, #fff);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .timeline-description {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .timeline-tags {
+            margin-top: 15px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-tag {
+            padding: 4px 12px;
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid var(--theme-accent, #e50914);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--theme-accent, #e50914);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: row;
+            }
+            
+            .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+            }
+            
+            .timeline-marker {
+                position: absolute;
+                left: 15px;
+            }
+        }
+
+        /* Audio and visual enhancements */
+        .media-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid var(--theme-accent, #e50914);
+        }
+
+        .reflection-mirror {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, transparent 100%);
+            border-radius: 20px;
+            border: 2px solid var(--theme-accent, #e50914);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section fade-in">
+        <h1 class="hero-title">Journey Through Truth</h1>
+        <p class="hero-subtitle">
+            An interactive timeline of resistance, authenticity, and the ongoing rebellion of being. 
+            Each moment a crack in the mirror, each story a light breaking through.
+        </p>
+    </div>
+
+    <div class="timeline-container">
+        <div class="journey-controls">
+            <button class="journey-btn active" data-journey="all">All Moments</button>
+            <button class="journey-btn" data-journey="personal">Personal Journey</button>
+            <button class="journey-btn" data-journey="resistance">Acts of Resistance</button>
+            <button class="journey-btn" data-journey="creative">Creative Expression</button>
+            <button class="journey-btn" data-journey="future">Future Visions</button>
+        </div>
+
+        <div class="timeline-section">
+            <h2 class="section-title slide-in-left">Milestones of Truth</h2>
+            <div id="journey-timeline" class="timeline">
+                <!-- Timeline items will be dynamically generated -->
+            </div>
+        </div>
+
+        <div class="media-section slide-in-right">
+            <h3 style="color: var(--theme-accent); margin-bottom: 20px;">Audio Reflections</h3>
+            <div id="audio-player-container">
+                <!-- Audio players will be added here -->
+            </div>
+        </div>
+
+        <div class="reflection-mirror fade-in">
+            <div id="reflection-mirror-container">
+                <!-- Personalized reflection mirror will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Features Script -->
+    <script src="/miroir-features.js"></script>
+    
+    <!-- PWA Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!window.miroirFeatures) {
+                console.error('Miroir features not loaded');
+                return;
+            }
+
+            // Timeline data
+            const timelineData = [
+                {
+                    date: "Early Childhood",
+                    title: "First Mirrors",
+                    description: "The first time society told me who I should be, and the first time I felt the violence of categories that didn't fit.",
+                    categories: ["personal"],
+                    tags: ["identity", "childhood", "awakening"],
+                    detail: `
+                        <p>The earliest memories of being told "boys don't do that" or "act like a man." The confusion of looking in mirrors and not seeing what others expected to see.</p>
+                        <p>This was the beginning of understanding that mirrors lie - they reflect not truth, but expectations, limitations, and societal fears.</p>
+                    `
+                },
+                {
+                    date: "Adolescence",
+                    title: "Learning to Hide",
+                    description: "The years of conformity, of learning to police myself before others could. The internalization of shame that wasn't mine to carry.",
+                    categories: ["personal", "resistance"],
+                    tags: ["conformity", "shame", "survival"],
+                    detail: `
+                        <p>During these formative years, I learned the art of invisibility. How to move through spaces without drawing attention to the ways I didn't fit.</p>
+                        <p>But hiding taught me something powerful: the difference between authentic self and performed self. This knowledge would later become the foundation of resistance.</p>
+                    `
+                },
+                {
+                    date: "University Years",
+                    title: "Academic Awakening",
+                    description: "Discovering gender theory, reading Judith Butler, understanding that what felt natural was actually constructed. The beginning of intellectual rebellion.",
+                    categories: ["personal", "creative"],
+                    tags: ["education", "theory", "awakening"],
+                    detail: `
+                        <p>Reading "Gender Trouble" was like finding a map to territory I'd been exploring without knowing it had a name. Butler's concept of gender performativity gave language to lived experience.</p>
+                        <p>This period marked the transition from personal confusion to analytical understanding. The personal became political.</p>
+                    `
+                },
+                {
+                    date: "May 26, 2025",
+                    title: "The Skirt Experiment",
+                    description: "The day I wore truth to class. A simple piece of fabric became an act of revolution, a crack in the mirror of binary thinking.",
+                    categories: ["personal", "resistance", "creative"],
+                    tags: ["experiment", "courage", "gender"],
+                    detail: `
+                        <p>This wasn't planned as research initially - it was simply the need to be authentic. But the responses revealed so much about how gender surveillance operates in everyday life.</p>
+                        <p>The fear beforehand was greater than any actual hostility encountered. This taught me that often our internalized limitations exceed external ones.</p>
+                        <p>Read the full account in <a href="https://books2read.com/u/31AQ9n" target="_blank" style="color: var(--theme-accent);">Crossing the Threshold</a></p>
+                    `
+                },
+                {
+                    date: "June 2025",
+                    title: "Birth of Miroir",
+                    description: "Creating this digital space as a mirror that reflects truth instead of lies. A platform for voices that refuse to be silenced.",
+                    categories: ["creative", "resistance"],
+                    tags: ["creation", "platform", "truth"],
+                    detail: `
+                        <p>Miroir emerged from the need for authentic representation - not just of myself, but of all who exist beyond binary categories.</p>
+                        <p>Built with questions to ChatGPT and determination to not vanish, this space proves you don't need technical expertise to create something meaningful - just refusal to remain silent.</p>
+                    `
+                },
+                {
+                    date: "Ongoing",
+                    title: "Truth Tools Development",
+                    description: "Creating resources for other unfiltered creators. Building survival kits for those who speak truth in a world that prefers comfortable lies.",
+                    categories: ["creative", "resistance"],
+                    tags: ["tools", "creators", "resistance"],
+                    detail: `
+                        <p>The Truth Tools section represents collaboration and mutual aid. Recognition that resistance is collective, not individual.</p>
+                        <p>These tools emerge from lived experience of platform suppression, algorithm bias, and the need for alternative spaces.</p>
+                    `
+                },
+                {
+                    date: "Future",
+                    title: "Beyond the Binary",
+                    description: "A world where authenticity replaces conformity, where children learn empathy over obedience, where mirrors reflect truth.",
+                    categories: ["future"],
+                    tags: ["vision", "hope", "change"],
+                    detail: `
+                        <p>Imagining educational systems that teach critical thinking instead of compliance. Religious and cultural institutions that celebrate human uniqueness.</p>
+                        <p>A future where the question isn't whether society will accept us, but whether we'll continue seeking permission for our own existence.</p>
+                        <p>The crack in the mirror multiplies infinitely. Each person who refuses the binary creates new possibilities for others.</p>
+                    `
+                }
+            ];
+
+            // Initialize timeline
+            const timelineContainer = document.getElementById('journey-timeline');
+            window.miroirFeatures.createTimeline(timelineContainer, timelineData);
+
+            // Journey filtering
+            const journeyBtns = document.querySelectorAll('.journey-btn');
+            journeyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button
+                    journeyBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Filter timeline items
+                    const filter = btn.dataset.journey;
+                    const timelineItems = document.querySelectorAll('.timeline-item');
+                    
+                    timelineItems.forEach(item => {
+                        const content = item.querySelector('.timeline-content');
+                        const itemData = timelineData.find(data => 
+                            content.querySelector('.timeline-title').textContent === data.title
+                        );
+                        
+                        if (filter === 'all' || (itemData && itemData.categories.includes(filter))) {
+                            item.style.display = 'flex';
+                            setTimeout(() => item.classList.add('visible'), 100);
+                        } else {
+                            item.classList.remove('visible');
+                            setTimeout(() => item.style.display = 'none', 300);
+                        }
+                    });
+                });
+            });
+
+            // Add audio players
+            const audioContainer = document.getElementById('audio-player-container');
+            window.miroirFeatures.createAudioPlayer(
+                audioContainer, 
+                '/relaxing-electronic-ambient-music-354471.mp3', 
+                'Ambient Reflection'
+            );
+
+            // Add personalized reflection mirror
+            const reflectionContainer = document.getElementById('reflection-mirror-container');
+            window.miroirFeatures.createReflectionMirror(reflectionContainer);
+
+            // Initialize scroll animations
+            window.miroirFeatures.setupAnimations();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "name": "Miroir - Human Truth Hub",
+  "short_name": "Miroir",
+  "description": "A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#e50914",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["lifestyle", "education", "social"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "miroir.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "miroir.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "reflect1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Miroir Truth Hub - Desktop View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Truth Tools",
+      "short_name": "Tools",
+      "description": "Access truth-telling tools and resources",
+      "url": "/truth-tools.html",
+      "icons": [
+        {
+          "src": "miroir.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Living Archive",
+      "short_name": "Archive",
+      "description": "Explore the breathing vault of memory",
+      "url": "/living-archive.html",
+      "icons": [
+        {
+          "src": "miroir.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Our Miroirs",
+      "short_name": "Stories",
+      "description": "Read stories of truth and rebellion",
+      "url": "/our-miroirs.html",
+      "icons": [
+        {
+          "src": "miroir.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

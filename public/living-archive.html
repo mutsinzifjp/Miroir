@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Living Archive - Miroir</title>
+    <meta name="description" content="Welcome to the breathing vault of memory and resistance. Fragments of truth float in digital amber." />
+    <meta name="theme-color" content="#e50914" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Enhanced Features CSS -->
+    <link rel="stylesheet" href="/miroir-features.css" />
     <style>
         /* Root color variables for theming */
         :root {
@@ -1390,6 +1398,55 @@
                 }, 10);
             });
         }, 10000);
+
+        // Initialize enhanced filtering for archive items
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.miroirFeatures) {
+                const archiveContainer = document.querySelector('.fragments-grid').parentElement;
+                const archiveItems = document.querySelectorAll('.fragment-card');
+                
+                // Add data attributes for filtering
+                archiveItems.forEach(item => {
+                    const tagElements = item.querySelectorAll('.tag');
+                    const categories = Array.from(tagElements).map(tag => tag.textContent.trim()).join(' ');
+                    item.setAttribute('data-categories', categories);
+                });
+
+                // Setup filtering
+                const filters = [
+                    { label: 'Femme Rebellion', value: 'femme-rebellion' },
+                    { label: 'Truth Scars', value: 'truth-scars' },
+                    { label: 'Field Notes', value: 'field-notes' },
+                    { label: 'Decoloniality', value: 'decoloniality' },
+                    { label: 'Body Resistance', value: 'body-resistance' },
+                    { label: 'Diary Fragments', value: 'diary-fragments' },
+                    { label: 'Resistance', value: 'resistance' },
+                    { label: 'Gender Storms', value: 'gender-storms' },
+                    { label: 'Future Visions', value: 'future-visions' }
+                ];
+
+                window.miroirFeatures.setupFiltering(archiveContainer, archiveItems, filters);
+            }
+        });
+    </script>
+
+    <!-- Enhanced Features Script -->
+    <script src="/miroir-features.js"></script>
+    
+    <!-- PWA Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
     </script>
 </body>
 </html>
