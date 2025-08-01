@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cracked Mirror</title>
+    <style>
+        /* Reset and foundation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Typography hierarchy */
+        h1, h2, h3 {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Site Logo */
+        .site-logo {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            padding: 1rem;
+            opacity: 0;
+            animation: logoFadeIn 2s ease 0.5s forwards;
+        }
+
+        .site-logo img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .site-logo img:hover {
+            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6));
+            transform: scale(1.05);
+        }
+
+        @keyframes logoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Hamburger Menu */
+        .hamburger-menu {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1002;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            border-color: #ff0000;
+        }
+
+        .hamburger-icon {
+            width: 25px;
+            height: 20px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: 0.3s ease-in-out;
+        }
+
+        .hamburger-icon span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: #fff;
+            border-radius: 1px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: 0.25s ease-in-out;
+        }
+
+        .hamburger-icon span:nth-child(1) { top: 0px; }
+        .hamburger-icon span:nth-child(2) { top: 8px; }
+        .hamburger-icon span:nth-child(3) { top: 16px; }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger-menu.active .hamburger-icon span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 4rem;
+            right: -320px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2rem;
+            transition: right 0.3s ease;
+            z-index: 1001;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-menu.active {
+            right: 1rem;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-menu a:hover {
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            border-bottom-color: #ff0000;
+            transform: translateX(10px);
+        }
+
+        /* Overlay for mobile menu */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Header adjustment for logo */
+        .header {
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            background: transparent;
+            z-index: 999;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            position: relative;
+            color: #fff;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 1px;
+            background: #ff0000;
+            transform: translate(-50%, -50%) rotate(15deg);
+            opacity: 0.7;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        /* Hero section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(45deg, #000 0%, #111 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 L80,80 M80,20 L20,80 M50,0 L50,100 M0,50 L100,50" stroke="rgba(255,0,0,0.1)" stroke-width="0.5" fill="none"/></svg>');
+            opacity: 0.3;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.1; transform: scale(1.02); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            animation: slideUp 1s ease 0.5s both;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            opacity: 0.8;
+            max-width: 600px;
+            font-style: italic;
+            z-index: 2;
+            position: relative;
+            animation: slideUp 1s ease 0.8s both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section base styles */
+        .section {
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #ff0000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; width: 50px; }
+            50% { opacity: 1; width: 100px; }
+        }
+
+        /* Content styling */
+        .philosophical-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+            position: relative;
+            animation: fadeInText 0.8s ease both;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quote {
+            font-style: italic;
+            border-left: 3px solid #ff0000;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            opacity: 0.9;
+            background: rgba(255, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .quote:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateX(10px);
+        }
+
+        .research-insight {
+            background: #111;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #333;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .research-insight:hover {
+            border-color: #ff0000;
+            background: #1a1a1a;
+        }
+
+        .research-insight::before {
+            content: 'Lived Truth';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #000;
+            padding: 0 10px;
+            font-size: 0.8rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Interactive elements */
+        .interactive-mirror {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            margin: 2rem auto;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .interactive-mirror:hover {
+            border-color: #ff0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .interactive-mirror::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            width: 40%;
+            height: 2px;
+            background: #ff0000;
+            transform: rotate(-35deg);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-mirror:hover::before {
+            transform: rotate(-35deg) scale(1.2);
+            opacity: 1;
+        }
+
+        /* Reaction grid */
+        .reaction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .reaction-item {
+            background: #111;
+            padding: 1.5rem;
+            border-left: 3px solid #ff0000;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: staggerIn 0.6s ease forwards;
+        }
+
+        .reaction-item:nth-child(1) { animation-delay: 0.1s; }
+        .reaction-item:nth-child(2) { animation-delay: 0.2s; }
+        .reaction-item:nth-child(3) { animation-delay: 0.3s; }
+        .reaction-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes staggerIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reaction-item:hover {
+            background: #222;
+            border-left: 5px solid #ff0000;
+            transform: translateX(10px);
+        }
+
+        .reaction-item h4 {
+            color: #ff0000;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Testimonies */
+        .testimony {
+            background: #111;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid #ff0000;
+            font-style: italic;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .testimony:hover {
+            background: #1a1a1a;
+            transform: translateX(5px);
+        }
+
+        .testimony::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            color: #ff0000;
+            opacity: 0.3;
+        }
+
+        /* Fractured transition */
+        .section-break {
+            height: 100px;
+            background: linear-gradient(45deg, transparent 45%, #ff0000 49%, #ff0000 51%, transparent 55%);
+            margin: 4rem 0;
+            opacity: 0.3;
+            position: relative;
+            animation: fracture 3s ease-in-out infinite;
+        }
+
+        @keyframes fracture {
+            0%, 100% { transform: scaleX(1); }
+            50% { transform: scaleX(1.02); }
+        }
+
+        .section-break::before,
+        .section-break::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, transparent 45%, #ff0000 49%, #ff0000 51%, transparent 55%);
+        }
+
+        .section-break::after {
+            background: linear-gradient(135deg, transparent 45%, #ff0000 49%, #ff0000 51%, transparent 55%);
+        }
+
+        /* Final section styling */
+        .final-section {
+            background: linear-gradient(45deg, #111 0%, #000 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .final-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,0,0,0.1)" stroke-width="1"/><circle cx="50" cy="50" r="20" fill="none" stroke="rgba(255,0,0,0.15)" stroke-width="0.5"/></svg>');
+            opacity: 0.2;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .final-message {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 2rem;
+            font-weight: bold;
+            color: #ff0000;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid #333;
+            margin-top: 4rem;
+        }
+
+        .footer .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .site-logo img {
+                height: 50px;
+            }
+
+            .hamburger-menu {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+
+            .nav-menu {
+                width: calc(100vw - 2rem);
+                right: -100vw;
+                top: 4rem;
+                margin: 0 1rem;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .section {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .philosophical-text {
+                font-size: 1.1rem;
+            }
+            
+            .quote,
+            .research-insight {
+                margin: 1rem 0;
+                padding: 1rem;
+            }
+
+            .reaction-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+
+            .header {
+                top: 60px;
+            }
+        }
+
+        /* Text effects */
+        .emphasis {
+            color: #ff0000;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .emphasis:hover {
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Scroll progress indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #ff0000;
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+
+        /* Enhanced animations for better UX */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glitch effects */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Site Logo -->
+    <div class="site-logo">
+        <img src="miroir.png" alt="Miroir Logo">
+    </div>
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="my-mirror.html">My Miroir</a></li>
+            <li><a href="our-mirrors.html">Our Miroirs</a></li>
+            <li><a href="truth-tools.html">Truth Tools</a></li>
+            <li><a href="living-archive.html">Living Archive</a></li>
+            <li><a href="reflections.html">Reflections</a></li>
+            <li><a href="publications.html">Publications</a></li>
+        </ul>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">THE CRACKED MIRROR</div>
+        </nav>
+    </header>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="glitch">THE CRACKED MIRROR</h1>
+        <p class="subtitle">An experiment in courage, a confrontation with truth,<br>a reflection of society's fears.</p>
+    </section>
+
+    <!-- Origin Story -->
+    <section id="origin" class="section">
+        <h2>The Origin of the Crack</h2>
+        
+        <div class="philosophical-text">
+            This archive emerges from lived experience—from a childhood shaped by gender harassment, from a society that demanded conformity to categories that felt like prisons. I write as someone who has felt the violence of stereotypes, who has been reduced to an object for others' comfort.
+        </div>
+
+        <div class="philosophical-text">
+            Standing before a mirror, I once asked myself: Why can't I see myself fully? Why do I need this reflection to know my face, yet it shows me only fragments, distortions, lies? Some mirrors make me beautiful, others make me grotesque. All of them betray the truth of who I am.
+        </div>
+
+        <div class="research-insight">
+            Then came the realization: the mirror is not just on the wall. It lives in the eyes of others, in their judgments, in their fear of what they cannot categorize. The shame I felt watching a man labeled "mad" was not his—it was society's, internalized as my own.
+        </div>
+
+        <div class="philosophical-text">
+            The <span class="emphasis">illusion of binary gender</span> has caused immeasurable suffering. It has silenced voices, constrained bodies, and punished those who dare to exist beyond its narrow borders. This digital space exists to crack that illusion, to reveal the arbitrary nature of the categories that govern our lives.
+        </div>
+
+        <div class="quote">
+            Every person forced to hide their truth, every child told their natural expression is wrong, every adult living in fear of discovery—they are the reason this mirror must reflect honestly.
+        </div>
+
+        <div class="philosophical-text">
+            I am not writing to inspire but to <span class="emphasis">awaken</span>. To disturb the comfortable sleep of those who benefit from rigid categories. To be a voice for all who have been told their existence is somehow wrong, invalid, or threatening to the natural order.
+        </div>
+    </section>
+
+    <div class="section-break"></div>
+
+    <!-- The Experiment -->
+    <section id="experiment" class="section">
+        <h2>The Day I Wore Truth</h2>
+        
+        <div class="philosophical-text">
+            On May 26th, 2025, I conducted an experiment in vulnerability. I, a male student, wore a skirt to class, to the street, to the spaces where society least expected it. Not as performance, not as protest, but as <span class="emphasis">honest expression</span>.
+        </div>
+
+        <div class="interactive-mirror"></div>
+
+        <div class="research-insight">
+            The fears before the experiment were heavier than any hatred I encountered. I imagined violence, mockery, administrative punishment. Instead, I discovered that my internalized terror was often greater than their actual discomfort.
+        </div>
+
+        <div class="philosophical-text">
+            As I opened the classroom door, I felt chains breaking. The air entered my lungs differently—the breath of someone who had stopped asking for permission to exist. The courage wasn't in wearing the skirt; it was in <span class="emphasis">refusing to explain myself</span>.
+        </div>
+
+        <div class="quote">
+            "How can a femboy be allowed among us?" This was my deepest fear—not their words, but the voice inside me that had learned to see myself through their eyes, to police myself with their prejudices.
+        </div>
+
+        <div class="philosophical-text">
+            The experiment revealed that gender norms are not natural laws but <span class="emphasis">technologies of control</span>. Every stare, every silence, every confused reaction was evidence of a system struggling to categorize what refuses categorization.
+        </div>
+    </section>
+
+    <div class="section-break"></div>
+
+    <!-- Society's Reactions -->
+    <section id="reactions" class="section">
+        <h2>The Mirror Speaks Back</h2>
+        
+        <div class="philosophical-text">
+            Society responded in four distinct ways, each revealing different aspects of how gender surveillance operates in everyday life. Their reactions became <span class="emphasis">maps of their own limitations</span>.
+        </div>
+
+        <div class="reaction-grid">
+            <div class="reaction-item">
+                <h4>The Silent Observers</h4>
+                <p>They watched but did not engage, confused by what they saw. Their silence revealed uncertainty, not acceptance—the paralysis of minds unprepared for alternatives to binary thinking.</p>
+            </div>
+            <div class="reaction-item">
+                <h4>The Open Supporters</h4>
+                <p>They celebrated courage while acknowledging fear. "I was amazed at your confidence," one said, revealing how rare authentic self-expression has become in our surveilled world.</p>
+            </div>
+            <div class="reaction-item">
+                <h4>The Uncomfortable</h4>
+                <p>"I felt uncomfortable because I could not get the courage to do it." Their discomfort was not with me, but with their own recognition of boundaries they had never questioned.</p>
+            </div>
+            <div class="reaction-item">
+                <h4>The Critics</h4>
+                <p>"It didn't suit you," they said, revealing how aesthetics become weapons of conformity. Their criticism exposed their investment in maintaining the very categories that constrain them.</p>
+            </div>
+        </div>
+
+        <div class="research-insight">
+            The most revealing finding: many admitted they would have reacted more harshly if I had been a local student rather than a foreigner. My otherness provided a shield that exposed the conditional nature of their tolerance.
+        </div>
+
+        <div class="philosophical-text">
+            Why do we distance ourselves from what we cannot name instead of facing the mirror? The <span class="emphasis">courage to face the mirror is the beginning of self-awareness</span>. When we stop deflecting and start recognizing the arbitrary nature of the categories that constrain us, we discover our power to exist beyond them.
+        </div>
+    </section>
+
+    <div class="section-break"></div>
+
+    <!-- Hidden Revelations -->
+    <section id="revelations" class="section">
+        <h2>What the Crack Revealed</h2>
+        
+        <div class="philosophical-text">
+            The experiment exposed the <span class="emphasis">violence of the ordinary</span>. Every day, in every interaction, gender norms are enforced through subtle surveillance. A glance, a comment, a silence—all become tools of conformity.
+        </div>
+
+        <div class="research-insight">
+            Gender is not something we are but something we repeatedly do. Each time society calls a child "boy" or "girl," it creates the very identity it claims to describe. When this repetition fails, when the body refuses to conform, the entire system reveals its constructed nature.
+        </div>
+
+        <div class="philosophical-text">
+            The most insidious discovery: how much of what I thought was natural was simply habit. How much of what I believed was my authentic self was actually the internalization of external expectations. The mirror had been lying to me my entire life.
+        </div>
+
+        <div class="quote">
+            "Their silence had nothing to do with me; I took it as a win, but it was neither approval nor rejection." Sometimes the absence of reaction reveals more than the strongest opposition.
+        </div>
+
+        <div class="philosophical-text">
+            Contemporary culture multiplies the mirrors—selfies, surveillance cameras, social media profiles—each promising truth while delivering <span class="emphasis">evidence for prosecution</span>. Evidence used against bodies that fail to conform to impossible standards.
+        </div>
+
+        <div class="philosophical-text">
+            To unlearn the image is not to refuse representation but to recognize its violence. The crack in the mirror is not damage—it is <span class="emphasis">clarity</span>. What we took for reflection was always distortion. What we feared as brokenness was always the possibility of seeing truly.
+        </div>
+    </section>
+
+    <div class="section-break"></div>
+
+    <!-- Testimonies of Truth -->
+    <section id="awakening" class="section">
+        <h2>Voices from the Crack</h2>
+        
+        <div class="testimony">
+            I learned that my fears were often larger than their hatred. The violence I expected exceeded the discomfort I encountered. But this revealed something more troubling: how thoroughly I had internalized their limitations as my own.
+        </div>
+
+        <div class="testimony">
+            Their silence meant neither acceptance nor rejection. It meant paralysis—the inability to process what doesn't fit their categories. I realized I was forcing them to confront the poverty of their imagination.
+        </div>
+
+        <div class="philosophical-text">
+            These voices speak from the <span class="emphasis">space of experiment</span>—those who have tested the boundaries and discovered their permeability. They testify not to victimhood but to the power of bodies that refuse containment.
+        </div>
+
+        <div class="testimony">
+            The hardest realization: how much of what I thought was natural was simply habit. How much of what I believed was my authentic self was actually the internalization of external expectations.
+        </div>
+
+        <div class="testimony">
+            I discovered that challenging gender norms reveals more about the observers than the observed. Their reactions mapped the geography of their fears, the boundaries of their comfort, the limits of their empathy.
+        </div>
+
+        <div class="research-insight">
+            "I felt empowered like a man wearing a woman's softness, and a man's fierceness, saying all are mine." The experiment revealed that gender categories are not natural divisions but artificial limitations on human possibility.
+        </div>
+
+        <div class="testimony">
+            The question is not whether society will accept us. The question is whether we will continue to seek permission for our own existence. The crack begins when we stop asking for approval.
+        </div>
+
+        <div class="philosophical-text">
+            The crack in the mirror multiplies infinitely. Each person who refuses the binary creates <span class="emphasis">new possibilities for others</span>. Not through representation but through the simple fact of existence—proof that alternatives are possible.
+        </div>
+    </section>
+
+    <!-- Final Section -->
+    <section class="final-section">
+        <div class="final-message">
+            The Mirror Will Always Crack
+        </div>
+        <div class="philosophical-text">
+            This is not an ending but a beginning. Every time someone chooses authenticity over acceptance, courage over comfort, truth over tolerance—the mirror cracks a little more. The reflection becomes clearer. The lie becomes visible.
+        </div>
+        <div class="philosophical-text">
+            The illusion of binary gender has had its day. What emerges from the cracks is not chaos but <span class="emphasis">infinite possibility</span>. Not destruction but liberation. Not fear but recognition—of ourselves, of each other, of the truth that was always there, waiting to be seen.
+        </div>
+        <div class="quote">
+            The most radical act is not breaking the mirror but looking away from it. Returning attention to the felt sense of embodiment, the knowledge that exists before and beyond the image, the truth that no reflection can contain.
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="final-section" style="border-top: 1px solid #333; background: linear-gradient(135deg, #000 0%, #111 50%, #000 100%);">
+        <div class="final-message" style="font-size: clamp(1.2rem, 2.5vw, 2rem); margin-bottom: 3rem;">
+            The Story Continues...
+        </div>
+        <div class="philosophical-text" style="font-size: 1.3rem; margin-bottom: 2rem;">
+            This digital mirror reflects only fragments of a deeper truth. The complete journey—the raw diary entries, the unfiltered interviews, the theoretical frameworks that illuminate lived experience—awaits those ready to <span class="emphasis">go deeper</span>.
+        </div>
+        <div class="philosophical-text" style="margin-bottom: 3rem;">
+            If these reflections have cracked something open within you, if you recognize yourself in these words, if you are ready to question everything you've been told about identity, truth, and freedom—then the full story calls to you.
+        </div>
+        <div class="quote" style="font-size: 1.1rem; text-align: center; border: 2px solid #ff0000; padding: 2rem; background: rgba(255, 0, 0, 0.1); margin: 2rem auto; max-width: 600px; transition: all 0.3s ease; cursor: pointer;" id="bookLink">
+            <strong>Discover the complete research, unfiltered testimonies, and philosophical foundations that challenge everything we think we know about gender.</strong><br><br>
+            <span style="font-size: 1.2rem; color: #ff0000; font-weight: bold;">Read the Full Story</span><br>
+            <span style="font-size: 0.9rem; opacity: 0.8;">Click to access the complete work</span>
+        </div>
+        <div class="philosophical-text" style="font-size: 1rem; opacity: 0.8; text-align: center;">
+            For those who dare to see their reflection clearly,<br>
+            for those who choose courage over comfort,<br>
+            for those ready to crack their own mirrors.
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="copyright">Copyright © Fils Jean Pierre Mutsinzi. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        // Progress bar
+        function updateProgressBar() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Back to top functionality
+        function toggleBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        // Smooth reveal animation on scroll
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('.section, .fade-in-up');
+            const windowHeight = window.innerHeight;
+            const triggerPoint = windowHeight * 0.7;
+
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                
+                if (sectionTop < triggerPoint) {
+                    section.classList.add('visible');
+                }
+            });
+
+            // Stagger animation for reaction items
+            const reactionItems = document.querySelectorAll('.reaction-item');
+            reactionItems.forEach((item, index) => {
+                const itemTop = item.getBoundingClientRect().top;
+                if (itemTop < triggerPoint) {
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }
+
+        // Interactive mirror effect
+        function initMirrorInteraction() {
+            const mirror = document.querySelector('.interactive-mirror');
+            if (mirror) {
+                mirror.addEventListener('click', function() {
+                    this.style.transform = 'rotate(' + (Math.random() * 360) + 'deg) scale(1.1)';
+                    this.style.borderColor = '#ff0000';
+                    this.style.boxShadow = '0 0 50px rgba(255, 0, 0, 0.5)';
+                    
+                    setTimeout(() => {
+                        this.style.transform = 'rotate(0deg) scale(1)';
+                        this.style.borderColor = '#fff';
+                        this.style.boxShadow = 'none';
+                    }, 1000);
+                });
+            }
+        }
+
+        // Hamburger menu functionality
+        function initHamburgerMenu() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+
+            function toggleMenu() {
+                hamburgerMenu.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+            }
+
+            function closeMenu() {
+                hamburgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            hamburgerMenu.addEventListener('click', toggleMenu);
+            navOverlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking on a navigation link
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMenu();
+                }
+            });
+        }
+
+        // Enhanced hover effects
+        function initEnhancedEffects() {
+            // Emphasis elements glow effect
+            const emphasisElements = document.querySelectorAll('.emphasis');
+            emphasisElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.textShadow = '0 0 10px #ff0000, 0 0 20px #ff0000';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.textShadow = 'none';
+                });
+            });
+
+            // Quote hover effects
+            const quotes = document.querySelectorAll('.quote');
+            quotes.forEach(quote => {
+                quote.addEventListener('mouseenter', function() {
+                    this.style.textShadow = '1px 0 #ff0000, -1px 0 #ff0000';
+                    setTimeout(() => {
+                        this.style.textShadow = 'none';
+                    }, 200);
+                });
+            });
+        }
+
+        // Initialize all interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            initHamburgerMenu();
+            initMirrorInteraction();
+            initEnhancedEffects();
+            revealOnScroll(); // Initial check
+            toggleBackToTop(); // Initial check
+
+            // Book link functionality
+            const bookLink = document.getElementById('bookLink');
+            if (bookLink) {
+                bookLink.addEventListener('click', function() {
+                    window.open('https://books2read.com/u/31AQ9n', '_blank');
+                });
+                
+                bookLink.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.3)';
+                });
+                
+                bookLink.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            }
+        });
+
+        // Scroll event listeners
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            toggleBackToTop();
+            revealOnScroll();
+        });
+
+        // Back to top click handler
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Subtle random effects
+        setInterval(() => {
+            const emphasisElements = document.querySelectorAll('.emphasis');
+            if (emphasisElements.length > 0) {
+                const randomElement = emphasisElements[Math.floor(Math.random() * emphasisElements.length)];
+                randomElement.style.textShadow = '0 0 5px #ff0000';
+                setTimeout(() => {
+                    randomElement.style.textShadow = 'none';
+                }, 150);
+            }
+        }, 4000);
+
+        // Header hide/show on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const header = document.querySelector('.header');
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>

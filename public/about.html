@@ -2,306 +2,158 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      background: #000;
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .logo {
-      width: 140px;
-      margin-bottom: 30px;
-      animation: glow 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 10px #e50914);
-    }
-
-    @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
-      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
-    }
-
-    h1 {
-      color: #e50914;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-
-    .intro {
-      font-size: 1.2rem;
-      line-height: 1.7;
-      color: #ddd;
-      margin-bottom: 40px;
-      text-align: left;
-    }
-
-    .pillars {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      margin-bottom: 50px;
-    }
-
-    .pillar {
-      background: #111;
-      border-left: 4px solid #e50914;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: left;
-      box-shadow: 0 0 12px #e50914;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .pillar:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px #ff1a1a;
-    }
-
-    .pillar h2 {
-      color: #e50914;
-      margin-bottom: 10px;
-    }
-
-    .pillar p {
-      color: #ccc;
-      font-size: 1rem;
-    }
-
-    /* Hamburger toggle */
-    .menu-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 11;
-      background: transparent;
-      border: 2px solid #e50914;
-      border-radius: 6px;
-      padding: 8px 10px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-      box-shadow: 0 0 10px #e50914;
-    }
-
-    .menu-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: #e50914;
-    }
-
-    /* Mobile menu */
-    .menu {
-      position: fixed;
-      top: 65px;
-      right: 20px;
-      background: #111;
-      border: 1px solid #e50914;
-      padding: 15px 20px;
-      border-radius: 10px;
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-      z-index: 12;
-      box-shadow: 0 0 15px #e50914;
-    }
-
-    .menu a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-
-    .menu a:hover {
-      color: #e50914;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
-      opacity: 0.05;
-      animation: pulseBackground 10s ease-in-out infinite alternate;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    @keyframes pulseBackground {
-      0% { opacity: 0.05; transform: scale(1); }
-      100% { opacity: 0.15; transform: scale(1.05); }
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      color: #888;
-      font-size: 0.95rem;
-      background: transparent;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    footer p {
-      margin: 8px 0;
-      line-height: 1.5;
-    }
-
-    @media screen and (max-width: 768px) {
-      .pillars {
-        gap: 20px;
-      }
-      .pillar {
-        padding: 16px;
-      }
-      .intro {
-        text-align: center;
-      }
-    }
-  </style>
+  <title>About | Miroir - Human Truth Hub</title>
+  <meta name="description" content="Discover Miroir - a philosophical platform exploring truth, memory, and human authenticity through interactive digital experiences." />
+  <link rel="stylesheet" href="/styles/unified.css" />
 </head>
-<body>
+<body class="loading">
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- Hamburger Menu -->
-<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+  <!-- Background effects -->
+  <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-gradient" aria-hidden="true"></div>
 
-<!-- Menu Navigation -->
-<nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
-  <a href="/">Home</a>
-  <a href="/about-miroir.html">About</a>
-  <a href="/my-miroir.html">My Miroir</a>
-  <a href="/our-miroirs.html">Our Miroirs</a>
-  <a href="/truth-tools.html">Truth Tools</a>
-  <a href="/living-archive.html">Living Archive</a>
-  <a href="/reflections.html">Reflections</a>
-  <a href="/publications.html">Publications</a>
-</nav>
+  <!-- Navigation -->
+  <button class="nav-toggle" 
+          aria-label="Toggle navigation menu" 
+          aria-expanded="false"
+          aria-controls="navigation-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 
-<canvas id="bgCanvas"></canvas>
+  <nav class="nav-menu" 
+       id="navigation-menu" 
+       role="navigation" 
+       aria-label="Main navigation"
+       aria-hidden="true">
+    <a href="/index.html">Home</a>
+    <a href="/my-miroir.html">My Miroir</a>
+    <a href="/our-miroirs.html">Our Miroirs</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/reflections.html">Reflections</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
 
-<div class="container">
-  <img src="/miroir.png" alt="Miroir Logo" class="logo" />
-  <h1>About</h1>
+  <!-- Main content -->
+  <main class="container py-xl" id="main-content">
+    <header class="text-center mb-2xl">
+      <img src="/miroir.png" 
+           alt="Miroir Logo" 
+           class="logo logo-glow mb-lg" />
+      <h1 class="text-accent mb-lg">About Miroir</h1>
+    </header>
 
-  <div class="intro">
-    <p><strong>Miroir</strong> is not just a website. It is a truth hub, a living, breathing mirror held up to society's lies, expectations, and hypocrisies. It was created by <strong>Fils Jean Pierre Mutsinzi</strong>, not to showcase himself, but to challenge the system that tries to erase people like him.</p>
-    <p>Miroir was born the day I realized that the mirror society gave me was fake. A piece of glass cannot show me who I am, not my pain, my gender, my voice, or my rebellion. I was expected to fit into frames I never chose. So I broke that mirror and made my own.</p>
-    <p>This mirror is symbolic; it is a space to reflect, yes, but also to confront. To see how the world sees you, and how you see it. This is not a project of vanity. It is a political act. A philosophical rupture. A spiritual rebellion.</p>
-    <p>Through <strong>Miroir</strong>, I use truth-telling, Butoh performance, writing, and defiant presence to shake gender norms and awaken memory. What society fears to name, I reflect. What it tries to erase, I archive. And I invite others to do the same.</p>
-    <p><em>Miroir is Fils' creation, but it is not only about Fils. It is for anyone brave enough to face themselves and reflect the truth back to the world.</em></p>
-  </div>
+    <section class="scroll-reveal mb-2xl">
+      <div class="text-lg text-secondary mb-xl" style="max-width: 800px; margin: 0 auto;">
+        <p>
+          Miroir is more than a platform—it's a philosophical mirror reflecting the complexities of human truth, 
+          memory, and the rebellion of authentic being in a world that often seeks to obscure these fundamental aspects of existence.
+        </p>
+        <p>
+          We believe that in an era of digital noise and constructed realities, there exists a profound need for 
+          spaces that honor genuine human experience, unfiltered truth, and the courage to be authentically oneself.
+        </p>
+      </div>
+    </section>
 
-  <section class="pillars" aria-label="Core principles of Miroir">
-    <div class="pillar">
-      <h2>Truth</h2>
-      <p>Miroir centers personal and political truths that are usually silenced or denied. It reflects reality, even when it’s uncomfortable, especially when it is.</p>
-    </div>
-    <div class="pillar">
-      <h2>Rebellion</h2>
-      <p>This is not a neutral space. Miroir resists conformity and exposes the systems that force people into roles, shame, or invisibility.</p>
-    </div>
-    <div class="pillar">
-      <h2>Memory</h2>
-      <p>Every story here carries memory, of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
-    </div>
-  </section>
-</div>
+    <section class="mb-2xl">
+      <h2 class="text-center text-accent mb-xl">Our Philosophy</h2>
+      
+      <div class="grid grid-cols-1 gap-lg mb-xl" style="max-width: 1000px; margin: 0 auto;">
+        <article class="card scroll-reveal">
+          <h3 class="card-title">Truth Without Filter</h3>
+          <p class="text-secondary mb-md">
+            We create spaces where raw, unvarnished truth can exist without the distortions of societal expectation 
+            or digital manipulation. Every mirror reflects exactly what stands before it—nothing more, nothing less.
+          </p>
+        </article>
 
-<footer>
-  <p>&copy; 2025 Miroir Project by Fils Jean Pierre Mutsinzi. All rights reserved.</p>
-</footer>
+        <article class="card scroll-reveal">
+          <h3 class="card-title">Memory as Resistance</h3>
+          <p class="text-secondary mb-md">
+            In preserving and sharing authentic human experiences, we resist the erasure of meaningful stories. 
+            Memory becomes an act of rebellion against forgetting, against the homogenization of human experience.
+          </p>
+        </article>
 
-<script>
-  // Toggle Menu
-  function toggleMenu() {
-    const menu = document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-  }
+        <article class="card scroll-reveal">
+          <h3 class="card-title">The Courage to Be</h3>
+          <p class="text-secondary mb-md">
+            We celebrate the radical act of being oneself in a world that profits from conformity. 
+            Each authentic voice contributes to a symphony of human truth that cannot be commodified or contained.
+          </p>
+        </article>
+      </div>
+    </section>
 
-  // Particle Background
-  const canvas = document.getElementById('bgCanvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    <section class="mb-2xl">
+      <h2 class="text-center text-accent mb-xl">What We Offer</h2>
+      
+      <div class="text-center mb-xl">
+        <div class="grid grid-cols-1 gap-md" style="max-width: 800px; margin: 0 auto;">
+          <div class="scroll-reveal">
+            <h3 class="text-lg font-semibold text-primary mb-sm">Digital Sanctuaries</h3>
+            <p class="text-secondary text-base">
+              Carefully curated spaces for reflection, creation, and authentic expression away from the noise of mainstream digital platforms.
+            </p>
+          </div>
+          
+          <div class="scroll-reveal">
+            <h3 class="text-lg font-semibold text-primary mb-sm">Truth Tools</h3>
+            <p class="text-secondary text-base">
+              Interactive instruments designed to help you explore, understand, and articulate your authentic self and experiences.
+            </p>
+          </div>
+          
+          <div class="scroll-reveal">
+            <h3 class="text-lg font-semibold text-primary mb-sm">Living Archives</h3>
+            <p class="text-secondary text-base">
+              Dynamic collections of human stories, insights, and wisdom that preserve and celebrate the diversity of authentic experience.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  let particles = [];
-  const colors = ['#e50914', '#ff1a1a', '#fff'];
+    <section class="text-center scroll-reveal">
+      <blockquote class="quote mb-xl">
+        The mirror doesn't judge, doesn't edit, doesn't enhance. It simply shows what is. 
+        In that showing, we find both the challenge and the liberation of truth.
+      </blockquote>
+      
+      <div class="flex justify-center gap-md flex-wrap">
+        <a href="/my-miroir.html" class="btn btn-primary">
+          Explore Your Reflection
+        </a>
+        <a href="/truth-tools.html" class="btn btn-ghost">
+          Discover Tools
+        </a>
+      </div>
+    </section>
+  </main>
 
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.radius = Math.random() * 1.5 + 0.5;
-      this.speedX = (Math.random() - 0.5) * 0.3;
-      this.speedY = (Math.random() - 0.5) * 0.3;
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = this.color;
-      ctx.fill();
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-    }
-  }
+  <!-- Background music -->
+  <audio id="bgMusic" loop preload="auto" aria-label="Ambient background music">
+    <source src="/relaxing-electronic-ambient-music-354471.mp3" type="audio/mpeg" />
+    <p>Your browser does not support the audio element.</p>
+  </audio>
 
-  function initParticles() {
-    for (let i = 0; i < 100; i++) particles.push(new Particle());
-  }
+  <!-- Music toggle -->
+  <button id="musicToggle" 
+          class="music-toggle" 
+          aria-label="Toggle background music"
+          title="Toggle background music">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
+    </svg>
+  </button>
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animateParticles);
-  }
-
-  initParticles();
-  animateParticles();
-
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-</script>
-
+  <!-- Unified JavaScript -->
+  <script src="/scripts/unified.js"></script>
 </body>
 </html>

@@ -2,207 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Miroir | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      background: #000;
-      color: #fff;
-      overflow-x: hidden;
-      overflow-y: auto;
-      min-height: 100vh;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 90vw;
-      max-width: 600px;
-      text-align: center;
-      padding: 20px;
-      padding-bottom: 100px;
-      margin: auto;
-    }
-
-    .logo {
-      width: 140px;
-      max-width: 60%;
-      animation: glow 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 10px #e50914);
-      margin-bottom: 20px;
-      user-select: none;
-    }
-
-    @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
-      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
-    }
-
-    .quote {
-      font-size: 1.3rem;
-      line-height: 1.6;
-      color: #ddd;
-      padding: 20px 10px;
-      margin-bottom: 40px;
-      font-style: italic;
-      user-select: none;
-      text-shadow: 0 0 8px #e50914;
-      transition: color 0.4s ease;
-    }
-
-    .quote:hover {
-      color: #ff1a1a;
-      cursor: default;
-    }
-
-    .cta-button {
-      display: inline-block;
-      padding: 14px 40px;
-      background: transparent;
-      border: 2px solid #e50914;
-      border-radius: 30px;
-      color: #e50914;
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px #e50914;
-      user-select: none;
-      margin-bottom: 40px;
-    }
-
-    .cta-button:hover,
-    .cta-button:focus {
-      background: #e50914;
-      color: #fff;
-      box-shadow: 0 0 25px #ff1a1a;
-      outline: none;
-    }
-
-    .menu-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 11;
-      background: transparent;
-      border: 2px solid #e50914;
-      border-radius: 6px;
-      padding: 8px 10px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-      box-shadow: 0 0 10px #e50914;
-    }
-
-    .menu-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: #e50914;
-    }
-
-    .menu {
-      position: fixed;
-      top: 65px;
-      right: 20px;
-      background: #111;
-      border: 1px solid #e50914;
-      padding: 15px 20px;
-      border-radius: 10px;
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-      z-index: 12;
-      box-shadow: 0 0 15px #e50914;
-    }
-
-    .menu a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-
-    .menu a:hover {
-      color: #e50914;
-    }
-
-    #musicToggle {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #e50914;
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 15px #ff1a1a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.3s ease;
-      z-index: 10;
-      user-select: none;
-    }
-
-    #musicToggle:hover {
-      box-shadow: 0 0 30px #ff1a1a;
-    }
-
-    #musicToggle svg {
-      fill: #fff;
-      width: 28px;
-      height: 28px;
-      pointer-events: none;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
-      opacity: 0.05;
-      animation: pulseBackground 10s ease-in-out infinite alternate;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    @keyframes pulseBackground {
-      0% { opacity: 0.05; transform: scale(1); }
-      100% { opacity: 0.15; transform: scale(1.05); }
-    }
-  </style>
+  <title>Miroir | Human Truth Hub</title>
+  <meta name="description" content="A mirror reflecting truth, memory, and the rebellion of being - An interactive philosophical platform exploring human authenticity." />
+  <link rel="stylesheet" href="/styles/unified.css" />
 </head>
-<body>
+<body class="loading">
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Hamburger menu -->
-  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+  <!-- Background effects -->
+  <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-gradient" aria-hidden="true"></div>
 
   <!-- Navigation -->
-  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Navigation Menu">
+  <button class="nav-toggle" 
+          aria-label="Toggle navigation menu" 
+          aria-expanded="false"
+          aria-controls="navigation-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="nav-menu" 
+       id="navigation-menu" 
+       role="navigation" 
+       aria-label="Main navigation"
+       aria-hidden="true">
     <a href="/about.html">About</a>
     <a href="/my-miroir.html">My Miroir</a>
     <a href="/our-miroirs.html">Our Miroirs</a>
@@ -212,102 +39,41 @@
     <a href="/publications.html">Publications</a>
   </nav>
 
-  <!-- Canvas background -->
-  <canvas id="bgCanvas"></canvas>
-
-  <!-- Hero Section -->
-  <div class="container">
-    <img src="/miroir.png" alt="Miroir Logo" class="logo" />
-    <div class="quote">
+  <!-- Main content -->
+  <main class="container text-center py-xl" id="main-content">
+    <img src="/miroir.png" 
+         alt="Miroir Logo - A symbolic mirror reflecting truth and authenticity" 
+         class="logo logo-glow mb-lg" />
+    
+    <blockquote class="quote scroll-reveal" role="img" aria-label="Inspirational quote about mirrors and truth">
       A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.
-    </div>
-    <a href="/about.html" class="cta-button">Enter the Mirror</a>
-  </div>
+    </blockquote>
+    
+    <a href="/about.html" 
+       class="btn btn-primary btn-lg scroll-reveal" 
+       role="button">
+      Enter the Mirror
+    </a>
+  </main>
 
-  <!-- Music -->
-  <audio id="bgMusic" loop preload="auto">
+  <!-- Background music -->
+  <audio id="bgMusic" loop preload="auto" aria-label="Ambient background music">
     <source src="/relaxing-electronic-ambient-music-354471.mp3" type="audio/mpeg" />
+    <p>Your browser does not support the audio element.</p>
   </audio>
 
-  <button id="musicToggle" aria-label="Toggle background music">
-    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"></path></svg>
+  <!-- Music toggle -->
+  <button id="musicToggle" 
+          class="music-toggle" 
+          aria-label="Toggle background music"
+          title="Toggle background music">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
+    </svg>
   </button>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-    }
-
-    const musicToggle = document.getElementById('musicToggle');
-    const bgMusic = document.getElementById('bgMusic');
-    let isPlaying = false;
-
-    musicToggle.addEventListener('click', () => {
-      if (isPlaying) {
-        bgMusic.pause();
-        musicToggle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>`;
-      } else {
-        bgMusic.play();
-        musicToggle.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-      }
-      isPlaying = !isPlaying;
-    });
-
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    const colors = ['#e50914', '#ff1a1a', '#fff'];
-
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 1.5 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-          this.reset();
-        }
-      }
-    }
-
-    function initParticles() {
-      for (let i = 0; i < 150; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
-
+  <!-- Unified JavaScript -->
+  <script src="/scripts/unified.js"></script>
 </body>
 </html>
 
