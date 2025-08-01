@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Miroir - Human Truth Hub</title>
+  <meta name="description" content="Discover Miroir - a philosophical platform exploring truth, memory, and human authenticity through interactive digital experiences." />
+  <link rel="stylesheet" href="/styles/unified.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .logo {
+      width: 140px;
+      margin-bottom: 30px;
+      animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #e50914);
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
+      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
+    }
+
+    h1 {
+      color: #e50914;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .intro {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: #ddd;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .pillar {
+      background: #111;
+      border-left: 4px solid #e50914;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: left;
+      box-shadow: 0 0 12px #e50914;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .pillar:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px #ff1a1a;
+    }
+
+    .pillar h2 {
+      color: #e50914;
+      margin-bottom: 10px;
+    }
+
+    .pillar p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    /* Hamburger toggle */
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    /* Mobile menu */
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px #e50914;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #e50914;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, #e50914 0%, #000 70%);
+      opacity: 0.05;
+      animation: pulseBackground 10s ease-in-out infinite alternate;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes pulseBackground {
+      0% { opacity: 0.05; transform: scale(1); }
+      100% { opacity: 0.15; transform: scale(1.05); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #888;
+      font-size: 0.95rem;
+      background: transparent;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    footer p {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    @media screen and (max-width: 768px) {
+      .pillars {
+        gap: 20px;
+      }
+      .pillar {
+        padding: 16px;
+      }
+      .intro {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hamburger Menu -->
+<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Menu Navigation -->
+<nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+  <a href="/">Home</a>
+  <a href="/about-miroir.html">About</a>
+  <a href="/my-miroir.html">My Miroir</a>
+  <a href="/our-miroirs.html">Our Miroirs</a>
+  <a href="/truth-tools.html">Truth Tools</a>
+  <a href="/living-archive.html">Living Archive</a>
+  <a href="/reflections.html">Reflections</a>
+  <a href="/publications.html">Publications</a>
+</nav>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="container">
+  <img src="/miroir.png" alt="Miroir Logo" class="logo" />
+  <h1>About</h1>
+
+  <div class="intro">
+    <p><strong>Miroir</strong> is not just a website. It is a truth hub, a living, breathing mirror held up to society's lies, expectations, and hypocrisies. It was created by <strong>Fils Jean Pierre Mutsinzi</strong>, not to showcase himself, but to challenge the system that tries to erase people like him.</p>
+    <p>Miroir was born the day I realized that the mirror society gave me was fake. A piece of glass cannot show me who I am, not my pain, my gender, my voice, or my rebellion. I was expected to fit into frames I never chose. So I broke that mirror and made my own.</p>
+    <p>This mirror is symbolic; it is a space to reflect, yes, but also to confront. To see how the world sees you, and how you see it. This is not a project of vanity. It is a political act. A philosophical rupture. A spiritual rebellion.</p>
+    <p>Through <strong>Miroir</strong>, I use truth-telling, Butoh performance, writing, and defiant presence to shake gender norms and awaken memory. What society fears to name, I reflect. What it tries to erase, I archive. And I invite others to do the same.</p>
+    <p><em>Miroir is Fils' creation, but it is not only about Fils. It is for anyone brave enough to face themselves and reflect the truth back to the world.</em></p>
+  </div>
+
+  <section class="pillars" aria-label="Core principles of Miroir">
+    <div class="pillar">
+      <h2>Truth</h2>
+      <p>Miroir centers personal and political truths that are usually silenced or denied. It reflects reality, even when it’s uncomfortable, especially when it is.</p>
+    </div>
+    <div class="pillar">
+      <h2>Rebellion</h2>
+      <p>This is not a neutral space. Miroir resists conformity and exposes the systems that force people into roles, shame, or invisibility.</p>
+    </div>
+    <div class="pillar">
+      <h2>Memory</h2>
+      <p>Every story here carries memory, of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>&copy; 2025 Miroir Project by Fils Jean Pierre Mutsinzi. All rights reserved.</p>
+</footer>
+
+<script>
+  // Toggle Menu
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
+
+  // Particle Background
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  const colors = ['#e50914', '#ff1a1a', '#fff'];
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+    }
+  }
+
+  function initParticles() {
+    for (let i = 0; i < 100; i++) particles.push(new Particle());
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+
+  initParticles();
+  animateParticles();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
+</body>
+</html>
