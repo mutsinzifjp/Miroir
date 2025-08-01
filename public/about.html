@@ -73,12 +73,30 @@
       border-radius: 8px;
       text-align: left;
       box-shadow: 0 0 12px #e50914;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(229, 9, 20, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .pillar:hover::before {
+      left: 100%;
     }
 
     .pillar:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px #ff1a1a;
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 25px #ff1a1a, 0 0 20px rgba(229, 9, 20, 0.3);
+      border-left-width: 6px;
     }
 
     .pillar h2 {
@@ -162,6 +180,21 @@
       100% { opacity: 0.15; transform: scale(1.05); }
     }
 
+    /* Accessibility improvements */
+    *:focus {
+      outline: 2px solid #e50914;
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     footer {
       text-align: center;
       padding: 30px 20px;
@@ -219,9 +252,9 @@
 
   <div class="intro">
     <p><strong>Miroir</strong> is not just a website. It is a truth hub, a living, breathing mirror held up to society's lies, expectations, and hypocrisies. It was created by <strong>Fils Jean Pierre Mutsinzi</strong>, not to showcase himself, but to challenge the system that tries to erase people like him.</p>
-    <p>Miroir was born the day I realized that the mirror society gave me was fake. A piece of glass cannot show me who I am, not my pain, my gender, my voice, or my rebellion. I was expected to fit into frames I never chose. So I broke that mirror and made my own.</p>
-    <p>This mirror is symbolic; it is a space to reflect, yes, but also to confront. To see how the world sees you, and how you see it. This is not a project of vanity. It is a political act. A philosophical rupture. A spiritual rebellion.</p>
-    <p>Through <strong>Miroir</strong>, I use truth-telling, Butoh performance, writing, and defiant presence to shake gender norms and awaken memory. What society fears to name, I reflect. What it tries to erase, I archive. And I invite others to do the same.</p>
+    <p>Miroir was born the day I realized that the mirror society gave me was fake. A piece of glass cannot show me who I am, not my pain, my gender, my voice, or my authentic truth. I was expected to fit into frames I never chose. So I broke that mirror and made my own.</p>
+    <p>This mirror is symbolic; it is a space to reflect, yes, but also to confront. To see how the world sees you, and how you see it. This is not a project of vanity. It is a political act. A philosophical awakening. A spiritual journey of integrity.</p>
+    <p>Through <strong>Miroir</strong>, I use truth-telling, Butoh performance, writing, and courageous presence to challenge gender norms and awaken memory. What society fears to name, I reflect. What it tries to erase, I archive. And I invite others to do the same.</p>
     <p><em>Miroir is Fils' creation, but it is not only about Fils. It is for anyone brave enough to face themselves and reflect the truth back to the world.</em></p>
   </div>
 
@@ -231,12 +264,12 @@
       <p>Miroir centers personal and political truths that are usually silenced or denied. It reflects reality, even when it’s uncomfortable, especially when it is.</p>
     </div>
     <div class="pillar">
-      <h2>Rebellion</h2>
-      <p>This is not a neutral space. Miroir resists conformity and exposes the systems that force people into roles, shame, or invisibility.</p>
+      <h2>Authenticity</h2>
+      <p>This is not a neutral space. Miroir embraces authenticity and challenges the systems that force people into roles, shame, or invisibility through courage and integrity.</p>
     </div>
     <div class="pillar">
       <h2>Memory</h2>
-      <p>Every story here carries memory, of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
+      <p>Every story here carries memory, of trauma, of beauty, of courage. This space does not forget what society wants erased.</p>
     </div>
   </section>
 </div>
