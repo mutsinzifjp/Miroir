@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Miroir | Miroir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: #000; 
+      color: #fff;
+      margin: 0; 
+      padding: 0 20px;
+      font-family: Arial, sans-serif;
+      display: flex; 
+      flex-direction: column;
+      min-height: 100vh; 
+      overflow-x: hidden;
+    }
+    .menu-toggle {
+      position: fixed; 
+      top: 20px; 
+      right: 20px; 
+      z-index: 1000;
+      background: transparent; 
+      border: 2px solid #e50914;
+      border-radius: 6px; 
+      padding: 8px;
+      display: flex; 
+      flex-direction: column; 
+      gap: 4px;
+      cursor: pointer; 
+      box-shadow: 0 0 10px #e50914;
+      user-select: none;
+    }
+    .menu-toggle span {
+      width: 24px; 
+      height: 2px; 
+      background: #e50914; 
+      display: block;
+    }
+    .menu {
+      position: fixed; 
+      top: 65px; 
+      right: 20px;
+      background: #111; 
+      border: 1px solid #e50914;
+      border-radius: 10px; 
+      padding: 15px 20px;
+      display: none; 
+      flex-direction: column; 
+      gap: 12px;
+      z-index: 999; 
+      box-shadow: 0 0 15px #e50914;
+      user-select: none;
+    }
+    .menu a {
+      color: #fff; 
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .menu a:hover,
+    .menu a:focus {
+      color: #e50914;
+      outline: none;
+    }
+    .centered-header {
+      text-align: center; 
+      margin: 40px 0 20px;
+      user-select: none;
+    }
+    .logo-glow {
+      max-width: 100px; 
+      margin-bottom: 10px;
+      animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #e50914);
+    }
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px #e50914); }
+      50% { filter: drop-shadow(0 0 20px #ff1a1a); }
+    }
+    .glow-title {
+      font-size: 2rem; 
+      color: #e50914;
+      margin: 10px 0 5px; 
+      letter-spacing: 1px;
+      user-select: none;
+    }
+    .subtitle {
+      font-size: 1rem; 
+      color: #ccc; 
+      margin: 0 0 40px;
+      user-select: none;
+    }
+    .intro-text {
+      max-width: 800px; 
+      margin: 0 auto 25px;
+      font-size: 1.05rem; 
+      line-height: 1.6;
+      color: #ddd; 
+      text-align: center;
+      user-select: text;
+    }
+    .miroir-explanation {
+      max-width: 800px; 
+      margin: 0 auto 40px;
+      font-size: 1.1rem; 
+      line-height: 1.7;
+      color: #ddd; 
+      text-align: left;
+      background: #111; 
+      border-left: 4px solid #e50914;
+      padding: 16px; 
+      border-radius: 6px;
+      box-shadow: 0 0 10px #e50914;
+      user-select: text;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px; 
+      flex-grow: 1; 
+      padding-bottom: 30px;
+    }
+    .card {
+      background: #111; 
+      border-radius: 12px;
+      overflow: hidden; 
+      text-decoration: none;
+      box-shadow: 0 0 10px #e50914;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover, .card:focus-visible {
+      transform: scale(1.05); 
+      box-shadow: 0 0 25px #ff1a1a;
+      outline: none;
+    }
+    .card img {
+      width: 100%; 
+      display: block;
+      border-bottom: 3px solid #e50914;
+      user-select: none; 
+      pointer-events: none;
+    }
+    iframe {
+      width: 100%;
+      height: 315px;
+      display: block;
+      border: none;
+      border-bottom: 3px solid #e50914;
+      user-select: none;
+    }
+    .caption {
+      padding: 14px;
+      text-align: center;
+      user-select: none;
+      font-size: 1rem;
+      line-height: 1.3;
+      color: #fff;
+    }
+    .caption strong {
+      color: #e50914;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+    }
+    .reaction-container {
+      margin: 8px 14px 16px;
+      font-size: 16px;
+      color: #e50914;
+      user-select: none;
+      display: flex;
+      align-items: center;
+    }
+    .reaction-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 24px;
+      margin-left: 12px;
+      color: #e50914;
+      transition: transform 0.2s ease;
+      padding: 0;
+      line-height: 1;
+    }
+    .reaction-btn:hover {
+      transform: scale(1.3);
+    }
+    .connect {
+      text-align: center; 
+      margin-top: 40px;
+      color: #ccc; 
+      font-size: 1rem;
+      user-select: text;
+    }
+    .connect a {
+      color: #e50914; 
+      text-decoration: none; 
+      font-weight: bold;
+    }
+    .connect a:hover,
+    .connect a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    footer {
+      text-align: center; 
+      margin-top: auto;
+      padding: 25px 10px 20px;
+      color: #888; 
+      font-size: 0.9rem;
+      user-select: none;
+    }
+    @media (max-width: 500px) {
+      .logo-glow {
+        max-width: 80px;
+      }
+      .glow-title {
+        font-size: 1.6rem;
+      }
+      .caption {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+
+  <nav class="menu" id="mobileMenu" aria-label="Main navigation">
+    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/my-miroir.html">My Miroir</a>
+    <a href="/our-voices.html">Our Miroirs</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/reflections.html">Reflections</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
+
+  <header class="centered-header">
+    <img src="/miroir.png" alt="Miroir Logo" class="logo-glow" />
+    <h1 class="glow-title">My Miroir</h1>
+    <p class="subtitle">Butoh, Opera, and Rewriting the Truth</p>
+  </header>
+
+  <div class="intro-text">
+    This mirror cracks open everything society told me to hide or erase. Every move, every note, and every breath here is a piece of that rebellion. I dance to heal the souls and to shatter the quiet that suffocates us. I sing to bring back what fear tried to bury deep inside us all.
+  </div>
+
+  <section class="miroir-explanation" aria-label="What is Miroir?">
+    Inside Miroir, you will see what society tries to erase:  Truth, scars, and I hope it will awaken the souls that are still sleeping. 
+  </section>
+
+  <section class="gallery" aria-label="Butoh and Opera Performances">
+    <a href="https://www.instagram.com/reel/DI86w8TzSOn/" class="card" target="_blank" rel="noopener noreferrer" tabindex="0">
+      <img src="/carmen.jpeg" alt="Carmen Performance" />
+      <div class="caption"><strong>Carmen</strong> In this operatic performance, I embody the seduction of power and the punishment of desire. Carmen has always been misunderstood. I let her live in my own voice and in the haunting fire of rebellion.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
+    </a>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/3fUqvy8bFww" title="Reclaiming My Lost Childhood" allowfullscreen></iframe>
+      <div class="caption"><strong>Reclaiming Lost Childhood</strong> This Butoh was born from grief, the moments stolen by trauma, by shame, by forced conformity. I present how society wanted to erase my real identity by punishing, mocking, and bullying me, but I refused to be caged.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/9asLUL9DurI" title="O Fortuna Butoh" allowfullscreen></iframe>
+      <div class="caption"><strong>O Fortuna</strong> Here, I surrender to the forces of fate, screaming through movement that I was never meant to be quiet. It is also a stormy and unfiltered truth exposing existing moral hypocrisy.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
+    </div>
+
+    <a href="https://www.instagram.com/reel/DJl7DERzihb/" class="card" target="_blank" rel="noopener noreferrer">
+      <img src="/derholle.jpeg" alt="Der Holle" />
+      <div class="caption"><strong>Der Holle</strong> Through this I visit the darkness society builds around femme bodies, queer souls, and sacred rage. The underworld is not hell. It is truth unleashed.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
+    </a>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/_tjlJVjHuIU" title="Lacrimosa Requiem" allowfullscreen></iframe>
+      <div class="caption"><strong>Lacrimosa</strong> My weeping body in this Butoh channels the grief of exile. From churches, families, and nations. Every tear here carries a hymn.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <iframe src="https://www.youtube.com/embed/zNJcmT7-fPo" title="Crossing the Threshold" allowfullscreen></iframe>
+      <div class="caption"><strong>Crossing the Threshold</strong> I wear a skirt, not to be seen, but to see who dares to look. This performance was a field study, a protest, a prayer. I crossed not just a physical line, but a social one.</div>
+      <div class="reaction-container">
+        <span>React:</span>
+        <button class="reaction-btn" onclick="alert('❤️ Thank you for the love!')">❤️</button>
+        <button class="reaction-btn" onclick="alert('👏 Appreciate the courage!')">👏</button>
+        <button class="reaction-btn" onclick="alert('😮 That was powerful!')">😮</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="connect">
+    If any of these resonates with you, I’d love to connect. You’ll find me writing, dancing, resisting, always human, on 
+    <a href="https://www.linkedin.com/in/filsjeanpierremutsinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a> and 
+    <a href="https://www.instagram.com/fils_brandy" target="_blank" rel="noopener noreferrer">Instagram</a>.
+    <br/><br/>
+    <strong>Watch each one and reflect in the mirror.</strong>
+  </div>
+
+  <footer>
+    <p>© 2025 Fils Jean Pierre Mutsinzi | Miroir. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+
+</body>
+</html>
