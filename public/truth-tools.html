@@ -121,7 +121,7 @@
     }
 
     a {
-      color: var(--pink);
+      color: var(--red);
       text-decoration: none;
     }
 
@@ -139,14 +139,32 @@
       border-radius: 30px;
       cursor: pointer;
       box-shadow: 0 0 10px var(--red);
-      transition: transform 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: inline-block;
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tally-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .tally-button:hover::before {
+      left: 100%;
     }
 
     .tally-button:hover {
-      transform: scale(1.05);
+      transform: translateY(-2px) scale(1.05);
       background: #ff1a1a;
+      box-shadow: 0 0 20px #ff1a1a, 0 5px 15px rgba(229, 9, 20, 0.4);
     }
 
     footer {
@@ -241,7 +259,7 @@ You don’t need to be a genius to build something real; you just need to keep g
     Here are real examples:</p>
     <ul>
       <li>In 2021, Instagram and Twitter removed hundreds of <a href="https://www.aljazeera.com/news/2021/5/19/instagram-twitter-delete-accounts-palestinian-activists" target="_blank">#SaveSheikhJarrah posts</a> (Al Jazeera)</li>
-      <li>Feminist and decolonial resistance content were flagged and removed by 
+      <li>Feminist and decolonial truth-telling content were flagged and removed by 
         the Instagram and TikTok algorithms (<a href="https://time.com/6080614/instagram-tiktok-censoring-palestine-content/" target="_blank">Time</a>, Sage)</li>
       <li>Queer creators using words like “femme” or “nonbinary” were suppressed(<a href="https://www.teenvogue.com/story/instagram-censoring-lgbtq-accounts" target="_blank">TeenVogue</a>, <a href="https://www.them.us/story/instagram-shadowbanning-queer-creators" target="_blank">them</a>)</li>
     </ul>
@@ -316,12 +334,12 @@ You don’t need to be a genius to build something real; you just need to keep g
       if (isDark) {
         body.style.background = "#fff";
         body.style.color = "#000";
-        document.querySelectorAll("a").forEach(link => link.style.color = "#d63384");
+        document.querySelectorAll("a").forEach(link => link.style.color = "#e50914");
         themeToggle.textContent = "☀️";
       } else {
         body.style.background = "#000";
         body.style.color = "#fff";
-        document.querySelectorAll("a").forEach(link => link.style.color = "#ff5cad");
+        document.querySelectorAll("a").forEach(link => link.style.color = "#e50914");
         themeToggle.textContent = "🌙";
       }
       isDark = !isDark;
