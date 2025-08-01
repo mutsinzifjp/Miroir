@@ -144,6 +144,45 @@
       user-select: none; 
       pointer-events: none;
     }
+    .video-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    .video-thumbnail {
+      width: 100%;
+      height: 315px;
+      background: linear-gradient(45deg, #1a1a1a, #333);
+      border: none;
+      border-bottom: 3px solid #e50914;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .video-thumbnail:hover {
+      background: linear-gradient(45deg, #2a2a2a, #444);
+      transform: scale(1.02);
+    }
+    .play-button {
+      font-size: 4rem;
+      color: #e50914;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+    .video-thumbnail:hover .play-button {
+      transform: scale(1.2);
+    }
+    .video-title {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    }
     iframe {
       width: 100%;
       height: 315px;
@@ -271,7 +310,12 @@
     </a>
 
     <div class="card">
-      <iframe src="https://www.youtube.com/embed/3fUqvy8bFww" title="Reclaiming My Lost Childhood" allowfullscreen></iframe>
+      <a href="https://www.youtube.com/watch?v=3fUqvy8bFww" target="_blank" rel="noopener noreferrer" class="video-link">
+        <div class="video-thumbnail">
+          <div class="play-button">▶</div>
+          <div class="video-title">Reclaiming My Lost Childhood</div>
+        </div>
+      </a>
       <div class="caption"><strong>Reclaiming Lost Childhood</strong> This Butoh was born from grief, the moments stolen by trauma, by shame, by forced conformity. I present how society wanted to erase my real identity by punishing, mocking, and bullying me, but I refused to be caged.</div>
       <div class="reaction-container">
         <span>React:</span>
@@ -282,7 +326,12 @@
     </div>
 
     <div class="card">
-      <iframe src="https://www.youtube.com/embed/9asLUL9DurI" title="O Fortuna Butoh" allowfullscreen></iframe>
+      <a href="https://www.youtube.com/watch?v=9asLUL9DurI" target="_blank" rel="noopener noreferrer" class="video-link">
+        <div class="video-thumbnail">
+          <div class="play-button">▶</div>
+          <div class="video-title">O Fortuna</div>
+        </div>
+      </a>
       <div class="caption"><strong>O Fortuna</strong> Here, I surrender to the forces of fate, screaming through movement that I was never meant to be quiet. It is also a stormy and unfiltered truth exposing existing moral hypocrisy.</div>
       <div class="reaction-container">
         <span>React:</span>
@@ -304,7 +353,12 @@
     </a>
 
     <div class="card">
-      <iframe src="https://www.youtube.com/embed/_tjlJVjHuIU" title="Lacrimosa Requiem" allowfullscreen></iframe>
+      <a href="https://www.youtube.com/watch?v=_tjlJVjHuIU" target="_blank" rel="noopener noreferrer" class="video-link">
+        <div class="video-thumbnail">
+          <div class="play-button">▶</div>
+          <div class="video-title">Lacrimosa</div>
+        </div>
+      </a>
       <div class="caption"><strong>Lacrimosa</strong> My weeping body in this Butoh channels the grief of exile. From churches, families, and nations. Every tear here carries a hymn.</div>
       <div class="reaction-container">
         <span>React:</span>
@@ -315,7 +369,12 @@
     </div>
 
     <div class="card">
-      <iframe src="https://www.youtube.com/embed/zNJcmT7-fPo" title="Crossing the Threshold" allowfullscreen></iframe>
+      <a href="https://www.youtube.com/watch?v=zNJcmT7-fPo" target="_blank" rel="noopener noreferrer" class="video-link">
+        <div class="video-thumbnail">
+          <div class="play-button">▶</div>
+          <div class="video-title">Crossing the Threshold</div>
+        </div>
+      </a>
       <div class="caption"><strong>Crossing the Threshold</strong> I wear a skirt, not to be seen, but to see who dares to look. This performance was a field study, a protest, a prayer. I crossed not just a physical line, but a social one.</div>
       <div class="reaction-container">
         <span>React:</span>

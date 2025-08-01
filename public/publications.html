@@ -71,6 +71,59 @@
       border-bottom: 3px solid var(--red);
     }
 
+    .canva-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    .canva-thumbnail {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #1a1a1a, #333);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .canva-thumbnail:hover {
+      background: linear-gradient(45deg, #2a2a2a, #444);
+      transform: scale(1.02);
+    }
+
+    .canva-icon {
+      font-size: 3rem;
+      color: var(--red);
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .canva-thumbnail:hover .canva-icon {
+      transform: scale(1.2);
+    }
+
+    .canva-title {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 5px;
+      text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    }
+
+    .canva-subtitle {
+      color: #ccc;
+      font-size: 0.9rem;
+      text-align: center;
+      opacity: 0.8;
+    }
+
     .canva-embed iframe {
       position: absolute;
       top: 0; left: 0;
@@ -240,7 +293,13 @@
   <!-- Publication 1 -->
   <section class="publication-card" aria-label="The Triangle That Formed Me">
     <div class="canva-embed">
-      <iframe loading="lazy" src="https://www.canva.com/design/DAGsYcNl5bY/PZVLYjZE5VuoefMDhvmFGg/view?embed" allowfullscreen title="The Triangle That Formed Me Canva Presentation"></iframe>
+      <a href="https://www.canva.com/design/DAGsYcNl5bY/PZVLYjZE5VuoefMDhvmFGg/view" target="_blank" rel="noopener noreferrer" class="canva-link">
+        <div class="canva-thumbnail">
+          <div class="canva-icon">📊</div>
+          <div class="canva-title">The Triangle That Formed Me</div>
+          <div class="canva-subtitle">View Presentation</div>
+        </div>
+      </a>
     </div>
     <p class="description">A visual dive into how school, church, and media shaped, and sometimes silenced, our earliest truths.</p>
   </section>
