@@ -180,6 +180,21 @@
       100% { opacity: 0.15; transform: scale(1.05); }
     }
 
+    /* Accessibility improvements */
+    *:focus {
+      outline: 2px solid #e50914;
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     footer {
       text-align: center;
       padding: 30px 20px;
