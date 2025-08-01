@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <title>Truth Tools | Miroir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A survival kit for unfiltered creators who refuse to be reshaped by silence, fear, or algorithms." />
+  <meta name="theme-color" content="#e50914" />
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Enhanced Features CSS -->
+  <link rel="stylesheet" href="/miroir-features.css" />
 
   <style>
     :root {
@@ -193,16 +201,16 @@
   </header>
 
   <nav id="navMenu">
-    <a href="/about-miroir.html">About Miroir</a>
+    <a href="/about.html">About</a>
     <a href="/my-miroir.html">My Miroir</a>
-    <a href="/our-voices.html">Our Miroirs</a>
+    <a href="/our-miroirs.html">Our Miroirs</a>
     <a href="/truth-tools.html">Truth Tools</a>
     <a href="/living-archive.html">Living Archive</a>
     <a href="/reflections.html">Reflections</a>
     <a href="/publications.html">Publications</a>
   </nav>
 
-  <div class="content">
+  <main id="main-content" class="content fade-in">
     <h1>A Survival Kit for Unfiltered Creators</h1>
     <p><strong>[For creators who refuse to be reshaped by silence, fear, or algorithms.]</strong></p>
     
@@ -301,36 +309,125 @@ You don’t need to be a genius to build something real; you just need to keep g
     <h3>Wanna Join Me?</h3>
     <p>Wanna collaborate? Click the button below to submit your story, suggestion, or tell me how we can collaborate. You can also anonymously submit a story you want to get published.</p>
     <a href="https://tally.so/r/wv6eMQ" target="_blank" class="tally-button">Submit Your Story</a>
-  </div>
+  </main>
 
   <footer>
     © 2025 Miroir. All rights reserved.
   </footer>
 
+  <!-- Enhanced Features Script -->
+  <script src="/miroir-features.js"></script>
+  
+  <!-- PWA Registration -->
   <script>
-    const themeToggle = document.getElementById("themeToggle");
-    const body = document.body;
-    let isDark = true;
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
 
+  <script>
+    // Enhanced theme switching integrated with new features
+    const themeToggle = document.getElementById("themeToggle");
+    
+    // Use the new theme system instead of the old one
     themeToggle.addEventListener("click", () => {
-      if (isDark) {
-        body.style.background = "#fff";
-        body.style.color = "#000";
-        document.querySelectorAll("a").forEach(link => link.style.color = "#d63384");
-        themeToggle.textContent = "☀️";
-      } else {
-        body.style.background = "#000";
-        body.style.color = "#fff";
-        document.querySelectorAll("a").forEach(link => link.style.color = "#ff5cad");
-        themeToggle.textContent = "🌙";
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      const themes = ['dark', 'light', 'gold', 'blue'];
+      const currentIndex = themes.indexOf(currentTheme);
+      const nextTheme = themes[(currentIndex + 1) % themes.length];
+      
+      if (window.miroirFeatures) {
+        window.miroirFeatures.setTheme(nextTheme);
       }
-      isDark = !isDark;
     });
 
     const menuToggle = document.getElementById("menuToggle");
     const navMenu = document.getElementById("navMenu");
     menuToggle.addEventListener("click", () => {
       navMenu.style.display = navMenu.style.display === "flex" ? "none" : "flex";
+    });
+
+    // Replace external story submission link with modal
+    document.addEventListener('DOMContentLoaded', () => {
+      const submitBtn = document.querySelector('.tally-button');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.miroirFeatures) {
+            const modalContent = `
+              <h2 style="color: var(--theme-accent); margin-bottom: 20px;">Submit Your Story</h2>
+              <form id="story-form" style="text-align: left;">
+                <div style="margin-bottom: 15px;">
+                  <label for="story-title" style="display: block; margin-bottom: 5px; color: var(--theme-accent);">Title (optional):</label>
+                  <input type="text" id="story-title" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.1); border: 1px solid var(--theme-accent); border-radius: 5px; color: var(--theme-text);">
+                </div>
+                <div style="margin-bottom: 15px;">
+                  <label for="story-content" style="display: block; margin-bottom: 5px; color: var(--theme-accent);">Your Story:</label>
+                  <textarea id="story-content" rows="6" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.1); border: 1px solid var(--theme-accent); border-radius: 5px; color: var(--theme-text); resize: vertical;" placeholder="Share your truth, your experience, or your insights..."></textarea>
+                </div>
+                <div style="margin-bottom: 15px;">
+                  <label for="story-email" style="display: block; margin-bottom: 5px; color: var(--theme-accent);">Email (optional for follow-up):</label>
+                  <input type="email" id="story-email" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.1); border: 1px solid var(--theme-accent); border-radius: 5px; color: var(--theme-text);">
+                </div>
+                <div style="margin-bottom: 20px;">
+                  <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="anonymous" style="accent-color: var(--theme-accent);">
+                    <span>Submit anonymously</span>
+                  </label>
+                </div>
+                <button type="submit" style="width: 100%; padding: 12px; background: var(--theme-accent); color: var(--theme-bg); border: none; border-radius: 25px; font-weight: bold; cursor: pointer;">Submit Story</button>
+              </form>
+            `;
+            window.miroirFeatures.showModal(modalContent);
+            
+            // Handle form submission
+            setTimeout(() => {
+              const form = document.getElementById('story-form');
+              if (form) {
+                form.addEventListener('submit', (e) => {
+                  e.preventDefault();
+                  const formData = new FormData(form);
+                  const story = {
+                    title: formData.get('story-title') || 'Untitled',
+                    content: formData.get('story-content'),
+                    email: formData.get('story-email'),
+                    anonymous: document.getElementById('anonymous').checked,
+                    timestamp: new Date().toISOString()
+                  };
+                  
+                  // Store story for offline submission
+                  if ('indexedDB' in window) {
+                    const request = indexedDB.open('MiroirDB', 1);
+                    request.onupgradeneeded = (e) => {
+                      const db = e.target.result;
+                      if (!db.objectStoreNames.contains('submissions')) {
+                        const store = db.createObjectStore('submissions', { keyPath: 'id', autoIncrement: true });
+                      }
+                    };
+                    request.onsuccess = (e) => {
+                      const db = e.target.result;
+                      const transaction = db.transaction(['submissions'], 'readwrite');
+                      const store = transaction.objectStore('submissions');
+                      store.add(story);
+                      
+                      window.miroirFeatures.closeModal();
+                      alert('Thank you for sharing your story! It has been submitted and will be reviewed.');
+                    };
+                  }
+                });
+              }
+            }, 100);
+          }
+        });
+      }
     });
   </script>
 </body>

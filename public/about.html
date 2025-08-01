@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <title>About | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Miroir is not just a website. It is a truth hub, a living, breathing mirror held up to society's lies, expectations, and hypocrisies." />
+  <meta name="theme-color" content="#e50914" />
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Enhanced Features CSS -->
+  <link rel="stylesheet" href="/miroir-features.css" />
   <style>
     html, body {
       margin: 0;
@@ -213,7 +221,7 @@
 
 <canvas id="bgCanvas"></canvas>
 
-<div class="container">
+<main id="main-content" class="container fade-in">
   <img src="/miroir.png" alt="Miroir Logo" class="logo" />
   <h1>About</h1>
 
@@ -239,7 +247,20 @@
       <p>Every story here carries memory, of trauma, of beauty, of resistance. This space does not forget what society wants erased.</p>
     </div>
   </section>
-</div>
+
+  <!-- Image Carousel Section -->
+  <section class="slide-in-right" style="margin-top: 40px;">
+    <h2 style="color: #e50914; text-align: center; margin-bottom: 20px;">Visual Journey</h2>
+    <div id="about-carousel"></div>
+  </section>
+
+  <!-- Audio Reflection Section -->
+  <section class="fade-in" style="margin-top: 40px;">
+    <h2 style="color: #e50914; text-align: center; margin-bottom: 20px;">Listen to the Truth</h2>
+    <div id="about-audio"></div>
+  </section>
+
+</main>
 
 <footer>
   <p>&copy; 2025 Miroir Project by Fils Jean Pierre Mutsinzi. All rights reserved.</p>
@@ -300,6 +321,67 @@
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+  });
+</script>
+
+<!-- Enhanced Features Script -->
+<script src="/miroir-features.js"></script>
+
+<!-- PWA Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('SW registered: ', registration);
+        })
+        .catch((registrationError) => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    });
+  }
+
+  // Initialize carousel and audio features
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add delay to ensure all scripts are loaded
+    setTimeout(() => {
+      if (window.miroirFeatures) {
+        // Sample images for the carousel using available images
+        const carouselImages = [
+          {
+            src: '/reflect1.png',
+            alt: 'Reflection of Truth',
+            caption: 'The mirror reflects what society tries to erase: truth, memory, and the rebellion of being.'
+          },
+          {
+            src: '/crossing.jpeg',
+            alt: 'Crossing Boundaries',
+            caption: 'Every step forward cracks the mirror of conformity, revealing infinite possibilities beyond the binary.'
+          },
+          {
+            src: '/miroir.png',
+            alt: 'Miroir Symbol',
+            caption: 'The symbol of resistance, authenticity, and the courage to exist without permission.'
+          }
+        ];
+
+        // Initialize image carousel
+        const carouselContainer = document.getElementById('about-carousel');
+        if (carouselContainer) {
+          window.miroirFeatures.createCarousel(carouselContainer, carouselImages);
+        }
+
+        // Initialize audio player
+        const audioContainer = document.getElementById('about-audio');
+        if (audioContainer) {
+          window.miroirFeatures.createAudioPlayer(
+            audioContainer,
+            '/relaxing-electronic-ambient-music-354471.mp3',
+            'Ambient Truth Reflection'
+          );
+        }
+      }
+    }, 1000);
   });
 </script>
 

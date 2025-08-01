@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <title>Miroir | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being." />
+  <meta name="theme-color" content="#e50914" />
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Enhanced Features CSS -->
+  <link rel="stylesheet" href="/miroir-features.css" />
   <style>
     html, body {
       margin: 0;
@@ -216,13 +224,13 @@
   <canvas id="bgCanvas"></canvas>
 
   <!-- Hero Section -->
-  <div class="container">
+  <main id="main-content" class="container fade-in">
     <img src="/miroir.png" alt="Miroir Logo" class="logo" />
     <div class="quote">
       A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.
     </div>
     <a href="/about.html" class="cta-button">Enter the Mirror</a>
-  </div>
+  </main>
 
   <!-- Music -->
   <audio id="bgMusic" loop preload="auto">
@@ -306,6 +314,25 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+  </script>
+
+  <!-- Enhanced Features Script -->
+  <script src="/miroir-features.js"></script>
+  <script src="/miroir-notifications.js"></script>
+  
+  <!-- PWA Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
   </script>
 
 </body>
