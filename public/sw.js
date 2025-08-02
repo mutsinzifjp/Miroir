@@ -1,38 +1,38 @@
 const CACHE_NAME = 'miroir-v1.0.0';
 const STATIC_CACHE_URLS = [
-  '/',
-  '/index.html',
-  '/about.html',
-  '/my-miroir.html',
-  '/our-miroirs.html',
-  '/truth-tools.html',
-  '/living-archive.html',
-  '/reflections.html',
-  '/publications.html',
-  '/timeline.html',
-  '/style.css',
-  '/miroir-features.css',
-  '/client.js',
-  '/miroir-features.js',
-  '/miroir-notifications.js',
-  '/miroir.png',
-  '/relaxing-electronic-ambient-music-354471.mp3',
-  '/manifest.json'
+  './',
+  'index.html',
+  'about.html',
+  'my-miroir.html',
+  'our-miroirs.html',
+  'truth-tools.html',
+  'living-archive.html',
+  'reflections.html',
+  'publications.html',
+  'timeline.html',
+  'style.css',
+  'miroir-features.css',
+  'client.js',
+  'miroir-features.js',
+  'miroir-notifications.js',
+  'miroir.png',
+  'relaxing-electronic-ambient-music-354471.mp3',
+  'manifest.json'
 ];
 
 // Assets that can be cached on demand
 const RUNTIME_CACHE_URLS = [
-  '/carmen.jpeg',
-  '/crossing.jpeg',
-  '/derholle.jpeg',
-  '/lacrimosa.jpeg',
-  '/lostchildhood.jpeg',
-  '/ofortuna.jpeg',
-  '/reflect1.png',
-  '/the-threshold.png',
-  '/trianglecover.jpg',
-  '/triangle-formed-me.pdf',
-  '/unboxedcover.png'
+  'carmen.jpeg',
+  'crossing.jpeg',
+  'derholle.jpeg',
+  'lacrimosa.jpeg',
+  'lostchildhood.jpeg',
+  'ofortuna.jpeg',
+  'reflect1.png',
+  'the-threshold.png',
+  'trianglecover.jpg',
+  'triangle-formed-me.pdf',
+  'unboxedcover.png'
 ];
 
 // Background sync data
@@ -120,7 +120,7 @@ self.addEventListener('fetch', event => {
             
             // Return offline page for navigation requests
             if (event.request.mode === 'navigate') {
-              return caches.match('/index.html');
+              return caches.match('index.html');
             }
             
             throw error;
@@ -148,8 +148,8 @@ self.addEventListener('push', event => {
   
   const options = {
     body: event.data ? event.data.text() : 'New reflection available',
-    icon: '/miroir.png',
-    badge: '/miroir.png',
+    icon: 'miroir.png',
+    badge: 'miroir.png',
     vibrate: [200, 100, 200],
     tag: 'miroir-notification',
     requireInteraction: true,
@@ -157,7 +157,7 @@ self.addEventListener('push', event => {
       {
         action: 'view',
         title: 'View',
-        icon: '/miroir.png'
+        icon: 'miroir.png'
       },
       {
         action: 'dismiss',
@@ -179,7 +179,7 @@ self.addEventListener('notificationclick', event => {
   
   if (event.action === 'view') {
     event.waitUntil(
-      clients.openWindow('/timeline.html')
+      clients.openWindow('timeline.html')
     );
   }
 });

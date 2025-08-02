@@ -8,10 +8,10 @@
   
   <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#e50914" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="manifest.json" />
   
   <!-- Core Styles -->
-  <link rel="stylesheet" href="/miroir-features.css" />
+  <link rel="stylesheet" href="miroir-features.css" />
   
   <style>
     html, body {
@@ -469,7 +469,7 @@
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
   <!-- Navigation -->
-  <a href="/" class="nav-back" aria-label="Back to home">
+  <a href="index.html" class="nav-back" aria-label="Back to home">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
       <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
     </svg>
@@ -484,13 +484,13 @@
 
   <!-- Navigation Menu -->
   <nav class="menu" id="mobileMenu" role="navigation" aria-label="Navigation Menu">
-    <a href="/about.html">About</a>
-    <a href="/my-miroir.html">My Miroir</a>
-    <a href="/our-miroirs.html">Our Miroirs</a>
-    <a href="/truth-tools.html">Truth Tools</a>
-    <a href="/living-archive.html">Living Archive</a>
-    <a href="/reflections.html">Reflections</a>
-    <a href="/publications.html">Publications</a>
+    <a href="about.html">About</a>
+    <a href="my-miroir.html">My Miroir</a>
+    <a href="our-miroirs.html">Our Miroirs</a>
+    <a href="truth-tools.html">Truth Tools</a>
+    <a href="living-archive.html">Living Archive</a>
+    <a href="reflections.html">Reflections</a>
+    <a href="publications.html">Publications</a>
   </nav>
 
   <!-- Background Canvas -->
@@ -499,7 +499,7 @@
   <!-- Main Content -->
   <main class="container" id="main-content">
     <header class="header fade-in-up">
-      <img src="/miroir.png" alt="Miroir Logo" class="logo" />
+      <img src="miroir.png" alt="Miroir Logo" class="logo" />
       <h1>Journey Timeline</h1>
       <p class="subtitle">Navigate through reflections, stories, and moments of truth</p>
     </header>
@@ -538,9 +538,9 @@
   </main>
 
   <!-- Scripts -->
-  <script src="/miroir-features.js"></script>
-  <script src="/miroir-notifications.js"></script>
-  <script src="/miroir-audiovisual.js"></script>
+  <script src="miroir-features.js"></script>
+  <script src="miroir-notifications.js"></script>
+  <script src="miroir-audiovisual.js"></script>
   
   <script>
     // Timeline data (in a real app, this would come from a database)
@@ -903,7 +903,7 @@
 
     // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
+      navigator.serviceWorker.register('sw.js');
     }
   </script>
 </body>
