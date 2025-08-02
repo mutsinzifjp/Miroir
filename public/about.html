@@ -8,10 +8,10 @@
   
   <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#e50914" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="manifest.json" />
   
   <!-- Enhanced Features -->
-  <link rel="stylesheet" href="/miroir-features.css" />
+  <link rel="stylesheet" href="miroir-features.css" />
   <style>
     html, body {
       margin: 0;
@@ -209,21 +209,21 @@
 
 <!-- Menu Navigation -->
 <nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
-  <a href="/">Home</a>
-  <a href="/about-miroir.html">About</a>
-  <a href="/my-miroir.html">My Miroir</a>
-  <a href="/our-miroirs.html">Our Miroirs</a>
-  <a href="/truth-tools.html">Truth Tools</a>
-  <a href="/living-archive.html">Living Archive</a>
-  <a href="/reflections.html">Reflections</a>
-  <a href="/publications.html">Publications</a>
-  <a href="/timeline.html">Timeline Journey</a>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="my-miroir.html">My Miroir</a>
+  <a href="our-miroirs.html">Our Miroirs</a>
+  <a href="truth-tools.html">Truth Tools</a>
+  <a href="living-archive.html">Living Archive</a>
+  <a href="reflections.html">Reflections</a>
+  <a href="publications.html">Publications</a>
+  <a href="timeline.html">Timeline Journey</a>
 </nav>
 
 <canvas id="bgCanvas"></canvas>
 
 <div class="container">
-  <img src="/miroir.png" alt="Miroir Logo" class="logo" />
+  <img src="miroir.png" alt="Miroir Logo" class="logo" />
   <h1>About</h1>
 
   <div class="intro">
@@ -313,13 +313,13 @@
 
   // Register service worker for PWA functionality
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
+    navigator.serviceWorker.register('sw.js');
   }
 </script>
 
 <!-- Enhanced Features Scripts -->
-<script src="/miroir-features.js"></script>
-<script src="/miroir-notifications.js"></script>
+<script src="miroir-features.js"></script>
+<script src="miroir-notifications.js"></script>
 
 </body>
 </html>
