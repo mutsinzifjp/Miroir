@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <title>About | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="About Miroir - A space for human truth, reflection, and the rebellion of being." />
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#e50914" />
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Enhanced Features -->
+  <link rel="stylesheet" href="/miroir-features.css" />
   <style>
     html, body {
       margin: 0;
@@ -209,6 +217,7 @@
   <a href="/living-archive.html">Living Archive</a>
   <a href="/reflections.html">Reflections</a>
   <a href="/publications.html">Publications</a>
+  <a href="/timeline.html">Timeline Journey</a>
 </nav>
 
 <canvas id="bgCanvas"></canvas>
@@ -295,13 +304,22 @@
   }
 
   initParticles();
-  animateParticles();
+    animateParticles();
 
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
+
+  // Register service worker for PWA functionality
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
 </script>
+
+<!-- Enhanced Features Scripts -->
+<script src="/miroir-features.js"></script>
+<script src="/miroir-notifications.js"></script>
 
 </body>
 </html>

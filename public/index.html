@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <title>Miroir | Human Truth Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being." />
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#e50914" />
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Enhanced Features -->
+  <link rel="stylesheet" href="/miroir-features.css" />
   <style>
     html, body {
       margin: 0;
@@ -201,7 +209,7 @@
     <span></span>
   </div>
 
-  <!-- Navigation -->
+  <!-- Navigation Menu -->
   <nav class="menu" id="mobileMenu" role="navigation" aria-label="Navigation Menu">
     <a href="/about.html">About</a>
     <a href="/my-miroir.html">My Miroir</a>
@@ -210,18 +218,24 @@
     <a href="/living-archive.html">Living Archive</a>
     <a href="/reflections.html">Reflections</a>
     <a href="/publications.html">Publications</a>
+    <a href="/timeline.html">Timeline Journey</a>
   </nav>
 
   <!-- Canvas background -->
   <canvas id="bgCanvas"></canvas>
 
   <!-- Hero Section -->
-  <div class="container">
-    <img src="/miroir.png" alt="Miroir Logo" class="logo" />
-    <div class="quote">
+  <div class="container fade-in-up">
+    <img src="/miroir.png" alt="Miroir Logo" class="logo floating-element" />
+    <div class="quote hover-glow">
       A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.
     </div>
-    <a href="/about.html" class="cta-button">Enter the Mirror</a>
+    <a href="/about.html" class="cta-button hover-lift">Enter the Mirror</a>
+    <div style="margin-top: 20px;">
+      <a href="/timeline.html" class="cta-button" style="background: transparent; color: var(--miroir-red); margin-left: 10px;">
+        Explore Timeline
+      </a>
+    </div>
   </div>
 
   <!-- Music -->
@@ -306,7 +320,16 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    // Register service worker for PWA functionality
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
   </script>
+
+  <!-- Enhanced Features Scripts -->
+  <script src="/miroir-features.js"></script>
+  <script src="/miroir-notifications.js"></script>
 
 </body>
 </html>
