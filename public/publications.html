@@ -113,59 +113,62 @@
       max-width: 700px;
     }
 
-    /* Hamburger menu */
+    /* Hamburger toggle */
     .menu-toggle {
       position: fixed;
       top: 20px;
-      right: 60px;
+      right: 20px;
       z-index: 11;
       background: transparent;
-      border: 2px solid var(--red);
+      border: 2px solid #e50914;
       border-radius: 6px;
       padding: 8px 10px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       gap: 4px;
-      box-shadow: 0 0 10px var(--red);
+      box-shadow: 0 0 10px #e50914;
     }
 
     .menu-toggle span {
+      display: block;
       width: 24px;
       height: 2px;
-      background: var(--red);
+      background: #e50914;
     }
 
+    /* Mobile menu */
     .menu {
       position: fixed;
       top: 65px;
       right: 20px;
       background: #111;
-      border: 1px solid var(--red);
+      border: 1px solid #e50914;
       padding: 15px 20px;
       border-radius: 10px;
       display: none;
       flex-direction: column;
       gap: 12px;
       z-index: 12;
-      box-shadow: 0 0 15px var(--red);
+      box-shadow: 0 0 15px #e50914;
     }
 
     .menu a {
-      color: var(--pink);
+      color: #fff;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s ease;
     }
 
     .menu a:hover {
-      color: var(--red);
+      color: #e50914;
     }
 
     .theme-toggle {
       position: fixed;
       top: 20px;
-      right: 20px;
+      left: 20px;
       font-size: 1.5rem;
       background: none;
       border: none;
@@ -215,12 +218,15 @@
   <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
 
   <!-- Hamburger Menu -->
-  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" tabindex="0" role="button">
-    <span></span><span></span><span></span>
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 
   <!-- Navigation Menu -->
-  <nav class="menu" id="mobileMenu">
+  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+    <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="my-miroir.html">My Miroir</a>
     <a href="our-miroirs.html">Our Miroirs</a>
@@ -228,6 +234,7 @@
     <a href="living-archive.html">Living Archive</a>
     <a href="reflections.html">Reflections</a>
     <a href="publications.html">Publications</a>
+    <a href="timeline.html">Timeline Journey</a>
   </nav>
 
   <!-- Main Heading -->

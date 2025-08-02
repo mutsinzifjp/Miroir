@@ -43,21 +43,6 @@
       height: 40px;
     }
 
-    .hamburger {
-      position: absolute;
-      top: 12px;
-      right: 20px;
-      font-size: 1.5rem;
-      color: var(--light);
-      background: var(--red);
-      border: none;
-      border-radius: 5px;
-      padding: 6px 10px;
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--red);
-      z-index: 1001;
-    }
-
     .toggle-theme {
       position: absolute;
       top: 12px;
@@ -69,29 +54,56 @@
       cursor: pointer;
     }
 
-    nav {
-      display: none;
-      flex-direction: column;
+    /* Hamburger toggle */
+    .menu-toggle {
       position: fixed;
-      top: 60px;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 10px #e50914;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    /* Mobile menu */
+    .menu {
+      position: fixed;
+      top: 65px;
       right: 20px;
       background: #111;
+      border: 1px solid #e50914;
+      padding: 15px 20px;
       border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 12px var(--red);
-      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px #e50914;
     }
 
-    nav a {
-      color: var(--light);
+    .menu a {
+      color: #fff;
       text-decoration: none;
-      padding: 12px 20px;
-      display: block;
-      transition: background 0.3s ease;
+      font-weight: 600;
+      transition: color 0.2s ease;
     }
 
-    nav a:hover {
-      background: var(--red);
+    .menu a:hover {
+      color: #e50914;
     }
 
     .content {
@@ -175,10 +187,10 @@
     }
 
     @media (max-width: 768px) {
-      .hamburger {
+      .menu-toggle {
         right: 15px;
       }
-      nav {
+      .menu {
         width: 180px;
         right: 10px;
       }
@@ -189,17 +201,26 @@
   <header>
     <button class="toggle-theme" id="themeToggle" title="Toggle Theme">🌙</button>
     <div class="logo"><img src="miroir.png" alt="Miroir Logo"></div>
-    <button class="hamburger" id="menuToggle">☰</button>
+    
+    <!-- Hamburger Menu -->
+    <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
 
-  <nav id="navMenu">
-    <a href="about.html">About Miroir</a>
+  <!-- Menu Navigation -->
+  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
     <a href="my-miroir.html">My Miroir</a>
     <a href="our-miroirs.html">Our Miroirs</a>
     <a href="truth-tools.html">Truth Tools</a>
     <a href="living-archive.html">Living Archive</a>
     <a href="reflections.html">Reflections</a>
     <a href="publications.html">Publications</a>
+    <a href="timeline.html">Timeline Journey</a>
   </nav>
 
   <div class="content">
@@ -327,11 +348,11 @@ You don’t need to be a genius to build something real; you just need to keep g
       isDark = !isDark;
     });
 
-    const menuToggle = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
-    menuToggle.addEventListener("click", () => {
-      navMenu.style.display = navMenu.style.display === "flex" ? "none" : "flex";
-    });
+    // Toggle Menu
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
   </script>
 </body>
 </html>

@@ -24,53 +24,56 @@
       min-height: 100vh; 
       overflow-x: hidden;
     }
+    /* Hamburger toggle */
     .menu-toggle {
-      position: fixed; 
-      top: 20px; 
-      right: 20px; 
-      z-index: 1000;
-      background: transparent; 
-      border: 2px solid #e50914;
-      border-radius: 6px; 
-      padding: 8px;
-      display: flex; 
-      flex-direction: column; 
-      gap: 4px;
-      cursor: pointer; 
-      box-shadow: 0 0 10px #e50914;
-      user-select: none;
-    }
-    .menu-toggle span {
-      width: 24px; 
-      height: 2px; 
-      background: #e50914; 
-      display: block;
-    }
-    .menu {
-      position: fixed; 
-      top: 65px; 
+      position: fixed;
+      top: 20px;
       right: 20px;
-      background: #111; 
-      border: 1px solid #e50914;
-      border-radius: 10px; 
-      padding: 15px 20px;
-      display: none; 
-      flex-direction: column; 
-      gap: 12px;
-      z-index: 999; 
-      box-shadow: 0 0 15px #e50914;
-      user-select: none;
+      z-index: 11;
+      background: transparent;
+      border: 2px solid #e50914;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 10px #e50914;
     }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #e50914;
+    }
+
+    /* Mobile menu */
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #e50914;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px #e50914;
+    }
+
     .menu a {
-      color: #fff; 
-      font-weight: 600;
+      color: #fff;
       text-decoration: none;
+      font-weight: 600;
       transition: color 0.2s ease;
     }
-    .menu a:hover,
-    .menu a:focus {
+
+    .menu a:hover {
       color: #e50914;
-      outline: none;
     }
     .centered-header {
       text-align: center; 
@@ -237,19 +240,25 @@
 </head>
 <body>
 
-  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" role="button" tabindex="0">
-    <span></span><span></span><span></span>
-  </div>
+<!-- Hamburger Menu -->
+<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 
-  <nav class="menu" id="mobileMenu" aria-label="Main navigation">
-    <a href="about.html">About Miroir</a>
-    <a href="my-miroir.html">My Miroir</a>
-    <a href="our-miroirs.html">Our Miroirs</a>
-    <a href="truth-tools.html">Truth Tools</a>
-    <a href="living-archive.html">Living Archive</a>
-    <a href="reflections.html">Reflections</a>
-    <a href="publications.html">Publications</a>
-  </nav>
+<!-- Menu Navigation -->
+<nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="my-miroir.html">My Miroir</a>
+  <a href="our-miroirs.html">Our Miroirs</a>
+  <a href="truth-tools.html">Truth Tools</a>
+  <a href="living-archive.html">Living Archive</a>
+  <a href="reflections.html">Reflections</a>
+  <a href="publications.html">Publications</a>
+  <a href="timeline.html">Timeline Journey</a>
+</nav>
 
   <header class="centered-header">
     <img src="miroir.png" alt="Miroir Logo" class="logo-glow" />

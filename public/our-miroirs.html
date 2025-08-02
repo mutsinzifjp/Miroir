@@ -67,132 +67,56 @@
             }
         }
 
-        /* Hamburger Menu */
-        .hamburger-menu {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1002;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #333;
-            border-radius: 5px;
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Hamburger toggle */
+        .menu-toggle {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          z-index: 11;
+          background: transparent;
+          border: 2px solid #e50914;
+          border-radius: 6px;
+          padding: 8px 10px;
+          cursor: pointer;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 4px;
+          box-shadow: 0 0 10px #e50914;
         }
 
-        .hamburger-menu:hover {
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-            border-color: #ff0000;
+        .menu-toggle span {
+          display: block;
+          width: 24px;
+          height: 2px;
+          background: #e50914;
         }
 
-        .hamburger-icon {
-            width: 25px;
-            height: 20px;
-            position: relative;
-            transform: rotate(0deg);
-            transition: 0.3s ease-in-out;
+        /* Mobile menu */
+        .menu {
+          position: fixed;
+          top: 65px;
+          right: 20px;
+          background: #111;
+          border: 1px solid #e50914;
+          padding: 15px 20px;
+          border-radius: 10px;
+          display: none;
+          flex-direction: column;
+          gap: 12px;
+          z-index: 12;
+          box-shadow: 0 0 15px #e50914;
         }
 
-        .hamburger-icon span {
-            display: block;
-            position: absolute;
-            height: 2px;
-            width: 100%;
-            background: #fff;
-            border-radius: 1px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
-            transition: 0.25s ease-in-out;
+        .menu a {
+          color: #fff;
+          text-decoration: none;
+          font-weight: 600;
+          transition: color 0.2s ease;
         }
 
-        .hamburger-icon span:nth-child(1) { top: 0px; }
-        .hamburger-icon span:nth-child(2) { top: 8px; }
-        .hamburger-icon span:nth-child(3) { top: 16px; }
-
-        .hamburger-menu.active .hamburger-icon span:nth-child(1) {
-            top: 8px;
-            transform: rotate(135deg);
-        }
-
-        .hamburger-menu.active .hamburger-icon span:nth-child(2) {
-            opacity: 0;
-            left: -60px;
-        }
-
-        .hamburger-menu.active .hamburger-icon span:nth-child(3) {
-            top: 8px;
-            transform: rotate(-135deg);
-        }
-
-        /* Navigation Menu */
-        .nav-menu {
-            position: fixed;
-            top: 4rem;
-            right: -320px;
-            width: 300px;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 2rem;
-            transition: right 0.3s ease;
-            z-index: 1001;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-        }
-
-        .nav-menu.active {
-            right: 1rem;
-        }
-
-        .nav-menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-menu li {
-            margin-bottom: 0.8rem;
-        }
-
-        .nav-menu a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            font-family: 'Helvetica Neue', sans-serif;
-            font-weight: 300;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            display: block;
-            padding: 0.3rem 0;
-            border-bottom: 1px solid transparent;
-        }
-
-        .nav-menu a:hover {
-            color: #ff0000;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            border-bottom-color: #ff0000;
-            transform: translateX(10px);
-        }
-
-        /* Overlay for mobile menu */
-        .nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .menu a:hover {
+          color: #e50914;
         }
 
         /* Header adjustment for logo */
@@ -716,30 +640,24 @@
     </div>
 
     <!-- Hamburger Menu -->
-    <div class="hamburger-menu" id="hamburgerMenu">
-        <div class="hamburger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
+<div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 
-    <!-- Navigation Menu -->
-    <nav class="nav-menu" id="navMenu">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="my-miroir.html">My Miroir</a></li>
-            <li><a href="our-miroirs.html">Our Miroirs</a></li>
-            <li><a href="truth-tools.html">Truth Tools</a></li>
-            <li><a href="living-archive.html">Living Archive</a></li>
-            <li><a href="reflections.html">Reflections</a></li>
-            <li><a href="publications.html">Publications</a></li>
-        </ul>
-    </nav>
-
-    <!-- Navigation Overlay -->
-    <div class="nav-overlay" id="navOverlay"></div>
+<!-- Menu Navigation -->
+<nav class="menu" id="mobileMenu" role="navigation" aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="my-miroir.html">My Miroir</a>
+  <a href="our-miroirs.html">Our Miroirs</a>
+  <a href="truth-tools.html">Truth Tools</a>
+  <a href="living-archive.html">Living Archive</a>
+  <a href="reflections.html">Reflections</a>
+  <a href="publications.html">Publications</a>
+  <a href="timeline.html">Timeline Journey</a>
+</nav>
 
     <!-- Progress bar -->
     <div class="progress-bar" id="progressBar"></div>
@@ -1034,41 +952,10 @@
             }
         }
 
-        // Hamburger menu functionality
-        function initHamburgerMenu() {
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const navMenu = document.getElementById('navMenu');
-            const navOverlay = document.getElementById('navOverlay');
-
-            function toggleMenu() {
-                hamburgerMenu.classList.toggle('active');
-                navMenu.classList.toggle('active');
-                navOverlay.classList.toggle('active');
-                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
-            }
-
-            function closeMenu() {
-                hamburgerMenu.classList.remove('active');
-                navMenu.classList.remove('active');
-                navOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-
-            hamburgerMenu.addEventListener('click', toggleMenu);
-            navOverlay.addEventListener('click', closeMenu);
-
-            // Close menu when clicking on a navigation link
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', closeMenu);
-            });
-
-            // Close menu on escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeMenu();
-                }
-            });
+        // Toggle Menu
+        function toggleMenu() {
+          const menu = document.getElementById("mobileMenu");
+          menu.style.display = menu.style.display === "flex" ? "none" : "flex";
         }
 
         // Enhanced hover effects
@@ -1098,7 +985,6 @@
 
         // Initialize all interactions
         document.addEventListener('DOMContentLoaded', function() {
-            initHamburgerMenu();
             initMirrorInteraction();
             initEnhancedEffects();
             revealOnScroll(); // Initial check
