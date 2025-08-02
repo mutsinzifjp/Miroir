@@ -1,0 +1,64 @@
+{
+  "name": "Miroir - Human Truth Hub",
+  "short_name": "Miroir",
+  "description": "A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#e50914",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["lifestyle", "social", "education"],
+  "icons": [
+    {
+      "src": "/miroir.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/miroir.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "My Miroir",
+      "short_name": "My Miroir",
+      "description": "Personal reflection space",
+      "url": "/my-miroir.html",
+      "icons": [
+        {
+          "src": "/miroir.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Timeline",
+      "short_name": "Timeline",
+      "description": "Interactive journey through reflections",
+      "url": "/timeline.html",
+      "icons": [
+        {
+          "src": "/miroir.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/miroir.png",
+      "sizes": "320x640",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Miroir home screen"
+    }
+  ]
+}

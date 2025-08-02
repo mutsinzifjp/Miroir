@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Timeline | Miroir Journey Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="An interactive timeline journey through reflections, stories, and moments of truth." />
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#e50914" />
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="/miroir-features.css" />
+  
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding: 80px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .header .logo {
+      width: 100px;
+      margin-bottom: 20px;
+      animation: var(--glow-animation);
+      filter: drop-shadow(0 0 10px var(--miroir-red));
+    }
+
+    .header h1 {
+      color: var(--miroir-red);
+      font-size: 3rem;
+      margin: 0 0 20px 0;
+      text-shadow: 0 0 10px var(--miroir-red-glow);
+    }
+
+    .header .subtitle {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+
+    /* Timeline Controls */
+    .timeline-controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border-radius: 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    .filter-btn,
+    .view-btn {
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 25px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover,
+    .view-btn:hover,
+    .filter-btn.active,
+    .view-btn.active {
+      background: var(--miroir-red);
+      color: white;
+      box-shadow: 0 0 15px var(--miroir-red-glow);
+    }
+
+    .search-box {
+      padding: 10px 15px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 25px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      min-width: 200px;
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: var(--miroir-red);
+      box-shadow: 0 0 10px var(--miroir-red-glow);
+    }
+
+    /* Timeline Container */
+    .timeline-container {
+      position: relative;
+      margin: 40px 0;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--miroir-red) 10%,
+        var(--miroir-red) 90%,
+        transparent 100%
+      );
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin: 60px 0;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-item.filtered-out {
+      display: none;
+    }
+
+    /* Alternating layout */
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-right: 55%;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: 55%;
+      text-align: left;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      left: 50%;
+      top: 30px;
+      width: 25px;
+      height: 25px;
+      background: var(--miroir-red);
+      border: 4px solid var(--bg-primary);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      z-index: 2;
+      box-shadow: 0 0 10px var(--miroir-red-glow);
+    }
+
+    .timeline-marker:hover {
+      background: var(--miroir-red-light);
+      box-shadow: 0 0 20px var(--miroir-red-glow);
+      transform: translateX(-50%) scale(1.3);
+    }
+
+    .timeline-marker.special {
+      background: gold;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .timeline-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      position: relative;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .timeline-content:hover {
+      border-color: var(--miroir-red);
+      box-shadow: 0 8px 25px var(--miroir-red-glow);
+      transform: translateY(-5px);
+    }
+
+    .timeline-content::before {
+      content: "";
+      position: absolute;
+      top: 30px;
+      width: 0;
+      height: 0;
+      border: 12px solid transparent;
+      transform: translateY(-50%);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      right: -24px;
+      border-left-color: var(--border-color);
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -24px;
+      border-right-color: var(--border-color);
+    }
+
+    .timeline-date {
+      font-size: 0.9rem;
+      color: var(--miroir-red);
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .timeline-title {
+      font-size: 1.4rem;
+      color: var(--text-primary);
+      margin: 0 0 15px 0;
+      font-weight: 600;
+    }
+
+    .timeline-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      background: var(--miroir-red);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .timeline-type {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Grid View */
+    .timeline-grid {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .timeline-grid.active {
+      display: grid;
+    }
+
+    .timeline-grid .timeline-item {
+      margin: 0;
+      opacity: 1;
+      transform: none;
+    }
+
+    .timeline-grid .timeline-content {
+      margin: 0 !important;
+      text-align: left !important;
+    }
+
+    .timeline-grid .timeline-content::before {
+      display: none;
+    }
+
+    .timeline-grid .timeline-marker {
+      position: static;
+      transform: none;
+      margin-bottom: 15px;
+      align-self: start;
+    }
+
+    /* Navigation */
+    .nav-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      z-index: 10;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .nav-back:hover {
+      background: var(--miroir-red);
+      color: white;
+      box-shadow: 0 0 15px var(--miroir-red-glow);
+    }
+
+    /* Menu Integration */
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 10px var(--shadow-color);
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--miroir-red);
+    }
+
+    .menu {
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 12;
+      box-shadow: 0 0 15px var(--shadow-color);
+    }
+
+    .menu a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: var(--miroir-red);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .timeline-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .timeline-line {
+        left: 30px;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 70px;
+        margin-right: 0;
+        text-align: left;
+      }
+
+      .timeline-marker {
+        left: 30px;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content::before,
+      .timeline-item:nth-child(even) .timeline-content::before {
+        left: -24px;
+        right: auto;
+        border-right-color: var(--border-color);
+        border-left-color: transparent;
+      }
+
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        min-width: auto;
+        width: 100%;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+    }
+
+    .loading::after {
+      content: "...";
+      animation: loading-dots 1.5s infinite;
+    }
+
+    @keyframes loading-dots {
+      0%, 20% { content: "."; }
+      40% { content: ".."; }
+      60%, 100% { content: "..."; }
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state .icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip to Content Link -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <!-- Navigation -->
+  <a href="/" class="nav-back" aria-label="Back to home">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+  </a>
+
+  <!-- Hamburger menu -->
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="menu" id="mobileMenu" role="navigation" aria-label="Navigation Menu">
+    <a href="/about.html">About</a>
+    <a href="/my-miroir.html">My Miroir</a>
+    <a href="/our-miroirs.html">Our Miroirs</a>
+    <a href="/truth-tools.html">Truth Tools</a>
+    <a href="/living-archive.html">Living Archive</a>
+    <a href="/reflections.html">Reflections</a>
+    <a href="/publications.html">Publications</a>
+  </nav>
+
+  <!-- Background Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Main Content -->
+  <main class="container" id="main-content">
+    <header class="header fade-in-up">
+      <img src="/miroir.png" alt="Miroir Logo" class="logo" />
+      <h1>Journey Timeline</h1>
+      <p class="subtitle">Navigate through reflections, stories, and moments of truth</p>
+    </header>
+
+    <!-- Timeline Controls -->
+    <section class="timeline-controls fade-in-up">
+      <input type="text" class="search-box" placeholder="Search reflections..." id="timelineSearch" />
+      
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="reflection">Reflections</button>
+      <button class="filter-btn" data-filter="story">Stories</button>
+      <button class="filter-btn" data-filter="milestone">Milestones</button>
+      <button class="filter-btn" data-filter="memory">Memories</button>
+      
+      <div style="flex-basis: 100%; height: 0;"></div>
+      
+      <button class="view-btn active" data-view="timeline">Timeline View</button>
+      <button class="view-btn" data-view="grid">Grid View</button>
+      
+      <button class="filter-btn" data-modal="story-form">+ Add Story</button>
+      <button class="filter-btn" data-modal="reflection-form">+ Add Reflection</button>
+    </section>
+
+    <!-- Timeline Container -->
+    <section class="timeline-container" id="timelineContainer">
+      <div class="timeline-line"></div>
+      <div id="timelineItems">
+        <div class="loading">Loading timeline</div>
+      </div>
+    </section>
+
+    <!-- Grid Container -->
+    <section class="timeline-grid" id="timelineGrid">
+      <!-- Grid items will be populated here -->
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="/miroir-features.js"></script>
+  <script src="/miroir-notifications.js"></script>
+  <script src="/miroir-audiovisual.js"></script>
+  
+  <script>
+    // Timeline data (in a real app, this would come from a database)
+    const timelineData = [
+      {
+        id: 1,
+        date: "2024-01-15",
+        title: "The Mirror's First Reflection",
+        description: "The moment I realized that truth isn't something we find, but something we recognize. Like seeing your own eyes in a mirror for the first time as a child.",
+        type: "reflection",
+        tags: ["truth", "self-discovery", "beginning"],
+        featured: true
+      },
+      {
+        id: 2,
+        date: "2024-01-28",
+        title: "Childhood's End",
+        description: "A story about the day innocence transformed into awareness. The mirror cracked, but the reflection became clearer.",
+        type: "story",
+        tags: ["childhood", "transformation", "memory"],
+        featured: false
+      },
+      {
+        id: 3,
+        date: "2024-02-10",
+        title: "The Weight of Silence",
+        description: "Sometimes the most profound truths are hidden in what we don't say. This reflection explores the spaces between words.",
+        type: "reflection",
+        tags: ["silence", "communication", "depth"],
+        featured: false
+      },
+      {
+        id: 4,
+        date: "2024-02-22",
+        title: "Breaking the Frame",
+        description: "A milestone moment when I chose to step outside societal expectations and embrace my authentic self.",
+        type: "milestone",
+        tags: ["authenticity", "rebellion", "freedom"],
+        featured: true
+      },
+      {
+        id: 5,
+        date: "2024-03-05",
+        title: "Letters to My Past Self",
+        description: "If I could send a message back through time, what would I say? This story explores the wisdom we wish we had known earlier.",
+        type: "story",
+        tags: ["wisdom", "time", "growth"],
+        featured: false
+      },
+      {
+        id: 6,
+        date: "2024-03-18",
+        title: "The Color of Truth",
+        description: "A reflection on how different people see different truths, like light refracting through a prism.",
+        type: "reflection",
+        tags: ["perspective", "truth", "diversity"],
+        featured: false
+      },
+      {
+        id: 7,
+        date: "2024-04-01",
+        title: "April's Fool",
+        description: "The memory of the day I learned that being foolish can sometimes be the wisest thing you can do.",
+        type: "memory",
+        tags: ["wisdom", "humor", "paradox"],
+        featured: false
+      },
+      {
+        id: 8,
+        date: "2024-04-14",
+        title: "Digital Mirrors",
+        description: "How social media became our modern mirrors, reflecting not just who we are, but who we think we should be.",
+        type: "reflection",
+        tags: ["technology", "identity", "society"],
+        featured: true
+      }
+    ];
+
+    class TimelineManager {
+      constructor() {
+        this.data = timelineData;
+        this.filteredData = [...this.data];
+        this.currentFilter = 'all';
+        this.currentView = 'timeline';
+        this.searchTerm = '';
+        
+        this.init();
+      }
+
+      init() {
+        this.renderTimeline();
+        this.bindEvents();
+        this.initAnimations();
+        this.initParticles();
+      }
+
+      bindEvents() {
+        // Filter buttons
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            if (e.target.dataset.filter) {
+              this.setFilter(e.target.dataset.filter);
+            }
+          });
+        });
+
+        // View buttons
+        document.querySelectorAll('.view-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            this.setView(e.target.dataset.view);
+          });
+        });
+
+        // Search
+        const searchBox = document.getElementById('timelineSearch');
+        searchBox.addEventListener('input', (e) => {
+          this.setSearch(e.target.value);
+        });
+
+        // Timeline item clicks
+        document.addEventListener('click', (e) => {
+          const timelineItem = e.target.closest('.timeline-item');
+          if (timelineItem && timelineItem.dataset.id) {
+            const itemData = this.data.find(item => item.id == timelineItem.dataset.id);
+            if (itemData) {
+              this.openTimelineDetail(itemData);
+            }
+          }
+        });
+      }
+
+      setFilter(filter) {
+        this.currentFilter = filter;
+        this.updateActiveButton('.filter-btn[data-filter]', `[data-filter="${filter}"]`);
+        this.applyFilters();
+      }
+
+      setView(view) {
+        this.currentView = view;
+        this.updateActiveButton('.view-btn', `[data-view="${view}"]`);
+        this.toggleView();
+      }
+
+      setSearch(term) {
+        this.searchTerm = term.toLowerCase();
+        this.applyFilters();
+      }
+
+      updateActiveButton(selector, activeSelector) {
+        document.querySelectorAll(selector).forEach(btn => btn.classList.remove('active'));
+        document.querySelector(activeSelector)?.classList.add('active');
+      }
+
+      applyFilters() {
+        this.filteredData = this.data.filter(item => {
+          const matchesFilter = this.currentFilter === 'all' || item.type === this.currentFilter;
+          const matchesSearch = !this.searchTerm || 
+            item.title.toLowerCase().includes(this.searchTerm) ||
+            item.description.toLowerCase().includes(this.searchTerm) ||
+            item.tags.some(tag => tag.toLowerCase().includes(this.searchTerm));
+          
+          return matchesFilter && matchesSearch;
+        });
+
+        this.renderTimeline();
+      }
+
+      toggleView() {
+        const timelineContainer = document.getElementById('timelineContainer');
+        const gridContainer = document.getElementById('timelineGrid');
+
+        if (this.currentView === 'grid') {
+          timelineContainer.style.display = 'none';
+          gridContainer.classList.add('active');
+          this.renderGrid();
+        } else {
+          timelineContainer.style.display = 'block';
+          gridContainer.classList.remove('active');
+        }
+      }
+
+      renderTimeline() {
+        const container = document.getElementById('timelineItems');
+        
+        if (this.filteredData.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="icon">🔍</div>
+              <h3>No items found</h3>
+              <p>Try adjusting your filters or search terms</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = this.filteredData.map(item => `
+          <div class="timeline-item" data-id="${item.id}">
+            <div class="timeline-marker ${item.featured ? 'special' : ''}"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">${this.formatDate(item.date)}</div>
+              <h3 class="timeline-title">${item.title}</h3>
+              <p class="timeline-description">${item.description}</p>
+              <div class="timeline-tags">
+                ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+              </div>
+              <div class="timeline-type">${item.type}</div>
+            </div>
+          </div>
+        `).join('');
+
+        // Re-initialize animations for new items
+        setTimeout(() => this.initAnimations(), 100);
+      }
+
+      renderGrid() {
+        const container = document.getElementById('timelineGrid');
+        
+        if (this.filteredData.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="icon">🔍</div>
+              <h3>No items found</h3>
+              <p>Try adjusting your filters or search terms</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = this.filteredData.map(item => `
+          <div class="timeline-item" data-id="${item.id}">
+            <div class="timeline-marker ${item.featured ? 'special' : ''}"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">${this.formatDate(item.date)}</div>
+              <h3 class="timeline-title">${item.title}</h3>
+              <p class="timeline-description">${item.description}</p>
+              <div class="timeline-tags">
+                ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+              </div>
+              <div class="timeline-type">${item.type}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      openTimelineDetail(item) {
+        if (window.miroirFeatures) {
+          // Create a temporary element with timeline data
+          const trigger = document.createElement('div');
+          trigger.dataset.timeline = JSON.stringify({
+            title: item.title,
+            date: this.formatDate(item.date),
+            type: item.type,
+            description: item.description,
+            tags: item.tags.join(', ')
+          });
+          
+          window.miroirFeatures.openModal('timeline-detail', trigger);
+        }
+      }
+
+      formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+
+      initAnimations() {
+        if (window.miroirFeatures && window.miroirFeatures.intersectionObserver) {
+          const items = document.querySelectorAll('.timeline-item:not(.visible)');
+          items.forEach(item => {
+            window.miroirFeatures.intersectionObserver.observe(item);
+          });
+        }
+      }
+
+      initParticles() {
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const colors = ['#e50914', '#ff1a1a', '#fff'];
+
+        class Particle {
+          constructor() {
+            this.reset();
+          }
+          
+          reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.radius = Math.random() * 1.5 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.opacity = Math.random() * 0.5 + 0.2;
+          }
+          
+          draw() {
+            ctx.globalAlpha = this.opacity;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+          }
+          
+          update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+              this.reset();
+            }
+          }
+        }
+
+        function initParticles() {
+          for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+          }
+        }
+
+        function animateParticles() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+          });
+          requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+      }
+    }
+
+    // Menu toggle function
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    // Initialize timeline when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        new TimelineManager();
+      });
+    } else {
+      new TimelineManager();
+    }
+
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+  </script>
+</body>
+</html>
