@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Living Archive - Miroir</title>
+    
+    <!-- Enhanced Features -->
+    <link rel="stylesheet" href="miroir-features.css" />
     <style>
         /* Root color variables for theming */
         :root {
+            /* Core Brand Colors */
+            --miroir-red: #e50914;
+            --miroir-red-light: #ff1a1a;
+            --miroir-red-dark: #cc0812;
+            --miroir-red-glow: rgba(229, 9, 20, 0.4);
+            
+            /* Theme Variables - Default Dark Theme */
             --bg-primary: #000;
             --bg-secondary: #111;
             --text-primary: #fff;
@@ -16,6 +26,11 @@
             --card-bg: rgba(17, 17, 17, 0.9);
             --overlay-bg: rgba(0, 0, 0, 0.5);
             --input-bg: rgba(0, 0, 0, 0.5);
+            
+            /* Animation Variables */
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --glow-animation: glow 3s ease-in-out infinite;
         }
 
         [data-theme="light"] {
@@ -28,6 +43,38 @@
             --card-bg: rgba(255, 255, 255, 0.95);
             --overlay-bg: rgba(0, 0, 0, 0.1);
             --input-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Gold Theme */
+        [data-theme="gold"] {
+            --bg-primary: #1a1a0f;
+            --bg-secondary: #2d2d1a;
+            --text-primary: #f4e4b8;
+            --text-secondary: #c4b373;
+            --accent-color: #d4af37;
+            --border-color: #d4af37;
+            --card-bg: rgba(45, 45, 26, 0.9);
+            --overlay-bg: rgba(26, 26, 15, 0.8);
+            --input-bg: rgba(26, 26, 15, 0.5);
+            --miroir-red: #d4af37;
+            --miroir-red-light: #f4d03f;
+            --miroir-red-glow: rgba(212, 175, 55, 0.4);
+        }
+
+        /* Blue Theme */
+        [data-theme="blue"] {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #1a2333;
+            --text-primary: #b8d4f4;
+            --text-secondary: #73a4c4;
+            --accent-color: #3784d4;
+            --border-color: #3784d4;
+            --card-bg: rgba(26, 35, 51, 0.9);
+            --overlay-bg: rgba(10, 15, 26, 0.8);
+            --input-bg: rgba(10, 15, 26, 0.5);
+            --miroir-red: #3784d4;
+            --miroir-red-light: #4a94e6;
+            --miroir-red-glow: rgba(55, 132, 212, 0.4);
         }
 
         /* Reset and foundation */
@@ -621,6 +668,58 @@
         }
 
         /* Responsive Design */
+        
+        /* Accessibility improvements */
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+
+        .skip-to-content {
+          position: absolute;
+          top: -40px;
+          left: 6px;
+          background: var(--accent-color);
+          color: white;
+          padding: 8px;
+          border-radius: 4px;
+          text-decoration: none;
+          transition: top 0.3s;
+          z-index: 1000;
+          font-weight: bold;
+        }
+
+        .skip-to-content:focus {
+          top: 6px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+          :root {
+            --text-primary: #ffffff !important;
+            --bg-primary: #000000 !important;
+            --accent-color: #ffffff !important;
+          }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+
         @media (max-width: 768px) {
             .site-logo img {
                 height: 50px;
@@ -728,6 +827,12 @@
     </style>
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- Theme change announcement for screen readers -->
+    <div aria-live="polite" aria-atomic="true" id="theme-announcement" class="sr-only"></div>
+
     <!-- Theme Toggle Button -->
     <div class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
         🌙
@@ -765,7 +870,7 @@
     <button class="back-to-top" id="backToTop">↑</button>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <h1 class="glitch">LIVING ARCHIVE</h1>
         <div class="hero-intro">
             Welcome to the breathing vault of memory and resistance. Here, fragments of truth float in digital amber—
@@ -1246,6 +1351,38 @@
             initEnhancedEffects();
             revealOnScroll();
             toggleBackToTop();
+
+            // Enhanced keyboard shortcuts for accessibility
+            document.addEventListener('keydown', (e) => {
+              // Theme switching shortcut (T key)
+              if (e.key === 't' || e.key === 'T') {
+                if (!e.target.matches('input, textarea, [contenteditable]')) {
+                  e.preventDefault();
+                  if (window.miroirFeatures && window.miroirFeatures.toggleThemeSelector) {
+                    window.miroirFeatures.toggleThemeSelector();
+                  } else {
+                    // Fallback theme cycling
+                    cycleThroughThemes();
+                  }
+                }
+              }
+              
+              // Skip to main content shortcut (Alt + S)
+              if (e.altKey && (e.key === 's' || e.key === 'S')) {
+                e.preventDefault();
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) {
+                  mainContent.focus();
+                  mainContent.scrollIntoView({ behavior: 'smooth' });
+                }
+              }
+            });
+
+            // Load saved theme on page load
+            const savedTheme = localStorage.getItem('miroir-theme') || 'dark';
+            if (savedTheme && savedTheme !== 'dark') {
+              document.documentElement.setAttribute('data-theme', savedTheme);
+            }
         });
 
         // Scroll events
@@ -1273,6 +1410,27 @@
                 }, 10);
             });
         }, 10000);
+
+        // Fallback theme cycling function
+        function cycleThroughThemes() {
+          const themes = ['dark', 'light', 'gold', 'blue'];
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const currentIndex = themes.indexOf(currentTheme);
+          const nextIndex = (currentIndex + 1) % themes.length;
+          const nextTheme = themes[nextIndex];
+          
+          document.documentElement.setAttribute('data-theme', nextTheme);
+          localStorage.setItem('miroir-theme', nextTheme);
+          
+          // Announce theme change to screen readers
+          const announcement = document.getElementById('theme-announcement');
+          if (announcement) {
+            announcement.textContent = `Theme changed to ${nextTheme}`;
+          }
+        }
     </script>
+
+    <!-- Enhanced Features Scripts -->
+    <script src="miroir-features.js"></script>
 </body>
 </html>

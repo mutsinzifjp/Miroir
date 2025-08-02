@@ -198,6 +198,73 @@
       0% { opacity: 0.05; transform: scale(1); }
       100% { opacity: 0.15; transform: scale(1.05); }
     }
+
+    /* Accessibility improvements */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-to-content {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: var(--miroir-red);
+      color: white;
+      padding: 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: top 0.3s;
+      z-index: 1000;
+      font-weight: bold;
+    }
+
+    .skip-to-content:focus {
+      top: 6px;
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      html, body {
+        background: #000000 !important;
+        color: #ffffff !important;
+      }
+      
+      .cta-button {
+        border-width: 3px !important;
+        font-weight: bold !important;
+      }
+      
+      .menu a {
+        font-weight: bold !important;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .logo {
+        animation: none !important;
+      }
+
+      body::before {
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -222,11 +289,17 @@
     <a href="timeline.html">Timeline Journey</a>
   </nav>
 
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <!-- Theme change announcement for screen readers -->
+  <div aria-live="polite" aria-atomic="true" id="theme-announcement" class="sr-only"></div>
+
   <!-- Canvas background -->
   <canvas id="bgCanvas"></canvas>
 
   <!-- Hero Section -->
-  <div class="container fade-in-up">
+  <div class="container fade-in-up" id="main-content">
     <img src="miroir.png" alt="Miroir Logo" class="logo floating-element" />
     <div class="quote hover-glow">
       A mirror does not lie; it just reflects what society tries to erase: truth, memory, and the rebellion of being.
@@ -325,6 +398,56 @@
     // Register service worker for PWA functionality
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
+    }
+
+    // Enhanced keyboard shortcuts for accessibility
+    document.addEventListener('keydown', (e) => {
+      // Theme switching shortcut (T key)
+      if (e.key === 't' || e.key === 'T') {
+        if (!e.target.matches('input, textarea, [contenteditable]')) {
+          e.preventDefault();
+          if (window.miroirFeatures && window.miroirFeatures.toggleThemeSelector) {
+            window.miroirFeatures.toggleThemeSelector();
+          } else {
+            // Fallback theme cycling
+            cycleThroughThemes();
+          }
+        }
+      }
+      
+      // Skip to main content shortcut (Alt + S)
+      if (e.altKey && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        const mainContent = document.getElementById('main-content');
+        if (mainContent) {
+          mainContent.focus();
+          mainContent.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+
+    // Fallback theme cycling function
+    function cycleThroughThemes() {
+      const themes = ['dark', 'light', 'gold', 'blue'];
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      const currentIndex = themes.indexOf(currentTheme);
+      const nextIndex = (currentIndex + 1) % themes.length;
+      const nextTheme = themes[nextIndex];
+      
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('miroir-theme', nextTheme);
+      
+      // Announce theme change to screen readers
+      const announcement = document.getElementById('theme-announcement');
+      if (announcement) {
+        announcement.textContent = `Theme changed to ${nextTheme}`;
+      }
+    }
+
+    // Load saved theme on page load
+    const savedTheme = localStorage.getItem('miroir-theme') || 'dark';
+    if (savedTheme && savedTheme !== 'dark') {
+      document.documentElement.setAttribute('data-theme', savedTheme);
     }
   </script>
 

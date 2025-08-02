@@ -4,7 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cracked Mirror</title>
+    
+    <!-- Enhanced Features -->
+    <link rel="stylesheet" href="miroir-features.css" />
     <style>
+        :root {
+          /* Core Brand Colors */
+          --miroir-red: #e50914;
+          --miroir-red-light: #ff1a1a;
+          --miroir-red-dark: #cc0812;
+          --miroir-red-glow: rgba(229, 9, 20, 0.4);
+          
+          /* Theme Variables - Default Dark Theme */
+          --bg-primary: #000000;
+          --bg-secondary: #111111;
+          --bg-tertiary: #222222;
+          --text-primary: #ffffff;
+          --text-secondary: #dddddd;
+          --text-muted: #aaaaaa;
+          --border-color: var(--miroir-red);
+          --shadow-color: rgba(229, 9, 20, 0.3);
+          --overlay-bg: rgba(0, 0, 0, 0.8);
+          
+          /* Animation Variables */
+          --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          --glow-animation: glow 3s ease-in-out infinite;
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+          --bg-primary: #ffffff;
+          --bg-secondary: #f5f5f5;
+          --bg-tertiary: #eeeeee;
+          --text-primary: #333333;
+          --text-secondary: #666666;
+          --text-muted: #999999;
+          --shadow-color: rgba(229, 9, 20, 0.2);
+          --overlay-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Gold Theme */
+        [data-theme="gold"] {
+          --bg-primary: #1a1a0f;
+          --bg-secondary: #2d2d1a;
+          --bg-tertiary: #404026;
+          --text-primary: #f4e4b8;
+          --text-secondary: #e6d49a;
+          --text-muted: #c4b373;
+          --border-color: #d4af37;
+          --shadow-color: rgba(212, 175, 55, 0.3);
+          --overlay-bg: rgba(26, 26, 15, 0.8);
+          --miroir-red: #d4af37;
+          --miroir-red-light: #f4d03f;
+          --miroir-red-glow: rgba(212, 175, 55, 0.4);
+        }
+
+        /* Blue Theme */
+        [data-theme="blue"] {
+          --bg-primary: #0a0f1a;
+          --bg-secondary: #1a2333;
+          --bg-tertiary: #263040;
+          --text-primary: #b8d4f4;
+          --text-secondary: #9ac6e6;
+          --text-muted: #73a4c4;
+          --border-color: #3784d4;
+          --shadow-color: rgba(55, 132, 212, 0.3);
+          --overlay-bg: rgba(10, 15, 26, 0.8);
+          --miroir-red: #3784d4;
+          --miroir-red-light: #4a94e6;
+          --miroir-red-glow: rgba(55, 132, 212, 0.4);
+        }
+
         /* Reset and foundation */
         * {
             margin: 0;
@@ -14,10 +85,11 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: #000;
-            color: #fff;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.7;
             overflow-x: hidden;
+            transition: var(--transition-smooth);
         }
 
         /* Typography hierarchy */
@@ -47,12 +119,12 @@
         .site-logo img {
             height: 60px;
             width: auto;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
+            filter: drop-shadow(0 0 10px var(--shadow-color));
             transition: all 0.3s ease;
         }
 
         .site-logo img:hover {
-            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6));
+            filter: drop-shadow(0 0 20px var(--miroir-red-glow));
             transform: scale(1.05);
         }
 
@@ -74,7 +146,7 @@
           right: 20px;
           z-index: 11;
           background: transparent;
-          border: 2px solid #e50914;
+          border: 2px solid var(--border-color);
           border-radius: 6px;
           padding: 8px 10px;
           cursor: pointer;
@@ -82,14 +154,14 @@
           flex-direction: column;
           justify-content: center;
           gap: 4px;
-          box-shadow: 0 0 10px #e50914;
+          box-shadow: 0 0 10px var(--shadow-color);
         }
 
         .menu-toggle span {
           display: block;
           width: 24px;
           height: 2px;
-          background: #e50914;
+          background: var(--border-color);
         }
 
         /* Mobile menu */
@@ -97,26 +169,26 @@
           position: fixed;
           top: 65px;
           right: 20px;
-          background: #111;
-          border: 1px solid #e50914;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-color);
           padding: 15px 20px;
           border-radius: 10px;
           display: none;
           flex-direction: column;
           gap: 12px;
           z-index: 12;
-          box-shadow: 0 0 15px #e50914;
+          box-shadow: 0 0 15px var(--shadow-color);
         }
 
         .menu a {
-          color: #fff;
+          color: var(--text-primary);
           text-decoration: none;
           font-weight: 600;
           transition: color 0.2s ease;
         }
 
         .menu a:hover {
-          color: #e50914;
+          color: var(--border-color);
         }
 
         /* Header adjustment for logo */
@@ -165,8 +237,8 @@
             right: 2rem;
             width: 50px;
             height: 50px;
-            background: #ff0000;
-            color: #fff;
+            background: var(--miroir-red);
+            color: var(--text-primary);
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -186,8 +258,8 @@
         }
 
         .back-to-top:hover {
-            background: #fff;
-            color: #000;
+            background: var(--text-primary);
+            color: var(--bg-primary);
             transform: scale(1.1);
         }
 
@@ -199,7 +271,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(45deg, #000 0%, #111 100%);
+            background: linear-gradient(45deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
             position: relative;
             overflow: hidden;
         }
@@ -211,7 +283,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 L80,80 M80,20 L20,80 M50,0 L50,100 M0,50 L100,50" stroke="rgba(255,0,0,0.1)" stroke-width="0.5" fill="none"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 L80,80 M80,20 L20,80 M50,0 L50,100 M0,50 L100,50" stroke="var(--border-color)" stroke-width="0.5" fill="none"/></svg>');
             opacity: 0.3;
             animation: breathe 4s ease-in-out infinite;
         }
@@ -280,7 +352,7 @@
             left: 0;
             width: 50px;
             height: 2px;
-            background: #ff0000;
+            background: var(--miroir-red);
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -305,31 +377,31 @@
 
         .quote {
             font-style: italic;
-            border-left: 3px solid #ff0000;
+            border-left: 3px solid var(--miroir-red);
             padding: 1.5rem 2rem;
             margin: 2rem 0;
             opacity: 0.9;
-            background: rgba(255, 0, 0, 0.05);
+            background: var(--miroir-red-glow);
             transition: all 0.3s ease;
         }
 
         .quote:hover {
-            background: rgba(255, 0, 0, 0.1);
+            background: var(--miroir-red-glow);
             transform: translateX(10px);
         }
 
         .research-insight {
-            background: #111;
+            background: var(--bg-secondary);
             padding: 2rem;
             margin: 2rem 0;
-            border: 1px solid #333;
+            border: 1px solid var(--border-color);
             position: relative;
             transition: all 0.3s ease;
         }
 
         .research-insight:hover {
-            border-color: #ff0000;
-            background: #1a1a1a;
+            border-color: var(--miroir-red);
+            background: var(--bg-tertiary);
         }
 
         .research-insight::before {
@@ -337,10 +409,10 @@
             position: absolute;
             top: -10px;
             left: 20px;
-            background: #000;
+            background: var(--bg-primary);
             padding: 0 10px;
             font-size: 0.8rem;
-            color: #ff0000;
+            color: var(--miroir-red);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -349,7 +421,7 @@
         .interactive-mirror {
             width: 200px;
             height: 200px;
-            border: 2px solid #fff;
+            border: 2px solid var(--text-primary);
             border-radius: 50%;
             margin: 2rem auto;
             position: relative;
@@ -359,8 +431,8 @@
         }
 
         .interactive-mirror:hover {
-            border-color: #ff0000;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            border-color: var(--miroir-red);
+            box-shadow: 0 0 30px var(--miroir-red-glow);
             transform: rotate(5deg) scale(1.05);
         }
 
@@ -371,7 +443,7 @@
             left: 30%;
             width: 40%;
             height: 2px;
-            background: #ff0000;
+            background: var(--miroir-red);
             transform: rotate(-35deg);
             opacity: 0.7;
             transition: all 0.3s ease;
@@ -391,9 +463,9 @@
         }
 
         .reaction-item {
-            background: #111;
+            background: var(--bg-secondary);
             padding: 1.5rem;
-            border-left: 3px solid #ff0000;
+            border-left: 3px solid var(--miroir-red);
             transition: all 0.3s ease;
             transform: translateY(20px);
             opacity: 0;
@@ -413,13 +485,13 @@
         }
 
         .reaction-item:hover {
-            background: #222;
-            border-left: 5px solid #ff0000;
+            background: var(--bg-tertiary);
+            border-left: 5px solid var(--miroir-red);
             transform: translateX(10px);
         }
 
         .reaction-item h4 {
-            color: #ff0000;
+            color: var(--miroir-red);
             margin-bottom: 1rem;
             font-size: 1rem;
             text-transform: uppercase;
@@ -428,10 +500,10 @@
 
         /* Testimonies */
         .testimony {
-            background: #111;
+            background: var(--bg-secondary);
             padding: 2rem;
             margin: 2rem 0;
-            border-left: 4px solid #ff0000;
+            border-left: 4px solid var(--miroir-red);
             font-style: italic;
             position: relative;
             overflow: hidden;
@@ -439,7 +511,7 @@
         }
 
         .testimony:hover {
-            background: #1a1a1a;
+            background: var(--bg-tertiary);
             transform: translateX(5px);
         }
 
@@ -449,7 +521,7 @@
             position: absolute;
             top: -10px;
             left: 10px;
-            color: #ff0000;
+            color: var(--miroir-red);
             opacity: 0.3;
         }
 
@@ -631,9 +703,66 @@
             60% { transform: translate(2px, 2px); }
             80% { transform: translate(2px, -2px); }
         }
+
+        /* Accessibility improvements */
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+
+        .skip-to-content {
+          position: absolute;
+          top: -40px;
+          left: 6px;
+          background: var(--miroir-red);
+          color: white;
+          padding: 8px;
+          border-radius: 4px;
+          text-decoration: none;
+          transition: top 0.3s;
+          z-index: 1000;
+          font-weight: bold;
+        }
+
+        .skip-to-content:focus {
+          top: 6px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+          :root {
+            --text-primary: #ffffff !important;
+            --bg-primary: #000000 !important;
+            --border-color: #ffffff !important;
+          }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- Theme change announcement for screen readers -->
+    <div aria-live="polite" aria-atomic="true" id="theme-announcement" class="sr-only"></div>
+
     <!-- Site Logo -->
     <div class="site-logo">
         <img src="miroir.png" alt="Miroir Logo">
@@ -673,7 +802,7 @@
     <button class="back-to-top" id="backToTop">↑</button>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <h1 class="glitch">THE CRACKED MIRROR</h1>
         <p class="subtitle">An experiment in courage, a confrontation with truth,<br>a reflection of society's fears.</p>
     </section>
@@ -990,6 +1119,38 @@
             revealOnScroll(); // Initial check
             toggleBackToTop(); // Initial check
 
+            // Enhanced keyboard shortcuts for accessibility
+            document.addEventListener('keydown', (e) => {
+              // Theme switching shortcut (T key)
+              if (e.key === 't' || e.key === 'T') {
+                if (!e.target.matches('input, textarea, [contenteditable]')) {
+                  e.preventDefault();
+                  if (window.miroirFeatures && window.miroirFeatures.toggleThemeSelector) {
+                    window.miroirFeatures.toggleThemeSelector();
+                  } else {
+                    // Fallback theme cycling
+                    cycleThroughThemes();
+                  }
+                }
+              }
+              
+              // Skip to main content shortcut (Alt + S)
+              if (e.altKey && (e.key === 's' || e.key === 'S')) {
+                e.preventDefault();
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) {
+                  mainContent.focus();
+                  mainContent.scrollIntoView({ behavior: 'smooth' });
+                }
+              }
+            });
+
+            // Load saved theme on page load
+            const savedTheme = localStorage.getItem('miroir-theme') || 'dark';
+            if (savedTheme && savedTheme !== 'dark') {
+              document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+
             // Book link functionality
             const bookLink = document.getElementById('bookLink');
             if (bookLink) {
@@ -999,7 +1160,7 @@
                 
                 bookLink.addEventListener('mouseenter', function() {
                     this.style.transform = 'scale(1.02)';
-                    this.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.3)';
+                    this.style.boxShadow = '0 0 20px var(--miroir-red-glow)';
                 });
                 
                 bookLink.addEventListener('mouseleave', function() {
@@ -1049,6 +1210,33 @@
             }
             lastScrollTop = scrollTop;
         });
+
+        // Fallback theme cycling function
+        function cycleThroughThemes() {
+          const themes = ['dark', 'light', 'gold', 'blue'];
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const currentIndex = themes.indexOf(currentTheme);
+          const nextIndex = (currentIndex + 1) % themes.length;
+          const nextTheme = themes[nextIndex];
+          
+          document.documentElement.setAttribute('data-theme', nextTheme);
+          localStorage.setItem('miroir-theme', nextTheme);
+          
+          // Announce theme change to screen readers
+          const announcement = document.getElementById('theme-announcement');
+          if (announcement) {
+            announcement.textContent = `Theme changed to ${nextTheme}`;
+          }
+        }
+
+        // Toggle Menu
+        function toggleMenu() {
+          const menu = document.getElementById("mobileMenu");
+          menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+        }
     </script>
+
+    <!-- Enhanced Features Scripts -->
+    <script src="miroir-features.js"></script>
 </body>
 </html>
